@@ -1,0 +1,87 @@
+name: Deploy Website to GitHub Pages
+
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Website
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+      - name: Install Application Dependencies
+        run: |
+          sudo apt-get install parallel
+      - name: Install Python Dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Compile Jupyter Notebooks to Markdown
+        # We use a combination of `find` and `parallel` to efficiently
+        # compile all Jupyter Notebooks in the docs/ folder and its
+        # subdirectories ot markdown using `nbconvert`. With `find`,
+        # we can query files and folders by name, type, and other
+        # characteristics. We configure `find` to print the paths of
+        # matching files to standard output.
+        #
+        # We pipe the standard output of `find` to `parallel`, which
+        # reads each path to a matching IPYNB file as an entry. For
+        # each entry, `parallel` starts a _job_ to run a shell command
+        # formed from the entry. Jobs run in parallel based on the
+        # multiprocessing capacity of the computer.
+        #
+        # Explanation of `find` options:
+        #
+        # -type f
+        #   Match only files
+        # -name "*.ipynb"
+        #   Match only paths ending with `.ipynb`
+        # -print0
+        #   Print each matching path to standard output, separating each
+        #   entry with a NULL character
+        #
+        # Explanation of `parallel` options:
+        #
+        # -0
+        #   Read entries separated with a NULL character
+        # --progress
+        #   Display progress of ongoing and queued jobs
+        # --halt now,fail=1
+        #   Stop immediately if any job fails, killing all other
+        #   running jobs
+        # 'jupyter nbconvert --to markdown {}'
+        #   For each job, run the above string as a shell command,
+        #   substituting the entry contents (e.g., the path to one
+        #   IPYNB file) for {}.
+        #
+        #   The shell command for the job is escaped in single-
+        #   quotes to prevent the shell from expanding or parsing
+        #   any special characters (e.g., curly braces) prematurely.
+        run: |
+          find ./docs \
+            -type f \
+            -name "*.ipynb" \
+            -print0 | \
+          parallel \
+            -0 \
+            --progress \
+            --halt now,fail=1 \
+            'jupyter nbconvert --to markdown {}'
+      - name: Build Website
+        run: |
+          mkdocs build
+      - name: Push Built Website to gh-pages Branch
+        run: |
+          git config --global user.name 'Hongnan G.'
+          git config --global user.email 'reighns92@users.noreply.github.com'
+          ghp-import \
+          --no-jekyll \
+          --force \
+          --no-history \
+          --push \
+          --message "Deploying ${{ github.sha }}" \
+          site
