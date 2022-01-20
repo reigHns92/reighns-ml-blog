@@ -3,9 +3,9 @@ site_url: https://reighns92.github.io/reighns-ml-blog # change ghnreighns to rei
 nav:
   - Home: index.md
   - About: about.md
-  - Getting Started: 
-    - Workflow: getting_started.md
-    - git: git.md
+  # - Getting Started: 
+  #   - Workflow: getting_started.md
+  #   - git: git.md
   # - Misc:
   #   - GCP: misc/gcp.md
   - Mathematics:
@@ -52,7 +52,6 @@ nav:
     - Computer Vision:
       - General: 
         - Visualizing Convolutional Filters: deep_learning/computer_vision/general/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
-      - Image: deep_learning/computer_vision/image.md
 theme:
   name: material
 markdown_extensions:
