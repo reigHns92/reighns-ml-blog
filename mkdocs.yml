@@ -25,6 +25,9 @@ nav:
           - Linear Independence: mathematics/linear_algebra/03_linear_algebra_vector_spaces_linear_independence.md
           - Basis and Dimension: mathematics/linear_algebra/03_linear_algebra_vector_spaces_basis_dimension.md
       - Matrix:
+        - Matrix: mathematics/linear_algebra/04_linear_algebra_matrix.md
+        - Basic Matrix Types: mathematics/linear_algebra/04_linear_algebra_matrix_basic_matrix_types.md
+        - Basic Matrix Operations: mathematics/linear_algebra/04_linear_algebra_matrix_basic_operations.md
         - Matrix Multiplication: mathematics/linear_algebra/linear_algebra_matrix_multiplication.md
   # - Machine Learning Metrics: 
   #   - Classification:
