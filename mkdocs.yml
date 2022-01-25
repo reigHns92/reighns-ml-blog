@@ -21,9 +21,9 @@ nav:
           - Exercises: mathematics/linear_algebra/02_linear_algebra_vectors_exercises.md
         - Vector Spaces: 
           - Vector Space and Subspaces: mathematics/linear_algebra/03_linear_algebra_vector_spaces_vector_subspaces.md
-          - Vector Span: mathematics/linear_algebra/04_linear_algebra_vector_spaces_vector_span.md
-          - Linear Independence: mathematics/linear_algebra/05_linear_algebra_vector_spaces_linear_independence.md
-          - Basis and Dimension: mathematics/linear_algebra/06_linear_algebra_vector_spaces_basis_dimension.md
+          - Vector Span: mathematics/linear_algebra/03_linear_algebra_vector_spaces_vector_span.md
+          - Linear Independence: mathematics/linear_algebra/03_linear_algebra_vector_spaces_linear_independence.md
+          - Basis and Dimension: mathematics/linear_algebra/03_linear_algebra_vector_spaces_basis_dimension.md
       - Matrix:
         - Matrix Multiplication: mathematics/linear_algebra/linear_algebra_matrix_multiplication.md
   # - Machine Learning Metrics: 
