@@ -14,8 +14,11 @@ nav:
       - Vectors:
         - Vector Operations: mathematics/linear_algebra/01_linear_algebra_vectors.md
         - Vector Products:
+          - Linear Combination: mathematics/linear_algebra/02_linear_algebra_vectors_linear_combination.md
           - Dot Product: mathematics/linear_algebra/02_linear_algebra_vectors_dot_product.md
-          #- Outer Product: mathematics/linear_algebra/02_linear_algebra_vectors.md
+          - Outer Product: mathematics/linear_algebra/02_linear_algebra_vectors_outer_product.md
+          - Unit Vector: mathematics/linear_algebra/02_linear_algebra_vectors_unit_vector.md
+          - Exercises: mathematics/linear_algebra/02_linear_algebra_vectors_exercises.md
         - Vector Spaces: 
           - Vector Space and Subspaces: mathematics/linear_algebra/03_linear_algebra_vector_spaces_vector_subspaces.md
           - Vector Span: mathematics/linear_algebra/04_linear_algebra_vector_spaces_vector_span.md
