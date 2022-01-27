@@ -29,6 +29,10 @@ nav:
         - Basic Matrix Types: mathematics/linear_algebra/04_linear_algebra_matrix_basic_matrix_types.md
         - Basic Matrix Operations: mathematics/linear_algebra/04_linear_algebra_matrix_basic_operations.md
         - Matrix Multiplication: mathematics/linear_algebra/04_linear_algebra_matrix_multiplication.md
+      - Matrix Theory:
+        # - Matrix Spaces: mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_spaces.md  
+        - Matrix Rank: mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_rank.md
+
   # - Machine Learning Metrics: 
   #   - Classification:
   #     - Introduction: metrics/classification_metrics/classification_metrics.md
