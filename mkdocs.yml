@@ -10,6 +10,8 @@ nav:
   #   - GCP: misc/gcp.md
   - Mathematics:
     - Linear Algebra:
+      - Preliminaries: 
+        - Lines and Planes: math/linear_algebra/preliminaries_lines_and_planes.md
       - Fields: mathematics/linear_algebra/00_linear_algebra_fields.md
       - Vectors:
         - Vector Operations: mathematics/linear_algebra/01_linear_algebra_vectors.md
