@@ -35,6 +35,8 @@ nav:
         - Matrix Spaces: mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_spaces.md  
         - Matrix Rank: mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_rank.md
         - Row Elimination Preserves Column/Row Rank: mathematics/linear_algebra/05_linear_algebra_row_elimination_preserves_row_column_spaces_dependency.md
+      - Linear Transformation:
+        - Linear Transformation: mathematics/linear_algebra/linear_algebra_linear_transformations.md
       - Interview: mathematics/linear_algebra/linear_algebra_interview_questions.md
 
   # - Machine Learning Metrics: 
