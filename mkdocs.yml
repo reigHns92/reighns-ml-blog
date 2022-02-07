@@ -1,5 +1,5 @@
 site_name: Hongnan G. Machine Learning Blog
-site_url: https://reighns92.github.io/reighns-ml-blog # change ghnreighns to reigHns92 for my new github acc
+site_url: https://reighns92.github.io/reighns-ml-blog
 nav:
   - Home: index.md
   - About: about.md
@@ -11,33 +11,33 @@ nav:
   - Mathematics:
     - Linear Algebra:
       - Preliminaries: 
-        - Lines and Planes: math/linear_algebra/preliminaries_lines_and_planes.md
-      - Fields: mathematics/linear_algebra/00_linear_algebra_fields.md
+        - Lines and Planes: reighns_ml_journey/mathematics/linear_algebra/preliminaries_lines_and_planes.md
+      - Fields: reighns_ml_journey/mathematics/linear_algebra/00_linear_algebra_fields.md
       - Vectors:
-        - Vector Operations: mathematics/linear_algebra/01_linear_algebra_vectors.md
+        - Vector Operations: reighns_ml_journey/mathematics/linear_algebra/01_linear_algebra_vectors.md
         - Vector Products:
-          - Linear Combination: mathematics/linear_algebra/02_linear_algebra_vectors_linear_combination.md
-          - Dot Product: mathematics/linear_algebra/02_linear_algebra_vectors_dot_product.md
-          - Outer Product: mathematics/linear_algebra/02_linear_algebra_vectors_outer_product.md
-          - Unit Vector: mathematics/linear_algebra/02_linear_algebra_vectors_unit_vector.md
-          - Exercises: mathematics/linear_algebra/02_linear_algebra_vectors_exercises.md
+          - Linear Combination: reighns_ml_journey/mathematics/linear_algebra/02_linear_algebra_vectors_linear_combination.md
+          - Dot Product: reighns_ml_journey/mathematics/linear_algebra/02_linear_algebra_vectors_dot_product.md
+          - Outer Product: reighns_ml_journey/mathematics/linear_algebra/02_linear_algebra_vectors_outer_product.md
+          - Unit Vector: reighns_ml_journey/mathematics/linear_algebra/02_linear_algebra_vectors_unit_vector.md
+          - Exercises: reighns_ml_journey/mathematics/linear_algebra/02_linear_algebra_vectors_exercises.md
         - Vector Spaces: 
-          - Vector Space and Subspaces: mathematics/linear_algebra/03_linear_algebra_vector_spaces_vector_subspaces.md
-          - Vector Span: mathematics/linear_algebra/03_linear_algebra_vector_spaces_vector_span.md
-          - Linear Independence: mathematics/linear_algebra/03_linear_algebra_vector_spaces_linear_independence.md
-          - Basis and Dimension: mathematics/linear_algebra/03_linear_algebra_vector_spaces_basis_dimension.md
+          - Vector Space and Subspaces: reighns_ml_journey/mathematics/linear_algebra/03_linear_algebra_vector_spaces_vector_subspaces.md
+          - Vector Span: reighns_ml_journey/mathematics/linear_algebra/03_linear_algebra_vector_spaces_vector_span.md
+          - Linear Independence: reighns_ml_journey/mathematics/linear_algebra/03_linear_algebra_vector_spaces_linear_independence.md
+          - Basis and Dimension: reighns_ml_journey/mathematics/linear_algebra/03_linear_algebra_vector_spaces_basis_dimension.md
       - Matrix:
-        - Matrix: mathematics/linear_algebra/04_linear_algebra_matrix.md
-        - Basic Matrix Types: mathematics/linear_algebra/04_linear_algebra_matrix_basic_matrix_types.md
-        - Basic Matrix Operations: mathematics/linear_algebra/04_linear_algebra_matrix_basic_operations.md
-        - Matrix Multiplication: mathematics/linear_algebra/04_linear_algebra_matrix_multiplication.md
+        - Matrix: reighns_ml_journey/mathematics/linear_algebra/04_linear_algebra_matrix.md
+        - Basic Matrix Types: reighns_ml_journey/mathematics/linear_algebra/04_linear_algebra_matrix_basic_matrix_types.md
+        - Basic Matrix Operations: reighns_ml_journey/mathematics/linear_algebra/04_linear_algebra_matrix_basic_operations.md
+        - Matrix Multiplication: reighns_ml_journey/mathematics/linear_algebra/04_linear_algebra_matrix_multiplication.md
       - Matrix Theory:
-        - Matrix Spaces: mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_spaces.md  
-        - Matrix Rank: mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_rank.md
-        - Row Elimination Preserves Column/Row Rank: mathematics/linear_algebra/05_linear_algebra_row_elimination_preserves_row_column_spaces_dependency.md
+        - Matrix Spaces: reighns_ml_journey/mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_spaces.md  
+        - Matrix Rank: reighns_ml_journey/mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_rank.md
+        - Row Elimination Preserves Column/Row Rank: reighns_ml_journey/mathematics/linear_algebra/05_linear_algebra_row_elimination_preserves_row_column_spaces_dependency.md
       - Linear Transformation:
-        - Linear Transformation: mathematics/linear_algebra/linear_algebra_linear_transformations.md
-      - Interview: mathematics/linear_algebra/linear_algebra_interview_questions.md
+        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_linear_transformations.md
+      - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
 
   # - Machine Learning Metrics: 
   #   - Classification:
@@ -67,7 +67,7 @@ nav:
   - Deep Learning with PyTorch:
     - Computer Vision:
       - General: 
-        - Visualizing Convolutional Filters: deep_learning/computer_vision/general/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
+        - Visualizing Convolutional Filters: reighns_ml_journey/deep_learning/computer_vision/general/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
 theme:
   name: material
 markdown_extensions:
