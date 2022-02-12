@@ -36,7 +36,12 @@ nav:
         - Matrix Rank: reighns_ml_journey/mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_rank.md
         - Row Elimination Preserves Column/Row Rank: reighns_ml_journey/mathematics/linear_algebra/05_linear_algebra_row_elimination_preserves_row_column_spaces_dependency.md
       - Linear Transformation:
-        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_linear_transformations.md
+        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/06.01_linear_algebra_linear_transformations.md
+        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/06.02_linear_algebra_linear_transformations_nullspace.md
+        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/06.03_linear_algebra_linear_transformations_ranges.md
+        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/06.04_linear_algebra_linear_transformations_homomorphism.md
+        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/06.05_linear_algebra_linear_transformations_fundamental_theorem.md
+        - Linear Transformation: rreighns_ml_journey/mathematics/linear_algebra/06.06_linear_algebra_linear_transformations_matrix.md
       - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
 
   # - Machine Learning Metrics: 
