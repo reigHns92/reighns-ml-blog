@@ -9,6 +9,7 @@ nav:
   # - Misc:
   #   - GCP: misc/gcp.md
   - Mathematics:
+    - General Mathematic Terms and Definitions: reighns_ml_journey/mathematics/general_mathematical_terms_and_definitions.md
     - Linear Algebra:
       - Preliminaries: 
         - Lines and Planes: reighns_ml_journey/mathematics/linear_algebra/preliminaries_lines_and_planes.md
@@ -32,9 +33,10 @@ nav:
         - Basic Matrix Operations: reighns_ml_journey/mathematics/linear_algebra/04_linear_algebra_matrix_basic_operations.md
         - Matrix Multiplication: reighns_ml_journey/mathematics/linear_algebra/04_linear_algebra_matrix_multiplication.md
       - Matrix Theory:
-        - Matrix Spaces: reighns_ml_journey/mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_spaces.md  
-        - Matrix Rank: reighns_ml_journey/mathematics/linear_algebra/05_linear_algebra_matrix_theory_matrix_rank.md
-        - Row Elimination Preserves Column/Row Rank: reighns_ml_journey/mathematics/linear_algebra/05_linear_algebra_row_elimination_preserves_row_column_spaces_dependency.md
+        - System of Linear Equations: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/0x.01_linear_algebra_systems_of_linear_equations.md 
+        - Matrix Spaces: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05_linear_algebra_matrix_theory_matrix_spaces.md  
+        - Matrix Rank: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05_linear_algebra_matrix_theory_matrix_rank.md
+        - Row Elimination Preserves Column/Row Rank: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05_linear_algebra_row_elimination_preserves_row_column_spaces_dependency.md
       - Linear Transformation:
         - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/06.01_linear_algebra_linear_transformations.md
         - Nullspace: reighns_ml_journey/mathematics/linear_algebra/06.02_linear_algebra_linear_transformations_nullspace.md
