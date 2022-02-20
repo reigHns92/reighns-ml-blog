@@ -45,7 +45,7 @@ nav:
         - Fundamental Theorem: reighns_ml_journey/mathematics/linear_algebra/06.05_linear_algebra_linear_transformations_fundamental_theorem.md
         - Linear Transformation and Matrix: reighns_ml_journey/mathematics/linear_algebra/06.06_linear_algebra_linear_transformations_matrix.md
       - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
-    - Probability and Statistics
+    - Probability and Statistics:
       - Introduction to Probability for Data Science (Stanley H. Chan): reighns_ml_journey/mathematics/probability_statistics_theory/probability4datascience.md
 
   # - Machine Learning Metrics: 
