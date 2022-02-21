@@ -8,8 +8,8 @@ nav:
   #   - git: git.md
   # - Misc:
   #   - GCP: misc/gcp.md
-  - Software Engineering Practices: 
-    - Git: reighns_ml_journey/software_engineering/git.md
+  # - Software Engineering Practices: 
+  #   - Git: reighns_ml_journey/software_engineering/git.md
   - Mathematics:
     - General Mathematic Terms and Definitions: reighns_ml_journey/mathematics/general_mathematical_terms_and_definitions.md
     - Linear Algebra:
