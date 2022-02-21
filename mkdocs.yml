@@ -47,17 +47,16 @@ nav:
       - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
     - Probability and Statistics:
       - Introduction to Probability for Data Science (Stanley H. Chan): reighns_ml_journey/mathematics/probability_statistics_theory/probability4datascience.md
-
-  # - Machine Learning Metrics: 
-  #   - Classification:
-  #     - Introduction: metrics/classification_metrics/classification_metrics.md
-  #     - Accuracy: metrics/classification_metrics/accuracy.md
-  #     - Confusion Matrix: metrics/classification_metrics/confusion_matrix.md
-  #     - Precision-Recall-F1: metrics/classification_metrics/precision_recall_f1.md
-  #     - ROC and PR Curves: metrics/classification_metrics/roc_pr_curve.md
-  #     - Cohen's Kappa: metrics/classification_metrics/cohens_kappa.md
-  #   - Regression:
-  #     - Introduction: metrics/regression_metrics/dummy_file.md
+  - Machine Learning Metrics: 
+    - Classification:
+      - Introduction: reighns_ml_journey/metrics/classification_metrics/classification_metrics.md
+      - Accuracy: reighns_ml_journey/metrics/classification_metrics/accuracy.md
+      - Confusion Matrix: reighns_ml_journey/metrics/classification_metrics/confusion_matrix.md
+      - Precision-Recall-F1: reighns_ml_journey/metrics/classification_metrics/precision_recall_f1.md
+      - ROC and PR Curves: reighns_ml_journey/metrics/classification_metrics/roc_pr_curve.md
+      - Cohen's Kappa: reighns_ml_journey/metrics/classification_metrics/cohens_kappa.md
+    - Regression:
+      - Introduction: reighns_ml_journey/metrics/regression_metrics/regression_metrics.md
   # - Machine Learning:
   #   - Supervised Learning Theory:
   #     - Regression: about.md
@@ -76,6 +75,7 @@ nav:
   - Deep Learning with PyTorch:
     - Computer Vision:
       - General: 
+        - Neural Network Interpretation: 
         - Visualizing Convolutional Filters: reighns_ml_journey/deep_learning/computer_vision/general/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
 theme:
   name: material
