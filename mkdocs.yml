@@ -50,13 +50,13 @@ nav:
   - Machine Learning Metrics: 
     - Classification:
       - Introduction: reighns_ml_journey/metrics/classification_metrics/classification_metrics.md
-      - Accuracy: reighns_ml_journey/metrics/classification_metrics/accuracy.md
-      - Confusion Matrix: reighns_ml_journey/metrics/classification_metrics/confusion_matrix.md
-      - Precision-Recall-F1: reighns_ml_journey/metrics/classification_metrics/precision_recall_f1.md
-      - ROC and PR Curves: reighns_ml_journey/metrics/classification_metrics/roc_pr_curve.md
-      - Cohen's Kappa: reighns_ml_journey/metrics/classification_metrics/cohens_kappa.md
-    - Regression:
-      - Introduction: reighns_ml_journey/metrics/regression_metrics/regression_metrics.md
+    #   - Accuracy: reighns_ml_journey/metrics/classification_metrics/accuracy.md
+    #   - Confusion Matrix: reighns_ml_journey/metrics/classification_metrics/confusion_matrix.md
+    #   - Precision-Recall-F1: reighns_ml_journey/metrics/classification_metrics/precision_recall_f1.md
+    #   - ROC and PR Curves: reighns_ml_journey/metrics/classification_metrics/roc_pr_curve.md
+    #   - Cohen's Kappa: reighns_ml_journey/metrics/classification_metrics/cohens_kappa.md
+    # - Regression:
+    #   - Introduction: reighns_ml_journey/metrics/regression_metrics/regression_metrics.md
   # - Machine Learning:
   #   - Supervised Learning Theory:
   #     - Regression: about.md
