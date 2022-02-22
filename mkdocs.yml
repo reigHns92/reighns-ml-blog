@@ -76,9 +76,9 @@ nav:
   - Deep Learning with PyTorch:
     - Computer Vision:
       - General: 
-        - Neural Network Interpretation: reighns_ml_journey/deep_learning/computer_vision/general/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
+        - Neural Network Interpretation: reighns_ml_journey/deep_learning/computer_vision/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
         - Visualizing Convolutional Filters: reighns_ml_journey/deep_learning/computer_vision/general/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
-        - Image Normalization: reighns_ml_journey/deep_learning/computer_vision/general/image_normalization/Image_Normalization_and_Standardization.md
+        - Image Normalization: reighns_ml_journey/deep_learning/computer_vision/image_normalization/Image_Normalization_and_Standardization.md
 theme:
   name: material
 markdown_extensions:
