@@ -83,7 +83,8 @@ nav:
           - Grad-CAM: reighns_ml_journey/deep_learning/computer_vision/neural_network_interpretation/gradcam_and_variants/Grad-CAM.md
         - Image Normalization: reighns_ml_journey/deep_learning/computer_vision/general/image_normalization/Image_Normalization_and_Standardization.md
     - Fundamental Concepts:
-      - Cross Entropy Loss: reighns_ml_journey/deep_learning/fundamentals/loss_functions/cross_entropy_loss_from_scratch.md
+      - Cross Entropy Loss: reighns_ml_journey/deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch.md
+  - Data Structures and Algorithms: reighns_ml_journey/data_structures_and_algorithms/data_structures_and_algorithms.md
 theme:
   name: material
 markdown_extensions:
