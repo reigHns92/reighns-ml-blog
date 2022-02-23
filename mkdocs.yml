@@ -73,12 +73,17 @@ nav:
   #           - Modelling (Preprocessing and Spot Checking): supervised_learning/classification/breast_cancer_wisconsin/Stage 6 - Modelling (Preprocessing and Spot Checking).md
   #           - Modelling (Model Selection): supervised_learning/classification/breast_cancer_wisconsin/Stage 7 - Modelling (Model Selection and Hyperparameter Tuning).md
   #           - Modelling (Model Evaluation): supervised_learning/classification/breast_cancer_wisconsin/Stage 8 - Modelling (Model Evaluation and Interpretation).md
-  - Deep Learning with PyTorch:
+  - Deep Learning:
     - Computer Vision:
       - General: 
-        - Neural Network Interpretation: reighns_ml_journey/deep_learning/computer_vision/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
-        - Visualizing Convolutional Filters: reighns_ml_journey/deep_learning/computer_vision/general/visualizing_convolutional_filters/Visualizing Convolutional Filters.md
-        - Image Normalization: reighns_ml_journey/deep_learning/computer_vision/image_normalization/Image_Normalization_and_Standardization.md
+        - Neural Network Interpretation: 
+          - Visualization of Feature Map Activations: reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/feature_map_activation/Visualizing Convolutional Filters.md
+          - Visualization of Convolutional Filters: reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md
+          - Salient Map: reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/salient_map/Salient Map.md
+          - Grad-CAM: reighns_ml_journey/deep_learning/computer_vision/neural_network_interpretation/gradcam_and_variants/Grad-CAM.md
+        - Image Normalization: reighns_ml_journey/deep_learning/computer_vision/general/image_normalization/Image_Normalization_and_Standardization.md
+    - Fundamental Concepts:
+      - Cross Entropy Loss: reighns_ml_journey/deep_learning/fundamentals/loss_functions/cross_entropy_loss_from_scratch.md
 theme:
   name: material
 markdown_extensions:
