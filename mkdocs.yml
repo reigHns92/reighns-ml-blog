@@ -34,21 +34,21 @@ nav:
         - Basic Matrix Operations: reighns_ml_journey/mathematics/linear_algebra/04_linear_algebra_matrix_basic_operations.md
         - Matrix Multiplication: reighns_ml_journey/mathematics/linear_algebra/04_linear_algebra_matrix_multiplication.md
       - Matrix Theory:
-        - System of Linear Equations: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05.01_linear_algebra_systems_of_linear_equations.md 
-        - Row Reduction Preserves Rank: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05.02_linear_algebra_row_reduction_preserves_rank.md
-        - Row Space: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05.03_linear_algebra_matrix_theory_matrix_spaces_row_space.md  
-        - Column Space: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05.04_linear_algebra_matrix_theory_matrix_spaces_column_space.md  
-        - Right Nullspace (Kernel): reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05.05_linear_algebra_matrix_theory_matrix_spaces_right_nullspace.md
-        - Left Nullspace: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05.06_linear_algebra_matrix_theory_matrix_spaces_left_nullspace.md
-        - Matrix Rank: reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05.07_linear_algebra_matrix_theory_matrix_rank.md
-        - The Four Fundamental Subspaces (Summary): reighns_ml_journey/mathematics/linear_algebra/system_of_linear_equations_and_matrix_theory/05.08_linear_algebra_matrix_theory_matrix_spaces_summary.md
+        - System of Linear Equations: reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.01_linear_algebra_systems_of_linear_equations.md 
+        - Row Reduction Preserves Rank: reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.02_linear_algebra_row_reduction_preserves_rank.md
+        - Row Space: reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.03_linear_algebra_matrix_theory_matrix_spaces_row_space.md  
+        - Column Space: reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.04_linear_algebra_matrix_theory_matrix_spaces_column_space.md  
+        - Right Nullspace (Kernel): reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.05_linear_algebra_matrix_theory_matrix_spaces_right_nullspace.md
+        - Left Nullspace: reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.06_linear_algebra_matrix_theory_matrix_spaces_left_nullspace.md
+        - Matrix Rank: reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.07_linear_algebra_matrix_theory_matrix_rank.md
+        - The Four Fundamental Subspaces (Summary): reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.08_linear_algebra_matrix_theory_matrix_spaces_summary.md
       - Linear Transformation:
-        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/06.01_linear_algebra_linear_transformations.md
-        - Nullspace: reighns_ml_journey/mathematics/linear_algebra/06.02_linear_algebra_linear_transformations_nullspace.md
-        - Range: reighns_ml_journey/mathematics/linear_algebra/06.03_linear_algebra_linear_transformations_ranges.md
-        - Homomorphism: reighns_ml_journey/mathematics/linear_algebra/06.04_linear_algebra_linear_transformations_homomorphism.md
-        - Fundamental Theorem: reighns_ml_journey/mathematics/linear_algebra/06.05_linear_algebra_linear_transformations_fundamental_theorem.md
-        - Linear Transformation and Matrix: reighns_ml_journey/mathematics/linear_algebra/06.06_linear_algebra_linear_transformations_matrix.md
+        - Linear Transformation: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.01_linear_algebra_linear_transformations.md
+        - Nullspace: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.02_linear_algebra_linear_transformations_nullspace.md
+        - Range: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.03_linear_algebra_linear_transformations_ranges.md
+        - Homomorphism: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.04_linear_algebra_linear_transformations_homomorphism.md
+        - Fundamental Theorem: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem.md
+        - Linear Transformation and Matrix: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix.md
       - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
     - Probability and Statistics:
       - Introduction to Probability for Data Science (Stanley H. Chan): reighns_ml_journey/mathematics/probability_statistics_theory/probability4datascience.md
