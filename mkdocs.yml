@@ -49,6 +49,8 @@ nav:
         - Homomorphism: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.04_linear_algebra_linear_transformations_homomorphism.md
         - Fundamental Theorem: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem.md
         - Linear Transformation and Matrix: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix.md
+      - Analytic Geometry:
+        - Orthogonal Subspace: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.06_orthogonal_subspaces.md
       - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
     - Probability and Statistics:
       - Introduction to Probability for Data Science (Stanley H. Chan): reighns_ml_journey/mathematics/probability_statistics_theory/probability4datascience.md
