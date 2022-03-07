@@ -54,6 +54,11 @@ nav:
       - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
     - Probability and Statistics:
       - Introduction to Probability for Data Science (Stanley H. Chan): reighns_ml_journey/mathematics/probability_statistics_theory/probability4datascience.md
+      - Introduction to Probability: 
+        - Probability Space: reighns_ml_journey/mathematics/probability_statistics_theory/02.01_probability_space.md
+        - Probability Axioms: reighns_ml_journey/mathematics/probability_statistics_theory/02.02_probability_axioms.md
+        - Conditional Probability: reighns_ml_journey/mathematics/probability_statistics_theory/02.03_conditional_probability.md
+        - Independence: reighns_ml_journey/mathematics/probability_statistics_theory/02.04_independence.md
   - Machine Learning Metrics: 
     - Classification:
       - Introduction: reighns_ml_journey/metrics/classification_metrics/classification_metrics.md
