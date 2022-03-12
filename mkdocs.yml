@@ -99,6 +99,8 @@ nav:
         - Image Normalization: reighns_ml_journey/deep_learning/computer_vision/general/image_normalization/Image_Normalization_and_Standardization.md
     - Fundamental Concepts:
       - Cross Entropy Loss: reighns_ml_journey/deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch.md
+    - Ensemble Theory:
+      - Forward Ensemble (Hill Climbing): reighns_ml_journey/deep_learning/ensemble_theory/forward_ensemble.md
   - Data Structures and Algorithms: reighns_ml_journey/data_structures_and_algorithms/data_structures_and_algorithms.md
 theme:
   name: material
