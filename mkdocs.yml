@@ -59,31 +59,17 @@ nav:
         - Probability Axioms: reighns_ml_journey/mathematics/probability_statistics_theory/02_introduction_to_probability/02.02_probability_axioms.md
         - Conditional Probability: reighns_ml_journey/mathematics/probability_statistics_theory/02_introduction_to_probability/02.03_conditional_probability.md
         - Independence: reighns_ml_journey/mathematics/probability_statistics_theory/02_introduction_to_probability/02.04_independence.md
-  - Machine Learning Metrics: 
-    - Classification:
-      - Introduction: reighns_ml_journey/metrics/classification_metrics/classification_metrics.md
-      - Accuracy: reighns_ml_journey/metrics/classification_metrics/accuracy.md
-      - Confusion Matrix: reighns_ml_journey/metrics/classification_metrics/confusion_matrix.md
-      - Precision-Recall-F1: reighns_ml_journey/metrics/classification_metrics/precision_recall_f1.md
-      - ROC and PR Curves: reighns_ml_journey/metrics/classification_metrics/roc_pr_curve.md
-      - Cohen's Kappa: reighns_ml_journey/metrics/classification_metrics/cohens_kappa.md
-    - Regression:
-      - Introduction: reighns_ml_journey/metrics/regression_metrics/regression_metrics.md
-  # - Machine Learning:
-  #   - Supervised Learning Theory:
-  #     - Regression: about.md
-  #     - Classification:
-  #       - Projects:
-  #         - Breast Cancer Wisconsin:
-  #           - Introduction: supervised_learning/classification/breast_cancer_wisconsin/Stage 0 - Introduction and Problem Statement.md
-  #           - Preliminary Data Inspection and Cleaning: supervised_learning/classification/breast_cancer_wisconsin/Stage 1 - Preliminary Data Inspection and Cleaning.md
-  #           - EDA: supervised_learning/classification/breast_cancer_wisconsin/Stage 2 - Preliminary EDA.md
-  #           - Feature Engineering: supervised_learning/classification/breast_cancer_wisconsin/Stage 3 - Feature Engineering.md
-  #           - Modelling (Metrics): supervised_learning/classification/breast_cancer_wisconsin/Stage 4 - Modelling (Metric to Optimize).md
-  #           - Modelling (Cross-Validation Schema): supervised_learning/classification/breast_cancer_wisconsin/Stage 5 - Modelling (Cross-Validation Methodology).md
-  #           - Modelling (Preprocessing and Spot Checking): supervised_learning/classification/breast_cancer_wisconsin/Stage 6 - Modelling (Preprocessing and Spot Checking).md
-  #           - Modelling (Model Selection): supervised_learning/classification/breast_cancer_wisconsin/Stage 7 - Modelling (Model Selection and Hyperparameter Tuning).md
-  #           - Modelling (Model Evaluation): supervised_learning/classification/breast_cancer_wisconsin/Stage 8 - Modelling (Model Evaluation and Interpretation).md
+  - Machine Learning:
+    - Machine Learning Metrics: 
+      - Classification:
+        - Introduction: reighns_ml_journey/machine_learning/metrics/classification_metrics/classification_metrics.md
+        - Accuracy: reighns_ml_journey/machine_learning/metrics/classification_metrics/accuracy.md
+        - Confusion Matrix: reighns_ml_journey/machine_learning/metrics/classification_metrics/confusion_matrix.md
+        - Precision-Recall-F1: reighns_ml_journey/machine_learning/metrics/classification_metrics/precision_recall_f1.md
+        - ROC and PR Curves: reighns_ml_journey/machine_learning/metrics/classification_metrics/roc_pr_curve.md
+        - Cohen's Kappa: reighns_ml_journey/machine_learning/metrics/classification_metrics/cohens_kappa.md
+      - Regression:
+        - Introduction: reighns_ml_journey/machine_learning/metrics/regression_metrics/regression_metrics.md
   - Deep Learning:
     - Computer Vision:
       - General: 
@@ -102,6 +88,17 @@ nav:
     - Ensemble Theory:
       - Forward Ensemble (Hill Climbing): reighns_ml_journey/deep_learning/ensemble_theory/forward_ensemble.md
   - Data Structures and Algorithms: reighns_ml_journey/data_structures_and_algorithms/data_structures_and_algorithms.md
+  - Machine Learning Projects:
+      - Breast Cancer Wisconsin (Supervised Classification):
+        - Introduction: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 0 - Introduction and Problem Statement.md
+        - Preliminary Data Inspection and Cleaning: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 1 - Preliminary Data Inspection and Cleaning.md
+        - EDA: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 2 - Preliminary EDA.md
+        - Feature Engineering: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 3 - Feature Engineering.md
+        - Modelling (Metrics): reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 4 - Modelling (Metric to Optimize).md
+        - Modelling (Cross-Validation Schema): reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 5 - Modelling (Cross-Validation Methodology).md
+        - Modelling (Preprocessing and Spot Checking): reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 6 - Modelling (Preprocessing and Spot Checking).md
+        - Modelling (Model Selection): reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 7 - Modelling (Model Selection and Hyperparameter Tuning).md
+        - Modelling (Model Evaluation): reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 8 - Modelling (Model Evaluation and Interpretation).md
 theme:
   name: material
 markdown_extensions:
