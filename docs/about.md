@@ -1,1 +1,1 @@
-I love to document my learning journey.
+My name is Hongnan Gao, hailing from Singapore. I graduated from the National University of Singapore with a degree in Mathematics in 2019. 

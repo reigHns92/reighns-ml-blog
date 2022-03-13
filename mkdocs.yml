@@ -75,14 +75,14 @@ nav:
       - General: 
         - Neural Network Interpretation: 
           - Visualization of Feature Map Activations: 
-            - Feature Map Activations (Part I): reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/01_feature_map_activation/feature_map_activation.md
-            - Feature Map Activations (Part II): reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/01_feature_map_activation/feature_map_activation_reduced.md
-          - Visualization of Convolutional Filters: reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md
-          - Salient Map: reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/salient_map/Salient Map.md
+            - Feature Map Activations (Part I): reighns_ml_journey/deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation.md
+            - Feature Map Activations (Part II): reighns_ml_journey/deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation_reduced.md
+          - Visualization of Convolutional Filters: reighns_ml_journey/deep_learning/computer_vision/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md
+          - Salient Map: reighns_ml_journey/deep_learning/computer_vision/neural_network_interpretation/salient_map/Salient Map.md
           - Grad-CAM:
-            - Grad-CAM Explained: reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/05_gradcam_and_variants/gradcam_explained.md
-            - Grad-CAM from Scratch: reighns_ml_journey/deep_learning/computer_vision/general/neural_network_interpretation/05_gradcam_and_variants/gradcam_from_scratch.md
-        - Image Normalization: reighns_ml_journey/deep_learning/computer_vision/general/image_normalization/Image_Normalization_and_Standardization.md
+            - Grad-CAM Explained: reighns_ml_journey/deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_explained.md
+            - Grad-CAM from Scratch: reighns_ml_journey/deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_from_scratch.md
+        - Image Normalization: reighns_ml_journey/deep_learning/computer_vision/image_normalization/Image_Normalization_and_Standardization.md
     - Fundamental Concepts:
       - Cross Entropy Loss: reighns_ml_journey/deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch.md
     - Ensemble Theory:
