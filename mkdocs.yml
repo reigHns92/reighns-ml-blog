@@ -50,6 +50,11 @@ nav:
         - Fundamental Theorem: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem.md
         - Linear Transformation and Matrix: reighns_ml_journey/mathematics/linear_algebra/06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix.md
       - Analytic Geometry:
+        - Motivation: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.01_motivation.md
+        - Norms: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.02_norms.md
+        - Inner Product Spaces: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.03_inner_products.md
+        - Lengths and Distances: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.04_lengths_and_distances.md
+        - Angles and Orthogoanlity: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.05_angles_and_orthogonality.md
         - Orthogonal Subspace: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.06_orthogonal_subspaces.md
         - Orthogonal Projection: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.07_orthogonal_projections.md
       - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
