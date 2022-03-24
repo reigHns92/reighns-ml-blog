@@ -66,6 +66,7 @@ nav:
         - Conditional Probability: reighns_ml_journey/mathematics/probability_statistics_theory/02_introduction_to_probability/02.03_conditional_probability.md
         - Independence: reighns_ml_journey/mathematics/probability_statistics_theory/02_introduction_to_probability/02.04_independence.md
         - Bayes Theorem: reighns_ml_journey/mathematics/probability_statistics_theory/02_introduction_to_probability/02.05_bayes_theorem.md
+        - Summary: reighns_ml_journey/mathematics/probability_statistics_theory/02_introduction_to_probability/02.06_summary.md
   - Machine Learning:
     - Machine Learning Metrics: 
       - Classification:
