@@ -57,6 +57,8 @@ nav:
         - Angles and Orthogoanlity: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.05_angles_and_orthogonality.md
         - Orthogonal Subspace: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.06_orthogonal_subspaces.md
         - Orthogonal Projection: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.07_orthogonal_projections.md
+        - Orthogonal Matrices and Basis: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.08_orthogonal_matrices_and_basis.md
+        - Gram-Schmidt Orthogonalization: reighns_ml_journey/mathematics/linear_algebra/08_analytic_geometry/08.09_gram_schmidt_orthogonalization.md
       - Interview: reighns_ml_journey/mathematics/linear_algebra/linear_algebra_interview_questions.md
     - Probability and Statistics:
       - Introduction to Probability for Data Science (Stanley H. Chan): reighns_ml_journey/mathematics/probability_statistics_theory/probability4datascience.md
