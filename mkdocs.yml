@@ -93,7 +93,8 @@ nav:
       - Cross Entropy Loss: reighns_ml_journey/machine_learning_and_deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch.md
     - Ensemble Theory:
       - Forward Ensemble (Hill Climbing): reighns_ml_journey/machine_learning_and_deep_learning/ensemble_theory/forward_ensemble.md
-  - Data Structures and Algorithms: reighns_ml_journey/data_structures_and_algorithms/data_structures_and_algorithms.md
+  - Data Structures and Algorithms: 
+    - Introduction: reighns_ml_journey/data_structures_and_algorithms/introduction.md
     - Linked Lists: reighns_ml_journey/data_structures_and_algorithms/Linked List.md
   - Machine Learning Projects:
       - Breast Cancer Wisconsin (Supervised Classification):
