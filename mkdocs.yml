@@ -94,6 +94,7 @@ nav:
     - Ensemble Theory:
       - Forward Ensemble (Hill Climbing): reighns_ml_journey/machine_learning_and_deep_learning/ensemble_theory/forward_ensemble.md
   - Data Structures and Algorithms: reighns_ml_journey/data_structures_and_algorithms/data_structures_and_algorithms.md
+    - Linked Lists: reighns_ml_journey/data_structures_and_algorithms/Linked List.md
   - Machine Learning Projects:
       - Breast Cancer Wisconsin (Supervised Classification):
         - Introduction: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 0 - Introduction and Problem Statement.md
