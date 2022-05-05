@@ -109,6 +109,8 @@ nav:
         - Modelling (Model Evaluation): reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 8 - Modelling (Model Evaluation and Interpretation).md
 theme:
   name: material
+  features:
+    - content.code.annotate
 markdown_extensions:
   - admonition
   - footnotes
