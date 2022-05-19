@@ -112,6 +112,8 @@ theme:
   features:
     - content.code.annotate
 markdown_extensions:
+  - attr_list
+  - md_in_html
   - admonition
   - footnotes
   - pymdownx.highlight
@@ -127,3 +129,6 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 extra_css:
     - css/extra.css
+plugins:
+  - search
+  - mkdocstrings
