@@ -98,6 +98,7 @@ nav:
     - Introduction: reighns_ml_journey/data_structures_and_algorithms/introduction.md
     - Linked Lists: reighns_ml_journey/data_structures_and_algorithms/Linked List.md
   - Machine Learning Projects:
+      - RANZCR CLiP - Catheter and Line Position Challenge: reighns_ml_blog/docs/reighns_ml_journey/projects/RANZCR CLiP - Catheter and Line Position Challenge/docs/notebooks/ranzcr_walkthrough.md
       - Breast Cancer Wisconsin (Supervised Classification):
         - Introduction: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 0 - Introduction and Problem Statement.md
         - Preliminary Data Inspection and Cleaning: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 1 - Preliminary Data Inspection and Cleaning.md
