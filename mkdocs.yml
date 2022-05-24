@@ -6,6 +6,7 @@ nav:
   - Software Engineering Practices: 
     - Workflow: reighns_ml_journey/software_engineering/workflow.md
     - Git: reighns_ml_journey/software_engineering/git.md
+    - Code Design: reighns_ml_journey/software_engineering/code_design.md
     - GCP: reighns_ml_journey/software_engineering/gcp.md
   - Mathematics:
     - General Mathematic Terms and Definitions: reighns_ml_journey/mathematics/general_mathematical_terms_and_definitions.md
@@ -100,6 +101,7 @@ nav:
   - Machine Learning Projects:
       - RANZCR CLiP - Catheter and Line Position Challenge: reighns_ml_journey/projects/RANZCR CLiP - Catheter and Line Position Challenge/notebooks/walkthrough.md
       - SIIM-ISIC Melanoma Classification: reighns_ml_journey/projects/SIIM-ISIC Melanoma Classification/notebooks/walkthrough.md
+      - LTA: reighns_ml_journey/projects/LTA_road_cracks_detection/notebooks/walkthrough.md
       - Breast Cancer Wisconsin (Supervised Classification):
         - Introduction: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 0 - Introduction and Problem Statement.md
         - Preliminary Data Inspection and Cleaning: reighns_ml_journey/projects/breast_cancer_wisconsin/Stage 1 - Preliminary Data Inspection and Cleaning.md
