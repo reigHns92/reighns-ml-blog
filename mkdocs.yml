@@ -80,6 +80,8 @@ nav:
         - Cohen's Kappa: reighns_ml_journey/machine_learning_and_deep_learning/metrics/classification_metrics/cohens_kappa.md
       - Regression:
         - Introduction: reighns_ml_journey/machine_learning_and_deep_learning/metrics/regression_metrics/regression_metrics.md
+        - MAE and MSE: reighns_ml_journey/machine_learning_and_deep_learning/metrics/regression_metrics/mae_rmse.md
+        - MAPE: reighns_ml_journey/machine_learning_and_deep_learning/metrics/regression_metrics/mape.md
     - Computer Vision:
       - README: reighns_ml_journey/machine_learning_and_deep_learning/computer_vision/README.md
       - Neural Network Interpretation: 
