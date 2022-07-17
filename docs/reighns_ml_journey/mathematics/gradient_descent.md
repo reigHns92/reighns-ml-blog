@@ -119,10 +119,10 @@ We use a simple example in 2-dimensional to illustrate the definition of the dir
     Let $f: \R^2 \to \R$ be defined as 
 
     $$
-    f(x_1, x_2) = x_1^2 + x_2^2
+    f(\x) = f(x_1, x_2) = x_1^2 + x_2^2
     $$
 
-    where $x_1$ and $x_2$ corresponds to the x- and y-coordinates of a point in the plane.
+    where $\x$ is a vector of scalar values $x_1$ and $x_2$, both corresponds to the x- and y-coordinates of a point in the plane respectively.
   
     Following closely the definition, we need to define a **direction vector** $\v$.
     Since the definition did not say what $\v$ was, we can define $\v$ to be the unit vector in the $x_1$ direction ($x$ axis).
@@ -134,12 +134,16 @@ We use a simple example in 2-dimensional to illustrate the definition of the dir
     Then, we can define the directional derivative of $f$ along $\v$ as:
 
     $$
-    \begin{equation}
-    D_{\v}(f) = \lim_{h \to 0} \frac{f(\x + h\v) - f(\x)}{h}
-    \end{equation}
+    \begin{equation*}
+    \begin{split}
+    D_{\v}(f) &= \lim_{h \to 0} \frac{f(\x + h\v) - f(\x)}{h} \\
+              &= \lim_{h \to 0} \frac{f(x_1 + hv_1, x_2 + hv_2) - f(x_1, x_2)}{h} 
+    \end{split}
+    \end{equation*}
     $$
 
     which means how much $f$ changes when it moves a small unit distance along $\v$.
+
 
 
 #### Intuition of Directional Derivative
