@@ -5,7 +5,7 @@ venv_ml_website
 **/.ipynb_checkpoints/
 A-journey-into-Convolutional-Neural-Network-visualization--master
 # Converted Markdown Files
-docs/*/**/*.md
+# docs/*/**/*.md
 
 # MacOS
 .DS_Store

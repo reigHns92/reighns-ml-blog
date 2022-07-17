@@ -8,12 +8,16 @@ window.MathJax = {
     options: {
         ignoreHtmlClass: ".*|",
         processHtmlClass: "arithmatex"
-    }
+    },
+
+    loader: { load: ['[tex]/color'] },
+    tex: { packages: { '[+]': ['color'] }, tags: 'ams' },
+
 };
 
 document$.subscribe(() => {
-    This integrates MathJax with instant loading.
-
-
     MathJax.typesetPromise()
 });
+
+
+

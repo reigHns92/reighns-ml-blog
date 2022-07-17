@@ -3,12 +3,14 @@ site_url: https://reighns92.github.io/reighns-ml-blog
 nav:
   - Home: index.md
   - About: about.md
+  - How to write articles: articles.md
   - Software Engineering Practices: 
     - Workflow: reighns_ml_journey/software_engineering/workflow.md
     - Git: reighns_ml_journey/software_engineering/git.md
     - Code Design: reighns_ml_journey/software_engineering/code_design.md
     - GCP: reighns_ml_journey/software_engineering/gcp.md
     - Test Packages Compatibility: reighns_ml_journey/software_engineering/github_actions_test_packages_compatibility.md
+  - Gradient Descent: reighns_ml_journey/mathematics/gradient_descent.md
   - Mathematics:
     - General Mathematic Terms and Definitions: reighns_ml_journey/mathematics/general_mathematical_terms_and_definitions.md
     - Linear Algebra:
@@ -139,4 +141,4 @@ extra_css:
     - css/extra.css
 plugins:
   - search
-  - mkdocstrings
+  #- mkdocstrings
