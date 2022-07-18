@@ -1,0 +1,4346 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://reighns92.github.io/reighns-ml-blog/reighns_ml_journey/software_engineering/code_design/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>Code Design - Hongnan G. Machine Learning Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#imports" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Hongnan G. Machine Learning Blog" class="md-header__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan G. Machine Learning Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Code Design
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Hongnan G. Machine Learning Blog" class="md-nav__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Hongnan G. Machine Learning Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles.md" class="md-nav__link">
+        How to write articles
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Software Engineering Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Engineering Practices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Software Engineering Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow/" class="md-nav__link">
+        Workflow
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Code Design
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Code Design
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    Imports
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    Common Pitfalls
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-none-vs-none" class="md-nav__link">
+    Is None vs == None
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#none0-is-false" class="md-nav__link">
+    None/0 is False
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash" class="md-nav__link">
+    Hash
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataclasses" class="md-nav__link">
+    Dataclasses
+  </a>
+  
+    <nav class="md-nav" aria-label="Dataclasses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-properties" class="md-nav__link">
+    General Properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-factory" class="md-nav__link">
+    Default Factory
+  </a>
+  
+    <nav class="md-nav" aria-label="Default Factory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#passing-mutable-default-directly-to-dataclass" class="md-nav__link">
+    Passing Mutable Default Directly to Dataclass
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-mutable-default-argument" class="md-nav__link">
+    The Mutable Default Argument
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-using-default-factory-to-pass-mutable-defaults" class="md-nav__link">
+    Examples (Using Default Factory to Pass Mutable Defaults)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-functions-in-default-factory-important-for-model-registry" class="md-nav__link">
+    Generate Functions in Default Factory (Important for Model Registry!)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references_1" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frozen-hashablemutable" class="md-nav__link">
+    Frozen (Hashable/Mutable)
+  </a>
+  
+    <nav class="md-nav" aria-label="Frozen (Hashable/Mutable)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references_2" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-init-2" class="md-nav__link">
+    Post Init 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Post Init 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples-post-init" class="md-nav__link">
+    Examples (Post Init)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-dataclass-as-config-file" class="md-nav__link">
+    Using Dataclass as Config File
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Dataclass as Config File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parsing-from-dict" class="md-nav__link">
+    Parsing from Dict
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to-dict-or-yaml" class="md-nav__link">
+    To Dict or Yaml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-define-variable-name" class="md-nav__link">
+    Can define variable name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references_3" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-references" class="md-nav__link">
+    Main References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-oriented-programming-oop-in-python-3" class="md-nav__link">
+    Object-Oriented Programming (OOP) in Python 3
+  </a>
+  
+    <nav class="md-nav" aria-label="Object-Oriented Programming (OOP) in Python 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-class" class="md-nav__link">
+    Creating a Class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminologies" class="md-nav__link">
+    Terminologies
+  </a>
+  
+    <nav class="md-nav" aria-label="Terminologies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-class-instance" class="md-nav__link">
+    A Class Instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-object-instance" class="md-nav__link">
+    An Object Instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-attributes" class="md-nav__link">
+    Class Attributes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-attributes" class="md-nav__link">
+    Object Attributes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classobject-is-mutable-by-default" class="md-nav__link">
+    Class/Object is Mutable by Default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-instance-methods" class="md-nav__link">
+    Object Instance Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Instance Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dunder-methods" class="md-nav__link">
+    Dunder Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Dunder Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#str-vs-repr" class="md-nav__link">
+    Str vs Repr
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-methods" class="md-nav__link">
+    Instance Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-methods" class="md-nav__link">
+    Class Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Class Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    Example Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-method" class="md-nav__link">
+    Static Method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstract-methods" class="md-nav__link">
+    Abstract Methods
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    Inheritance
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-inheritance" class="md-nav__link">
+    How to use Inheritance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#super-init-and-inheritance-diamond" class="md-nav__link">
+    Super Init and Inheritance Diamond
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-references_1" class="md-nav__link">
+    Main References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-methods-in-python" class="md-nav__link">
+    Class Methods in Python
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#args-and-kwargs" class="md-nav__link">
+    Args and Kwargs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gcp/" class="md-nav__link">
+        GCP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github_actions_test_packages_compatibility/" class="md-nav__link">
+        Test Packages Compatibility
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/gradient_descent/" class="md-nav__link">
+        Gradient Descent
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Mathematics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/general_mathematical_terms_and_definitions/" class="md-nav__link">
+        General Mathematic Terms and Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Linear Algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_1" type="checkbox" id="__nav_6_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_1">
+          Preliminaries
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preliminaries" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Preliminaries
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/01_preliminaries/lines_and_planes/" class="md-nav__link">
+        Lines and Planes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/01_preliminaries/fields/" class="md-nav__link">
+        Fields
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2" type="checkbox" id="__nav_6_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2">
+          Vectors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vectors" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vectors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors/" class="md-nav__link">
+        Vector Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2_2" type="checkbox" id="__nav_6_2_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2_2">
+          Vector Products
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Products" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Products
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_linear_combination/" class="md-nav__link">
+        Linear Combination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_dot_product/" class="md-nav__link">
+        Dot Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_outer_product/" class="md-nav__link">
+        Outer Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_unit_vector/" class="md-nav__link">
+        Unit Vector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_exercises/" class="md-nav__link">
+        Exercises
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_3" type="checkbox" id="__nav_6_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_3">
+          Vector Spaces
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Spaces" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Spaces
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_subspaces/" class="md-nav__link">
+        Vector Space and Subspaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_span/" class="md-nav__link">
+        Vector Span
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_linear_independence/" class="md-nav__link">
+        Linear Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_basis_dimension/" class="md-nav__link">
+        Basis and Dimension
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_4" type="checkbox" id="__nav_6_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_4">
+          Matrix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix/" class="md-nav__link">
+        Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_basic_matrix_types/" class="md-nav__link">
+        Basic Matrix Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_basic_operations/" class="md-nav__link">
+        Basic Matrix Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_multiplication/" class="md-nav__link">
+        Matrix Multiplication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_5" type="checkbox" id="__nav_6_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_5">
+          Matrix Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix Theory" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.01_linear_algebra_systems_of_linear_equations/" class="md-nav__link">
+        System of Linear Equations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.02_linear_algebra_row_reduction_preserves_rank/" class="md-nav__link">
+        Row Reduction Preserves Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.03_linear_algebra_matrix_theory_matrix_spaces_row_space/" class="md-nav__link">
+        Row Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.04_linear_algebra_matrix_theory_matrix_spaces_column_space/" class="md-nav__link">
+        Column Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.05_linear_algebra_matrix_theory_matrix_spaces_right_nullspace/" class="md-nav__link">
+        Right Nullspace (Kernel)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.06_linear_algebra_matrix_theory_matrix_spaces_left_nullspace/" class="md-nav__link">
+        Left Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.07_linear_algebra_matrix_theory_matrix_rank/" class="md-nav__link">
+        Matrix Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.08_linear_algebra_matrix_theory_matrix_spaces_summary/" class="md-nav__link">
+        The Four Fundamental Subspaces (Summary)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_6" type="checkbox" id="__nav_6_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_6">
+          Linear Transformation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Transformation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Transformation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.01_linear_algebra_linear_transformations/" class="md-nav__link">
+        Linear Transformation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.02_linear_algebra_linear_transformations_nullspace/" class="md-nav__link">
+        Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.03_linear_algebra_linear_transformations_ranges/" class="md-nav__link">
+        Range
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.04_linear_algebra_linear_transformations_homomorphism/" class="md-nav__link">
+        Homomorphism
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem/" class="md-nav__link">
+        Fundamental Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix/" class="md-nav__link">
+        Linear Transformation and Matrix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_7" type="checkbox" id="__nav_6_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_7">
+          Analytic Geometry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Analytic Geometry" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Analytic Geometry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.01_motivation/" class="md-nav__link">
+        Motivation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.02_norms/" class="md-nav__link">
+        Norms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.03_inner_products/" class="md-nav__link">
+        Inner Product Spaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.04_lengths_and_distances/" class="md-nav__link">
+        Lengths and Distances
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.05_angles_and_orthogonality/" class="md-nav__link">
+        Angles and Orthogoanlity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.06_orthogonal_subspaces/" class="md-nav__link">
+        Orthogonal Subspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.07_orthogonal_projections/" class="md-nav__link">
+        Orthogonal Projection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.08_orthogonal_matrices_and_basis/" class="md-nav__link">
+        Orthogonal Matrices and Basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.09_gram_schmidt_orthogonalization/" class="md-nav__link">
+        Gram-Schmidt Orthogonalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/linear_algebra_interview_questions/" class="md-nav__link">
+        Interview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Probability and Statistics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Probability and Statistics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Probability and Statistics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/probability4datascience/" class="md-nav__link">
+        Introduction to Probability for Data Science (Stanley H. Chan)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Introduction to Probability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction to Probability" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction to Probability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.01_probability_space/" class="md-nav__link">
+        Probability Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.02_probability_axioms/" class="md-nav__link">
+        Probability Axioms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.03_conditional_probability/" class="md-nav__link">
+        Conditional Probability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.04_independence/" class="md-nav__link">
+        Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.05_bayes_theorem/" class="md-nav__link">
+        Bayes Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.06_summary/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Machine Learning and Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning and Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning and Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Metrics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Metrics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Metrics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_1" type="checkbox" id="__nav_7_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_1">
+          Classification
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Classification" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Classification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/classification_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/accuracy/" class="md-nav__link">
+        Accuracy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/confusion_matrix/" class="md-nav__link">
+        Confusion Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/precision_recall_f1/" class="md-nav__link">
+        Precision-Recall-F1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/roc_pr_curve/" class="md-nav__link">
+        ROC and PR Curves
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/cohens_kappa/" class="md-nav__link">
+        Cohen's Kappa
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_2" type="checkbox" id="__nav_7_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_2">
+          Regression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Regression" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Regression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/regression_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/mae_rmse/" class="md-nav__link">
+        MAE and MSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/mape/" class="md-nav__link">
+        MAPE
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Computer Vision
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Computer Vision" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Computer Vision
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2" type="checkbox" id="__nav_7_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2">
+          Neural Network Interpretation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Neural Network Interpretation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Neural Network Interpretation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_1" type="checkbox" id="__nav_7_2_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_1">
+          Visualization of Feature Map Activations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization of Feature Map Activations" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of Feature Map Activations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation/" class="md-nav__link">
+        Feature Map Activations (Part I)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation_reduced/" class="md-nav__link">
+        Feature Map Activations (Part II)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md" class="md-nav__link">
+        Visualization of Convolutional Filters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/salient_map/Salient Map.md" class="md-nav__link">
+        Salient Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_4" type="checkbox" id="__nav_7_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_4">
+          Grad-CAM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Grad-CAM" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Grad-CAM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_explained/" class="md-nav__link">
+        Grad-CAM Explained
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_from_scratch/" class="md-nav__link">
+        Grad-CAM from Scratch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/image_normalization/Image_Normalization_and_Standardization/" class="md-nav__link">
+        Image Normalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Fundamental Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamental Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamental Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch/" class="md-nav__link">
+        Cross Entropy Loss
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Ensemble Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ensemble Theory" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ensemble Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/ensemble_theory/forward_ensemble/" class="md-nav__link">
+        Forward Ensemble (Hill Climbing)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Data Structures and Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Structures and Algorithms" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Data Structures and Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_structures_and_algorithms/introduction.md" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_structures_and_algorithms/Linked%20List/" class="md-nav__link">
+        Linked Lists
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Machine Learning Projects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning Projects" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning Projects
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/RANZCR%20CLiP%20-%20Catheter%20and%20Line%20Position%20Challenge/notebooks/walkthrough/" class="md-nav__link">
+        RANZCR CLiP - Catheter and Line Position Challenge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/SIIM-ISIC%20Melanoma%20Classification/notebooks/walkthrough/" class="md-nav__link">
+        SIIM-ISIC Melanoma Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/LTA_road_cracks_detection/notebooks/walkthrough/" class="md-nav__link">
+        LTA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_4" type="checkbox" id="__nav_9_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_4">
+          Breast Cancer Wisconsin (Supervised Classification)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Breast Cancer Wisconsin (Supervised Classification)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_4">
+          <span class="md-nav__icon md-icon"></span>
+          Breast Cancer Wisconsin (Supervised Classification)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%200%20-%20Introduction%20and%20Problem%20Statement/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%201%20-%20Preliminary%20Data%20Inspection%20and%20Cleaning/" class="md-nav__link">
+        Preliminary Data Inspection and Cleaning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%202%20-%20Preliminary%20EDA/" class="md-nav__link">
+        EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%203%20-%20Feature%20Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%204%20-%20Modelling%20%28Metric%20to%20Optimize%29/" class="md-nav__link">
+        Modelling (Metrics)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%205%20-%20Modelling%20%28Cross-Validation%20Methodology%29/" class="md-nav__link">
+        Modelling (Cross-Validation Schema)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%206%20-%20Modelling%20%28Preprocessing%20and%20Spot%20Checking%29/" class="md-nav__link">
+        Modelling (Preprocessing and Spot Checking)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%207%20-%20Modelling%20%28Model%20Selection%20and%20Hyperparameter%20Tuning%29/" class="md-nav__link">
+        Modelling (Model Selection)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%208%20-%20Modelling%20%28Model%20Evaluation%20and%20Interpretation%29/" class="md-nav__link">
+        Modelling (Model Evaluation)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    Imports
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    Common Pitfalls
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-none-vs-none" class="md-nav__link">
+    Is None vs == None
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#none0-is-false" class="md-nav__link">
+    None/0 is False
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hash" class="md-nav__link">
+    Hash
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataclasses" class="md-nav__link">
+    Dataclasses
+  </a>
+  
+    <nav class="md-nav" aria-label="Dataclasses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-properties" class="md-nav__link">
+    General Properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-factory" class="md-nav__link">
+    Default Factory
+  </a>
+  
+    <nav class="md-nav" aria-label="Default Factory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#passing-mutable-default-directly-to-dataclass" class="md-nav__link">
+    Passing Mutable Default Directly to Dataclass
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-mutable-default-argument" class="md-nav__link">
+    The Mutable Default Argument
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-using-default-factory-to-pass-mutable-defaults" class="md-nav__link">
+    Examples (Using Default Factory to Pass Mutable Defaults)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-functions-in-default-factory-important-for-model-registry" class="md-nav__link">
+    Generate Functions in Default Factory (Important for Model Registry!)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references_1" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frozen-hashablemutable" class="md-nav__link">
+    Frozen (Hashable/Mutable)
+  </a>
+  
+    <nav class="md-nav" aria-label="Frozen (Hashable/Mutable)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_1" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references_2" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-init-2" class="md-nav__link">
+    Post Init 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Post Init 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples-post-init" class="md-nav__link">
+    Examples (Post Init)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-dataclass-as-config-file" class="md-nav__link">
+    Using Dataclass as Config File
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Dataclass as Config File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_2" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parsing-from-dict" class="md-nav__link">
+    Parsing from Dict
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#to-dict-or-yaml" class="md-nav__link">
+    To Dict or Yaml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-define-variable-name" class="md-nav__link">
+    Can define variable name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references_3" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-references" class="md-nav__link">
+    Main References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-oriented-programming-oop-in-python-3" class="md-nav__link">
+    Object-Oriented Programming (OOP) in Python 3
+  </a>
+  
+    <nav class="md-nav" aria-label="Object-Oriented Programming (OOP) in Python 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-class" class="md-nav__link">
+    Creating a Class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminologies" class="md-nav__link">
+    Terminologies
+  </a>
+  
+    <nav class="md-nav" aria-label="Terminologies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-class-instance" class="md-nav__link">
+    A Class Instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-object-instance" class="md-nav__link">
+    An Object Instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-attributes" class="md-nav__link">
+    Class Attributes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-attributes" class="md-nav__link">
+    Object Attributes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classobject-is-mutable-by-default" class="md-nav__link">
+    Class/Object is Mutable by Default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-instance-methods" class="md-nav__link">
+    Object Instance Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Instance Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dunder-methods" class="md-nav__link">
+    Dunder Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Dunder Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#str-vs-repr" class="md-nav__link">
+    Str vs Repr
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instance-methods" class="md-nav__link">
+    Instance Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-methods" class="md-nav__link">
+    Class Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Class Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    Example Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-method" class="md-nav__link">
+    Static Method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstract-methods" class="md-nav__link">
+    Abstract Methods
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    Inheritance
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition_3" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-inheritance" class="md-nav__link">
+    How to use Inheritance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#super-init-and-inheritance-diamond" class="md-nav__link">
+    Super Init and Inheritance Diamond
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-references_1" class="md-nav__link">
+    Main References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-methods-in-python" class="md-nav__link">
+    Class Methods in Python
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#args-and-kwargs" class="md-nav__link">
+    Args and Kwargs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>Code Design</h1>
+
+<h2 id="imports">Imports</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+</code></pre></div>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://docs.python-guide.org/writing/gotchas/">Common Gotchas in Python</a></li>
+</ul>
+<h3 id="is-none-vs-none"><a href="https://stackoverflow.com/questions/3257919/what-is-the-difference-between-is-none-and-none/3257957#3257957">Is None vs == None</a></h3>
+<p>Not much of a big difference but better to use <code>is</code> to compare.</p>
+<p>A small caution is below.</p>
+<div class="highlight"><pre><span></span><code><span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>False
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">p</span> <span class="ow">is</span> <span class="n">q</span> <span class="c1"># False because they are not the same actual object</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">p</span> <span class="o">==</span> <span class="n">q</span> <span class="c1"># True because they are equivalent</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>True
+</code></pre></div>
+<h3 id="none0-is-false">None/0 is False</h3>
+<p><code>None</code> and <span class="arithmatex">\(0\)</span> are <code>False</code> by default in python, but the catch is:</p>
+<ul>
+<li><code>0 is False</code> evaluates to <code>True</code> but;</li>
+<li><code>None is False</code> evaluates to <code>False</code> but;</li>
+<li><code>None is True</code> is also <code>False</code>;</li>
+<li><code>(not None) is True</code> evaluates to <code>True</code> since <code>(not None)</code> is <code>(not False)</code> which is <code>True</code>;</li>
+<li><code>not None is False</code> evaluates to <code>True</code> since one should evaluate <code>not (None is False)</code> and since <code>(None is False)</code> is <code>False</code> so <code>not False</code> is <code>True</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="ow">not</span> <span class="kc">None</span> <span class="ow">is</span> <span class="kc">False</span> <span class="c1"># not (None is False)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>True
+</code></pre></div>
+<h2 id="hash">Hash</h2>
+<div class="highlight"><pre><span></span><code><span class="nb">hash</span><span class="p">(</span><span class="s2">&quot;mystring&quot;</span><span class="p">),</span> <span class="nb">hash</span><span class="p">((</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)),</span> <span class="nb">hash</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>(7474225329682574832, -283857846903866188, 1)
+</code></pre></div>
+<h2 id="dataclasses">Dataclasses</h2>
+<h3 id="general-properties">General Properties</h3>
+<ul>
+<li><a href="https://stackoverflow.com/questions/47955263/what-are-data-classes-and-how-are-they-different-from-common-classes">Dataclass as boiler plate as a Class</a><ul>
+<li>For example if you want to <code>hash</code> your class, then you need to write <code>__hash__</code> and etc which takes time, <code>dataclass</code> can be done easily. <a href="https://stackoverflow.com/questions/14535730/what-does-hashable-mean-in-python">Why need hash?</a></li>
+<li>For example the dunder method <code>__repr__</code> are done for you in an easy to read manner rather than the default one which points to memory address.</li>
+</ul>
+</li>
+</ul>
+<h3 id="default-factory">Default Factory</h3>
+<h4 id="intuition">Intuition</h4>
+<p>By design, <code>dataclass</code> does not take in <strong>mutable default</strong>. What does that mean? Let us see a quick example.</p>
+<h4 id="passing-mutable-default-directly-to-dataclass">Passing Mutable Default Directly to Dataclass</h4>
+<p>The following <code>C_dataclass</code> has <code>init=True</code> by default, and setting the attributes in the <code>dataclass</code> simply translates to a normal class with the <code>__init__(a: int, b: int = 0)</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">C_dataclass</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>      <span class="c1"># &#39;a&#39; has no default value</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># assign a default value for &#39;b&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">C_class</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">c_dataclass</span> <span class="o">=</span> <span class="n">C_dataclass</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">c_class</span> <span class="o">=</span> <span class="n">C_class</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>Notice that both classes have a default <strong>attribute</strong> <code>b = 0</code>. This is totally fine! We can also set default attributes as a list for example in a normal class:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">C_class</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+</code></pre></div>
+<p>However, if one tries to do that for <code>dataclass</code>, an error will pop out:</p>
+<div class="highlight"><pre><span></span><code><span class="ne">ValueError</span><span class="p">:</span> <span class="n">mutable</span> <span class="n">default</span> <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">list</span><span class="s1">&#39;&gt; for field c is not allowed: use default_factory</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">C_dataclass</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>      <span class="c1"># &#39;a&#39; has no default value</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># assign a default value for &#39;b&#39;</span>
+    <span class="n">c</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div>
+<p>But why? One major reason is that to <strong>to enforce avoidance of the mutable default argument problem</strong>.</p>
+<h4 id="the-mutable-default-argument">The Mutable Default Argument</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">append_to</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="n">to</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">to</span>
+</code></pre></div>
+<p>Let us append some values to 2 different variables:</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+
+<span class="n">my_other_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_other_list</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[12]
+[12, 42]
+</code></pre></div>
+<p>One would expect the output to be:</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">12</span><span class="p">]</span>
+
+<span class="n">my_other_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_other_list</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">42</span><span class="p">]</span>
+</code></pre></div>
+<p>but the result is:</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">12</span><span class="p">]</span>
+
+<span class="n">my_other_list</span> <span class="o">=</span> <span class="n">append_to</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_other_list</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">42</span><span class="p">]</span>
+</code></pre></div>
+<p>A new list is created once when the function is defined, and the same list is used in each successive call.</p>
+<p>Python’s default arguments are evaluated once when the function is defined, not each time the function is called (like it is in say, Ruby). This means that if you use a mutable default argument and mutate it, you will and have mutated that object for all future calls to the function as well.</p>
+<p>We hence see the same issue when passing in <strong>mutable defaults</strong> to a class:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">C_class</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">c1</span> <span class="o">=</span> <span class="n">C_class</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">C_class</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">c1</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
+
+<span class="n">c2</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c2</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">c1</span><span class="o">.</span><span class="n">c</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">c1</span><span class="o">.</span><span class="n">c</span> <span class="ow">is</span> <span class="n">c2</span><span class="o">.</span><span class="n">c</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[1, 2, 3, 4]
+[1, 2, 3, 4, 5]
+</code></pre></div>
+<p>Thus this is deeemed dangerous and dataclass does not allow you to do it out of the bat.</p>
+<p>More info on this design can be read here <a href="https://docs.python.org/3/library/dataclasses.html#mutable-default-values">Mutable Default Values</a>.</p>
+<h4 id="examples-using-default-factory-to-pass-mutable-defaults">Examples (Using Default Factory to Pass Mutable Defaults)</h4>
+<p>The parameters to <code>field()</code> are:</p>
+<p><code>default_factory</code>: If provided, it must be a <strong>zero-argument callable</strong> that will be called when a default value is needed for this field. Among other purposes, this can be used to specify fields with mutable default values, as discussed below. It is an error to specify both default and default_factory.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">C_dataclass</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>      <span class="c1"># &#39;a&#39; has no default value</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># assign a default value for &#39;b&#39;</span>
+    <span class="n">c</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">C_dataclass</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>Calling this <code>dataclass</code> will result in an error:</p>
+<div class="highlight"><pre><span></span><code><span class="ne">TypeError</span><span class="p">:</span> <span class="s1">&#39;list&#39;</span> <span class="nb">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">callable</span>
+</code></pre></div>
+<p>because you are passing in a list of values and not what <code>default_factory</code> expects, a <strong>zero-argument callable</strong>.</p>
+<p>What is a <strong>zero-argument callable</strong>? The examples below illustrates:</p>
+<p>Indeed, a list with values is not a function or class method, and hence not <strong>callable</strong> if you put the "parenthesis" <code>()</code> behind. The same error occurs.</p>
+<div class="highlight"><pre><span></span><code><span class="n">default_factory</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">default_factory</span><span class="p">()</span> 
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+~\AppData\Local\Temp/ipykernel_4064/3467513020.py in &lt;module&gt;
+      1 default_factory = [1, 2, 3]
+----&gt; 2 default_factory()
+
+
+TypeError: &#39;list&#39; object is not callable
+</code></pre></div>
+<p>Now if we set <code>default_factory</code> as a function that returns the list <code>[1, 2, 3]</code>, then it is indeed callable and in fact, it's <strong>zero-argument callable</strong> since this function call takes in <strong>zero arguments</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">default_factory</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">default_factory</span><span class="p">()</span>
+</code></pre></div>
+<p>So remember, if you want pass in a default mutable object with values inside, set a <code>lambda</code> as such:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">C_dataclass</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>      <span class="c1"># &#39;a&#39; has no default value</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># assign a default value for &#39;b&#39;</span>
+    <span class="n">c</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">c1</span> <span class="o">=</span> <span class="n">C_dataclass</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">c1</span><span class="o">.</span><span class="n">c</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[1, 2, 3]
+</code></pre></div>
+<h4 id="generate-functions-in-default-factory-important-for-model-registry">Generate Functions in Default Factory (<strong>Important for Model Registry!</strong>)</h4>
+<p>This is very very useful especially if you are doing a ML project with multiple experiments, each experiments should be stored in an unique folder as a form of model registry.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sample directory</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>model_registry/
+    exp1_uuid4/
+        weights/
+        logs/
+        ...
+    exp2_uuid4/
+        weights/
+        logs/
+</code></pre></div></td></tr></table></div>
+<p>We can simply say create a function called <code>generate_uuid4()</code> and pass it to <code>field</code>'s <code>default_factory</code> and it will generate a new unique id for each run of experiment.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_uuid4</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate a random UUID4.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: Random UUID4</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ModelRegistry</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class to keep track of model artifacts.&quot;&quot;&quot;</span>
+
+    <span class="n">project_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;pkd&quot;</span>
+    <span class="n">unique_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">generate_uuid4</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">exp1</span> <span class="o">=</span> <span class="n">ModelRegistry</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;pkd&quot;</span><span class="p">)</span>
+<span class="n">exp1</span><span class="o">.</span><span class="n">unique_id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;d6f3eb61-72f7-4ed4-9637-6df42a179bdf&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">exp2</span> <span class="o">=</span> <span class="n">ModelRegistry</span><span class="p">()</span>
+<span class="n">exp2</span><span class="o">.</span><span class="n">unique_id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;56d5f4f8-adca-4e2c-a5f3-9207da7d1c9a&#39;
+</code></pre></div>
+<p>Although the <code>unique_id</code> should be run by the random generator <code>uuid</code>, users are allowed to modify it and that is something we do not want. We can therefore set <code>init=False</code> inside the <code>field</code> so it "won't" initialize let's see example below:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example where user can modify</span>
+<span class="n">exp3</span> <span class="o">=</span> <span class="n">ModelRegistry</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;pkd&quot;</span><span class="p">,</span> <span class="n">unique_id</span><span class="o">=</span><span class="s2">&quot;123&quot;</span><span class="p">)</span>
+<span class="n">exp3</span><span class="o">.</span><span class="n">unique_id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;123&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ModelRegistry</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class to keep track of model artifacts.&quot;&quot;&quot;</span>
+
+    <span class="n">project_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;PeekingDuck&quot;</span>
+    <span class="n">unique_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="n">generate_uuid4</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># example where user CANNOT modify and throws error</span>
+<span class="n">exp3</span> <span class="o">=</span> <span class="n">ModelRegistry</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;pkd&quot;</span><span class="p">,</span> <span class="n">unique_id</span><span class="o">=</span><span class="s2">&quot;123&quot;</span><span class="p">)</span>
+<span class="n">exp3</span><span class="o">.</span><span class="n">unique_id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+~\AppData\Local\Temp/ipykernel_20736/826619969.py in &lt;module&gt;
+      1 # example where user CANNOT modify and throws error
+----&gt; 2 exp3 = ModelRegistry(project_name=&quot;pkd&quot;, unique_id=&quot;123&quot;)
+      3 exp3.unique_id
+
+
+TypeError: __init__() got an unexpected keyword argument &#39;unique_id&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># you should not set the unique id yourself.</span>
+<span class="n">exp3</span> <span class="o">=</span> <span class="n">ModelRegistry</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;pkd&quot;</span><span class="p">)</span>
+<span class="n">exp3</span><span class="o">.</span><span class="n">unique_id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;91679660-a805-423a-bb76-feffede8c731&#39;
+</code></pre></div>
+<h4 id="references_1">References</h4>
+<ul>
+<li><a href="https://stackoverflow.com/questions/52063759/passing-default-list-argument-to-dataclasses">Passing default list argument to dataclasses</a></li>
+<li><a href="https://stackoverflow.com/questions/53632152/why-cant-dataclasses-have-mutable-defaults-in-their-class-attributes-declaratio">Why can't dataclasses have mutable defaults in their class attributes declaration?</a></li>
+<li><a href="https://docs.python.org/3/library/dataclasses.html#mutable-default-values">Mutable Default Values</a></li>
+<li><a href="https://www.youtube.com/watch?v=CvQ7e6yUtnw">This is why python dataclasses are awesome</a></li>
+</ul>
+<h3 id="frozen-hashablemutable">Frozen (Hashable/Mutable)</h3>
+<h4 id="intuition_1">Intuition</h4>
+<p>When <code>frozen</code> is True, the <code>dataclass</code> is an immuatable object and <a href="https://stackoverflow.com/questions/622664/what-is-immutability-and-why-should-i-worry-about-it">immutable</a> means you can't change the attributes or characteristics of an object after it's initialised. </p>
+<p>Note hash and immutable is a bit similar<sup id="fnref:hash_immutable"><a class="footnote-ref" href="#fn:hash_immutable">1</a></sup>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Generally, making an object mutable is good since it stays constant. No surprises :)</p>
+</div>
+<h4 id="examples">Examples</h4>
+<p>Let us see the below example, both <code>AugParamsFrozenTrue</code> and <code>AugParamsFrozenFalse</code> have the same attributes, the only difference is that one is frozen and the other isn't.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">AugParamsFrozenTrue</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class to keep track of the augmentation parameters.&quot;&quot;&quot;</span>
+
+    <span class="n">mean</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">])</span>
+    <span class="n">std</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+    <span class="n">image_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span>
+    <span class="n">mixup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">mixup_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;mixup_alpha&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;use_cuda&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>When we freeze the dataclass <code>AugParamsFrozenTrue</code> then we can no longer change its <strong>attribute instances</strong>. For example, we cannot re-assign the <code>mean</code> attribute. </p>
+<div class="highlight"><pre><span></span><code><span class="n">aug_frozen_true</span> <span class="o">=</span> <span class="n">AugParamsFrozenTrue</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">aug_frozen_true</span><span class="o">.</span><span class="n">mean</span><span class="p">))</span>
+<span class="n">aug_frozen_true</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1"># same as setattr(aug_frozen_true, &quot;mean&quot;, [1, 2, 3])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1693345842112
+
+
+
+---------------------------------------------------------------------------
+
+FrozenInstanceError                       Traceback (most recent call last)
+
+~\AppData\Local\Temp/ipykernel_4064/656634435.py in &lt;module&gt;
+      1 aug_frozen_true = AugParamsFrozenTrue()
+      2 print(id(aug_frozen_true.mean))
+----&gt; 3 aug_frozen_true.mean = [1, 2, 3] # same as setattr(aug_frozen_true, &quot;mean&quot;, [1, 2, 3])
+
+
+&lt;string&gt; in __setattr__(self, name, value)
+
+
+FrozenInstanceError: cannot assign to field &#39;mean&#39;
+</code></pre></div>
+<p>However, <code>frozen</code> only applies to the dataclass instance itself – a <code>frozen</code> dataclass can contain mutable items such as lists, and a regular dataclass can contain frozen/immutable items such as tuples. This means that I can change the state of the attribute by mutating the list itself.</p>
+<p>Therefore, one must be careful that <strong>freezing</strong> a dataclass does not guarantee immutability of all its attributes.</p>
+<div class="highlight"><pre><span></span><code><span class="n">aug_frozen_true</span><span class="o">.</span><span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">aug_frozen_true</span><span class="o">.</span><span class="n">mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">aug_frozen_true</span><span class="o">.</span><span class="n">mean</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">aug_frozen_true</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">aug_frozen_true</span><span class="o">.</span><span class="n">mean</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[1, 2, 3]
+1693345842112
+</code></pre></div>
+<p>On the other hand, if one set <code>frozen=False</code>, then it is just like any other class in Python, you can re-assign the attributes freely.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">AugParamsFrozenFalse</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class to keep track of the augmentation parameters.&quot;&quot;&quot;</span>
+
+    <span class="n">mean</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">])</span>
+    <span class="n">std</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+    <span class="n">image_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span>
+    <span class="n">mixup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">mixup_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;mixup_alpha&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;use_cuda&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">aug_frozen_false</span> <span class="o">=</span> <span class="n">AugParamsFrozenFalse</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">aug_frozen_false</span><span class="o">.</span><span class="n">mean</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aug_frozen_false</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">aug_frozen_false</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">aug_frozen_false</span><span class="o">.</span><span class="n">mean</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aug_frozen_false</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1693347054912
+[0.485, 0.456, 0.406]
+
+1693345843648
+[1, 2, 3]
+</code></pre></div>
+<h4 id="references_2">References</h4>
+<ul>
+<li><a href="https://stackoverflow.com/questions/622664/what-is-immutability-and-why-should-i-worry-about-it">What is immutability and why should I worry about it?</a></li>
+<li><a href="https://stackoverflow.com/questions/66194804/what-does-frozen-mean-for-dataclasses">What does frozen mean for dataclasses?</a></li>
+</ul>
+<h3 id="post-init-2">Post Init <sup id="fnref:post_init"><a class="footnote-ref" href="#fn:post_init">2</a></sup></h3>
+<p>Notice the example below that <code>average_marks</code> is an attribute that can only be known after <code>marks</code> is known. So we can set <code>field(init=False)</code> and tabulate using <code>__post_init__</code>.</p>
+<h4 id="examples-post-init">Examples (Post Init)</h4>
+<p>A dunder method:</p>
+<ul>
+<li>Motivation: you want an "attribute" that is derived from your other instance attributes;</li>
+<li>Average marks of a student for example can only be known when all his "marks" are known;</li>
+<li>We set <code>average_marks</code> as an attribute BUT <code>init</code> is <code>False</code> so it is not initialized by the class as we won't know it yet + we won't pass it in the dataclass;</li>
+<li><code>post_init</code> helps us to calculate and return back the average marks.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code>average_marks</code> should be a private member cause it is not something you want the user to call and change!</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">student_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">marks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+    <span class="n">_average_marks</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_average_marks</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">marks</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">marks</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">student</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;hongnan&quot;</span><span class="p">,</span> <span class="n">student_id</span><span class="o">=</span><span class="s2">&quot;123&quot;</span><span class="p">,</span> <span class="n">marks</span><span class="o">=</span><span class="p">[</span><span class="mi">88</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">96</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="o">.</span><span class="n">average_marks</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Student(name=&#39;hongnan&#39;, student_id=&#39;123&#39;, marks=[88, 92, 96], average_marks=92.0)
+92.0
+</code></pre></div>
+<h3 id="using-dataclass-as-config-file">Using Dataclass as Config File</h3>
+<h4 id="intuition_2">Intuition</h4>
+<p>Usually we store configurations in a <code>.yaml</code> file or the likes and load it as dict in our script and subsequently use the dict as a way to get the config values.</p>
+<p>We will now introduce a way to store our config in a <code>dataclass</code>:</p>
+<p>This method has a ton of benefits:</p>
+<ul>
+<li>We get code completion and type hints in the editor</li>
+<li>It's easier to maintain, since you only have to change a config property name in one place</li>
+<li>Can implement version reconciliation in the from_dict method</li>
+<li>Refactoring is a breeze, since editors can auto-refactor class property names</li>
+<li>Allows you to define configurations with python code, since you can instantiate the dataclasses directly in a settings.py file, for example</li>
+<li>It's testable.</li>
+</ul>
+<h4 id="parsing-from-dict">Parsing from Dict</h4>
+<p>Consider a config file in <code>yaml</code> to be the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">model_params</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="w"></span>
+<span class="nt">    model_name</span><span class="p">:</span><span class="w"> </span><span class="nv">resnet50d</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="nt">    out_features</span><span class="p">:</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="nt">    in_channels</span><span class="p">:</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="nt">    pretrained</span><span class="p">:</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="nt">    use_meta</span><span class="p">:</span><span class="w"> </span><span class="nv">false</span><span class="w"></span>
+<span class="p p-Indicator">}</span><span class="w"></span>
+
+<span class="nt">aug_params</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="w"></span>
+<span class="nt">    image_size</span><span class="p">:</span><span class="w"> </span><span class="nv">224</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="nt">    mean</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.485</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.456</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.406</span><span class="p p-Indicator">],</span><span class="w"></span>
+<span class="nt">    std</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.229</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.224</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.225</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="p p-Indicator">}</span><span class="w"></span>
+
+<span class="nt">train_params</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="w"></span>
+<span class="nt">    epochs</span><span class="p">:</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">,</span><span class="w"></span>
+<span class="nt">    use_amp</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="w"></span>
+<span class="p p-Indicator">}</span><span class="w"></span>
+</code></pre></div>
+<p>We can easily parse it into a python dict by:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">config_dict</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tmp.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
+</code></pre></div>
+<p>to get </p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;model_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;resnet50d&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;out_features&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;in_channels&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;pretrained&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;use_meta&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;aug_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;image_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">,</span>
+        <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span>
+        <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;train_params&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;use_amp&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Whenever we want to use the config, we can call say <code>config_dict[model_params]["model_name"]</code>. </p>
+<ul>
+<li>This is cumbersome if the dict is very nested;</li>
+<li>This is prone to error as you need to write the correct keys;</li>
+<li>This is difficult to refactor and hard to read.</li>
+<li>Most importantly, we can parse the config file to multiple sub-configs that is responsible for each part of the configuration, for example, we can create 3 dataclasses named <code>ModelParams</code>, <code>AugParams</code> and <code>TrainParams</code> to indicate what each config does.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ModelParams</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Model Params.&quot;&quot;&quot;</span>
+
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">pretrained</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">input_channels</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">output_dimension</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">use_meta</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;ModelParams&quot;</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;ModelParams&quot;</span><span class="p">]:</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">model_name</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;model_name&quot;</span><span class="p">],</span>
+            <span class="n">pretrained</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;pretrained&quot;</span><span class="p">],</span>
+            <span class="n">input_channels</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;input_channels&quot;</span><span class="p">],</span>
+            <span class="n">output_dimension</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;output_dimension&quot;</span><span class="p">],</span>
+            <span class="n">use_meta</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;use_meta&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">AugParams</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Augmentation Params.&quot;&quot;&quot;</span>
+
+    <span class="n">mean</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">])</span>
+    <span class="n">std</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+    <span class="n">image_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;AugParams&quot;</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;AugParams&quot;</span><span class="p">]:</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">mean</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">],</span>
+            <span class="n">std</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">],</span>
+            <span class="n">image_size</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;image_size&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TrainParams</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Global Train Params.&quot;&quot;&quot;</span>
+
+    <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">use_amp</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;TrainParams&quot;</span><span class="p">],</span> <span class="n">params_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="s2">&quot;TrainParams&quot;</span><span class="p">]:</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">epochs</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">],</span> <span class="n">use_amp</span><span class="o">=</span><span class="n">params_dict</span><span class="p">[</span><span class="s2">&quot;use_amp&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;model_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;model_name&quot;</span><span class="p">:</span> <span class="s2">&quot;resnet50d&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;out_features&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;in_channels&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;pretrained&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;use_meta&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;aug_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;image_size&quot;</span><span class="p">:</span> <span class="mi">224</span><span class="p">,</span>
+        <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span>
+        <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;train_params&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;use_amp&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">train_dict</span> <span class="o">=</span> <span class="n">config_dict</span><span class="p">[</span><span class="s2">&quot;train_params&quot;</span><span class="p">]</span>
+
+<span class="n">train_config</span> <span class="o">=</span> <span class="n">TrainParams</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">params_dict</span> <span class="o">=</span> <span class="n">train_dict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train_config</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train_config</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>TrainParams(epochs=10, use_amp=True)
+10
+</code></pre></div>
+<p>We can do the same for the rest.</p>
+<h4 id="to-dict-or-yaml">To Dict or Yaml</h4>
+<p>You can also define method to <code>to_dict</code> to convert <code>dataclass</code> to dict.</p>
+<h4 id="can-define-variable-name">Can define variable name</h4>
+<p>In <code>yaml</code> file, it is very difficult to define python variable inside! For example, </p>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">FilePaths</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class to keep track of the files.&quot;&quot;&quot;</span>
+
+    <span class="n">train_images</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>I can call <code>Path</code> directly on the config key whereas if you put in <code>yaml</code> it needs a lot of tweaks.</p>
+<h4 id="testing">Testing</h4>
+<p>We can even test our <code>dataclass</code> config to ensure no mistakes were made when populating the keys.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Testing</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">class</span> <span class="nc">TestTrainConfig</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_example_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">raw_train_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;use_amp&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+        <span class="n">expected_dict_from_dataclass</span> <span class="o">=</span> <span class="n">TrainParams</span><span class="p">(</span><span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">use_amp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">TrainParams</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">raw_train_dict</span><span class="p">),</span> <span class="n">expected_dict_from_dataclass</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">TestTrainConfig</span><span class="p">()</span><span class="o">.</span><span class="n">test_example_config</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="references_3">References</h4>
+<ul>
+<li><a href="https://dev.to/eblocha/using-dataclasses-for-configuration-in-python-4o53">Using Dataclasses for Configuration in Python</a></li>
+</ul>
+<h3 id="main-references">Main References</h3>
+<ul>
+<li>https://www.youtube.com/watch?v=CvQ7e6yUtnw and his other dataclass videos.s</li>
+</ul>
+<h2 id="object-oriented-programming-oop-in-python-3">Object-Oriented Programming (OOP) in Python 3</h2>
+<p>The main <a href="https://thepythonguru.com/python-classes-and-interfaces/https://thepythonguru.com/python-classes-and-interfaces/">reference</a> details a lot of practices on classes in Python.</p>
+<h3 id="creating-a-class">Creating a Class</h3>
+<ul>
+<li><code class="highlight"><span class="p">[</span><span class="n">Line</span> <span class="mi">1</span><span class="p">]</span></code>: This defines a <strong>class</strong> <code>Dog</code>.</li>
+<li><code class="highlight"><span class="p">[</span><span class="n">Line</span> <span class="mi">5</span><span class="p">]</span></code>: The <code>init</code> method must take in <code>self</code> alongside with other optional arguments. The optional arguments are <strong>attributes</strong>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
+    <span class="c1"># Class attribute</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="s2">&quot;Pomeranian&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Class Instance id: </span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">Dog</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># instance attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Object Instance id: </span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="terminologies">Terminologies</h3>
+<h4 id="a-class-instance">A Class Instance</h4>
+<p>Note that if you call <code>Dog</code>, you are creating a <strong>class instance</strong>. The unique <code>id</code> of this class instance should preserve the whole session.</p>
+<div class="highlight"><pre><span></span><code><span class="n">class_instance</span> <span class="o">=</span> <span class="n">Dog</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">class_instance</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">class_instance</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;class &#39;__main__.Dog&#39;&gt;
+1834272044992
+</code></pre></div>
+<h4 id="an-object-instance">An Object Instance</h4>
+<p>Once you <strong>instantiated</strong> the <strong>class instance</strong> with the <code>__init__</code> method, then you have created an <strong>object instance</strong>. Note that every time you create a new <strong>object instance</strong>, that is a brand new <strong>object</strong> and thus the unique <code>id</code> of these objects are different.</p>
+<p>Let us see the example below:</p>
+<div class="highlight"><pre><span></span><code><span class="n">d1</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ben&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ben&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d3</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ken&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;id(d1)=</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span><span class="si">}</span><span class="s2">, id(d2)=</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span><span class="si">}</span><span class="s2">, id(d3)=</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">d3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">id</span><span class="p">(</span><span class="n">d2</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Class Instance id: 1834272031776
+Object Instance id: 1834276348784
+
+Class Instance id: 1834272031776
+Object Instance id: 1834276141520
+
+Class Instance id: 1834272031776
+Object Instance id: 1834276142336
+
+id(d1)=1834276348784, id(d2)=1834276141520, id(d3)=1834276142336
+True
+</code></pre></div>
+<p>Notice even though <code>d1</code> and <code>d2</code> has exactly the same attributes, they belong to <strong>different</strong> objects. However, notice that their <strong>class instance</strong> <code>id</code> is the same throughout.</p>
+<h4 id="class-attributes">Class Attributes</h4>
+<p>A <strong>class attribute</strong> can be defined before the <code>__init__</code> method. We can call them as such:</p>
+<div class="highlight"><pre><span></span><code><span class="n">class_instance</span><span class="o">.</span><span class="n">species</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;Pomeranian&#39;
+</code></pre></div>
+<h4 id="object-attributes">Object Attributes</h4>
+<p>This is the more common <strong>attribute</strong> that we usually see. They are usually defined by assigning it to <code>self</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span><span class="n">age</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">d1</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">d1</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">d1</span><span class="o">.</span><span class="n">species</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>(&#39;ben&#39;, 2, &#39;Pomeranian&#39;)
+</code></pre></div>
+<p>You can also call the <strong>class attribute</strong> from the <strong>object</strong>.</p>
+<h3 id="classobject-is-mutable-by-default">Class/Object is Mutable by Default</h3>
+<p>In this example, you change the <code>.age</code> attribute of the <code>d1</code> object to <span class="arithmatex">\(10\)</span>. Then your <code>d1</code>'s age will no longer be <span class="arithmatex">\(2\)</span>.</p>
+<p>The key takeaway here is that <strong>custom objects are mutable by default</strong>. An object is mutable if it can be altered dynamically. For example, lists and dictionaries are mutable, but strings and tuples are immutable.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
+<span class="n">d1</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>2
+100
+</code></pre></div>
+<p>A fancier way is to use <code>setattr</code> to do the same thing:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">setattr</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;mary&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ben
+mary
+</code></pre></div>
+<h3 id="object-instance-methods">Object Instance Methods</h3>
+<h4 id="dunder-methods">Dunder Methods</h4>
+<ul>
+<li>https://www.tutorialsteacher.com/python/magic-methods-in-python</li>
+</ul>
+<h5 id="str-vs-repr">Str vs Repr</h5>
+<p>We define two common <strong>dunder methods</strong> <code>__str__</code> and <code>__repr__</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
+    <span class="c1"># Class attribute</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="s2">&quot;Pomeranian&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Class Instance id: </span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">Dog</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># instance attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Object Instance id: </span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Species </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="si">}</span><span class="s2"> is called </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> and is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2"> years old!&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Dog(&#39;name&#39;=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;, &#39;age&#39;=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">)&quot;</span>
+</code></pre></div>
+<ul>
+<li>Basically if you print the <code>str(d4)</code> you get a human readable string talking about the class.</li>
+<li><code>repr(d4)</code> also returns a string, but the difference is we usually want to return the "class object representation".</li>
+<li>See example below for intuition.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">d4</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ken&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">d4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">d4</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Class Instance id: 1834272031776
+Object Instance id: 1834277502304
+
+Species Pomeranian is called ken and is 10 years old!
+Dog(&#39;name&#39;=ken&#39;, &#39;age&#39;=10)
+</code></pre></div>
+<h4 id="instance-methods">Instance Methods</h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Pizza</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_instance_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">Pizza</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_pizza_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">return_classmethod</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">id</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">Pizza</span><span class="p">),</span> <span class="s2">&quot;The id of both must be the same!&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span>
+</code></pre></div>
+<p>Initialize an <strong>instance</strong> of <code>Pizza</code> object with <code>size</code> 10 named <code>p1</code>. Note the <code>id</code> of this <code>p1</code> is <code>id(p1)</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">p1</span> <span class="o">=</span> <span class="n">Pizza</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">p1</span><span class="p">))</span> 
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1470722576792
+</code></pre></div>
+<p>You can see the method <code>get_pizza_size()</code> takes one parameter, <code>self</code>, which points to an instance of <code>Pizza</code> when the method is called (but of course instance methods can accept more than just one parameter).</p>
+<p>I returned <code>self.size</code> and <code>self</code> for this method.</p>
+<div class="highlight"><pre><span></span><code><span class="n">pizza_size</span><span class="p">,</span> <span class="n">instance_of_pizza</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">get_pizza_size</span><span class="p">()</span>
+</code></pre></div>
+<p>Note that <code>id(instance_of_pizza)</code> is equals to <code>id(p1)</code> since <code>self</code> points directly to <code>p1</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">assert</span> <span class="nb">id</span><span class="p">(</span><span class="n">instance_of_pizza</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+</code></pre></div>
+<p>Through the <code>self</code> parameter, instance methods can freely access attributes and other methods on the same object. This gives them a lot of power when it comes to modifying an object’s state.</p>
+<p>In our example, under this <code>get_pizza_size</code> method, we can access the attribute <code>size</code> of the <code>Pizza</code> object by calling <code>self.size</code>, which is equivalent to <code>Pizza(size=10).size</code>.</p>
+<p><strong>This is powerful cause we can modify the object instance's state!</strong> For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Pizza</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+
+    <span class="k">def</span> <span class="nf">get_pizza_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span>
+</code></pre></div>
+<p>Now if we call:</p>
+<div class="highlight"><pre><span></span><code><span class="n">p1</span> <span class="o">=</span> <span class="n">Pizza</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pizza_size</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">get_pizza_size</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="mi">100</span>
+</code></pre></div>
+<p>and note that the attribute of <code>p1</code> is no longer 10 but 100 since we changed it using <code>self</code>. It is like doing:</p>
+<div class="highlight"><pre><span></span><code><span class="n">p1</span> <span class="o">=</span> <span class="n">Pizza</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="class-methods">Class Methods</h4>
+<p>Instead of accepting a <code>self</code> parameter, class methods take a <code>cls</code> parameter that points to the class—and not the object instance—when the method is called.</p>
+<p>Recall earlier the minor difference between a <strong>class instance vs an object instance</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. recall that class instance is:</span>
+<span class="n">Pizza</span><span class="p">,</span> <span class="n">p1</span><span class="o">.</span><span class="n">return_classmethod</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>(__main__.Pizza, __main__.Pizza)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># 2. now compare id!</span>
+
+<span class="n">class_instance_id</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">class_instance_id</span>
+<span class="n">class_method_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">return_classmethod</span><span class="p">())</span>
+<span class="n">class_instance_id</span><span class="p">,</span> <span class="n">class_method_id</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>(1470710370600, 1470710370600)
+</code></pre></div>
+<p>So now one should be clear that within the object instance <code>p1</code>, the <code>Pizza</code> class id must be the same as the id of <code>cls</code>.</p>
+<h5 id="example-usage">Example Usage</h5>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Pizza</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ingredients</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ingredients</span> <span class="o">=</span> <span class="n">ingredients</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Pizza(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ingredients</span><span class="si">!r}</span><span class="s1">)&#39;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">margherita</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="s1">&#39;mozzarella&#39;</span><span class="p">,</span> <span class="s1">&#39;tomatoes&#39;</span><span class="p">])</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">prosciutto</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="s1">&#39;mozzarella&#39;</span><span class="p">,</span> <span class="s1">&#39;tomatoes&#39;</span><span class="p">,</span> <span class="s1">&#39;ham&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>First, if we want to create two <strong>object instances</strong> named <code>margherita</code> and <code>prosciutto</code> that are created by:</p>
+<div class="highlight"><pre><span></span><code><span class="n">margherita</span> <span class="o">=</span> <span class="n">Pizza</span><span class="p">([</span><span class="s1">&#39;mozzarella&#39;</span><span class="p">,</span> <span class="s1">&#39;tomatoes&#39;</span><span class="p">])</span>
+
+<span class="n">prosciutto</span> <span class="o">=</span> <span class="n">Pizza</span><span class="p">([</span><span class="s1">&#39;mozzarella&#39;</span><span class="p">,</span> <span class="s1">&#39;tomatoes&#39;</span><span class="p">,</span> <span class="s1">&#39;ham&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>A neater way is to use <code>classmethod</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Pizza</span><span class="o">.</span><span class="n">margherita</span><span class="p">(),</span> <span class="n">Pizza</span><span class="o">.</span><span class="n">prosciutto</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>(Pizza([&#39;mozzarella&#39;, &#39;tomatoes&#39;]), Pizza([&#39;mozzarella&#39;, &#39;tomatoes&#39;, &#39;ham&#39;]))
+</code></pre></div>
+<h4 id="static-method">Static Method</h4>
+<p>Note static method has no <code>self</code> or <code>cls</code>, so it can neither access to the <strong>class instance</strong> nor the <strong>object instance</strong>. Then why is it useful sometimes since it is as good as I were to define the static method outside the class as a function.</p>
+<p>One reason can be understood as follows, albeit a bit of a forced example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Pizza</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">ingredients</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ingredients</span> <span class="o">=</span> <span class="n">ingredients</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Pizza(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="si">!r}</span><span class="s1">, &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ingredients</span><span class="si">!r}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">calculate_pizza_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_circle_area</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">calculate_circle_area</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">r</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</code></pre></div>
+<ul>
+<li>Maintain your class design, even though <code>calculate_circle_area</code> is <strong>independent</strong> of the class/object state, one can still argue that calculating circle area is still relevant to the whole architecture of the <code>Pizza</code> class since we have a method to calculate pizza area.</li>
+<li>Ease of testing, one can just test the static method without initializing the object instance itself.</li>
+</ul>
+<h4 id="abstract-methods">Abstract Methods</h4>
+<p>This provides us a template or blueprint in a sense.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+
+<span class="k">class</span> <span class="nc">AbstractPizza</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">calculate_pizza_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This method needs to be implemented&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">AbstractPizza</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+~\AppData\Local\Temp/ipykernel_4064/1152115237.py in &lt;module&gt;
+----&gt; 1 AbstractPizza(radius=10)
+
+
+TypeError: Can&#39;t instantiate abstract class AbstractPizza with abstract method calculate_pizza_area
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">AbstractPizza</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">Pizza</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+~\AppData\Local\Temp/ipykernel_4064/4082189809.py in &lt;module&gt;
+----&gt; 1 Pizza(radius=10)
+
+
+TypeError: Can&#39;t instantiate abstract class Pizza with abstract method calculate_pizza_area
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">AbstractPizza</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+    <span class="k">def</span> <span class="nf">calculate_pizza_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">Pizza</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;__main__.Pizza at 0x18a435d3a00&gt;
+</code></pre></div>
+<h3 id="inheritance">Inheritance</h3>
+<blockquote>
+<p><a href="https://realpython.com/inheritance-composition-python/">Inheritance</a> is the process by which one class takes on the <strong>attributes</strong> and <strong>methods</strong> of another. Newly formed classes are called child classes, and the classes that child classes are derived from are called parent classes.</p>
+</blockquote>
+<h4 id="intuition_3"><a href="https://realpython.com/python3-object-oriented-programming/">Intuition</a></h4>
+<p>Child classes can override or extend the attributes and methods of parent classes. In other words, child classes inherit all of the parent’s attributes and methods but can also specify attributes and methods that are unique to themselves.</p>
+<p>Although the analogy isn’t perfect, you can think of object inheritance sort of like genetic inheritance.</p>
+<p>You may have inherited your hair color from your mother. It’s an attribute you were born with. Let’s say you decide to color your hair purple. Assuming your mother doesn’t have purple hair, you’ve just overridden the hair color attribute that you inherited from your mom.</p>
+<p>You also inherit, in a sense, your language from your parents. If your parents speak English, then you’ll also speak English. Now imagine you decide to learn a second language, like German. In this case you’ve extended your attributes because you’ve added an attribute that your parents don’t have.</p>
+<h4 id="how-to-use-inheritance">How to use Inheritance</h4>
+<ul>
+<li>
+<p>A base parent class <code>Employee</code> with 2 attributes:</p>
+<ul>
+<li><code>employee_id</code></li>
+<li><code>employee_name</code></li>
+</ul>
+</li>
+<li>
+<p>A child class that inherits the parent class called <code>SalaryEmployee</code>; note the <code>__init__</code> of this child class takes in 3 attributes:</p>
+<ul>
+<li><code>employee_id</code>: from parent</li>
+<li><code>employee_name</code>: from parent</li>
+<li><code>monthly_salary</code>: from child</li>
+</ul>
+</li>
+<li>
+<p>It is also worth noting we used <code>super().__init__</code> to take in the parent class's attributes which is the same as calling <code>Employee.__init__(employee_id, employee_name)</code>, both of which initializes the parents class in the child class. Intuitively, you can think of that the child class has <strong>all the attributes</strong> and <strong>methods</strong> that the parent class has.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Employee</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">employee_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">employee_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">employee_id</span> <span class="o">=</span> <span class="n">employee_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">employee_name</span> <span class="o">=</span> <span class="n">employee_name</span>
+
+
+<span class="k">class</span> <span class="nc">SalaryEmployee</span><span class="p">(</span><span class="n">Employee</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">employee_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">employee_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">monthly_salary</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">employee_id</span><span class="p">,</span> <span class="n">employee_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monthly_salary</span> <span class="o">=</span> <span class="n">monthly_salary</span>
+
+    <span class="k">def</span> <span class="nf">calculate_annual_salary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate annual salary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[int, float]: Monthly salary * 12</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">monthly_salary</span> <span class="o">*</span> <span class="mi">12</span>
+
+
+<span class="k">class</span> <span class="nc">CommissionEmployee</span><span class="p">(</span><span class="n">SalaryEmployee</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">employee_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">employee_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">monthly_salary</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+        <span class="n">commission</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">employee_id</span><span class="p">,</span> <span class="n">employee_name</span><span class="p">,</span> <span class="n">monthly_salary</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commission</span> <span class="o">=</span> <span class="n">commission</span>
+
+    <span class="k">def</span> <span class="nf">calculate_annual_salary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate annual salary + commission.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[int, float]: Monthly salary * 12 + commission</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fixed_annual_salary</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">calculate_annual_salary</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fixed_annual_salary</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">commission</span>
+</code></pre></div>
+<ul>
+<li>Simple example of inheritance.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">ken_salary</span> <span class="o">=</span> <span class="n">SalaryEmployee</span><span class="p">(</span><span class="n">employee_id</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>  <span class="n">employee_name</span><span class="o">=</span><span class="s2">&quot;ken&quot;</span><span class="p">,</span> <span class="n">monthly_salary</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+<span class="n">ken_salary</span><span class="o">.</span><span class="n">calculate_annual_salary</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>60000
+</code></pre></div>
+<ul>
+<li>
+<p>Slightly more complicated logic where one used <code>super()</code> in line 44. Why don't we just use <code>fixed_annual_salary = self.monthly_salary * 12</code> to get the fixed year wage like how we did in <code>SalaryEmployee</code>. The problem with accessing the property directly is that if the implementation of <code>SalaryEmployee.calculate_annual_salary()</code> changes, then you’ll have to also change the implementation of <code>CommissionEmployee.calculate_annual_salary()</code>. It’s better to rely on the already implemented method in the base class and extend the functionality as needed.</p>
+</li>
+<li>
+<p>Calling <code>super()</code> in this child class will invoke the method in the parent class.</p>
+</li>
+<li>
+<p>So if <code>calculate_annual_salary()</code> in the parent class becomes something like <code>monthly_salary * 13</code>, then you don't need to worry about changing the logic again in the child <code>CommissionEmployee</code> when calculating the total annual salary.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">ken_salary_and_commision</span> <span class="o">=</span> <span class="n">CommissionEmployee</span><span class="p">(</span><span class="n">employee_id</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>  <span class="n">employee_name</span><span class="o">=</span><span class="s2">&quot;ken&quot;</span><span class="p">,</span> <span class="n">monthly_salary</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">commission</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">ken_salary_and_commision</span><span class="o">.</span><span class="n">calculate_annual_salary</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>70000
+</code></pre></div>
+<h4 id="super-init-and-inheritance-diamond">Super Init and Inheritance Diamond</h4>
+<ul>
+<li>https://stackoverflow.com/questions/29173299/super-init-vs-parent-init</li>
+<li>https://thepythonguru.com/python-classes-and-interfaces/</li>
+</ul>
+<h3 id="main-references_1">Main References</h3>
+<ul>
+<li><a href="https://thepythonguru.com/python-classes-and-interfaces/">Main Reference for Python Classes Designs</a><ul>
+<li>Overall well rounder for many concepts.</li>
+<li>So if one has to choose one, this will be the one to read first or together with other references.</li>
+</ul>
+</li>
+<li><a href="https://realpython.com/inheritance-composition-python/">Main Reference for Inheritance and Composition</a><ul>
+<li>Mentions ABC class as well.</li>
+</ul>
+</li>
+<li><a href="https://realpython.com/python3-object-oriented-programming/">Basic OOP Guide</a></li>
+</ul>
+<p><strong>Object Instance Methods</strong></p>
+<ul>
+<li><a href="https://thepythonguru.com/python-classes-and-interfaces/">Main Reference for Python Classes Designs</a></li>
+<li><a href="https://realpython.com/instance-class-and-static-methods-demystified/">Python's Instance, Class, and Static Methods Demystified</a></li>
+<li><a href="https://julien.danjou.info/guide-python-static-class-abstract-methods/">The definitive guide on how to use static, class or abstract methods in Python</a>: Mostly Python 2 so slightly outdated but did mention about Python 3 inside.</li>
+<li><a href="https://stackoverflow.com/questions/2438473/what-is-the-advantage-of-using-static-methods">What is the advantage of using static methods?</a></li>
+</ul>
+<h2 id="class-methods-in-python">Class Methods in Python</h2>
+<h2 id="args-and-kwargs">Args and Kwargs</h2>
+<ul>
+<li>https://stackoverflow.com/questions/9872824/calling-a-python-function-with-args-kwargs-and-optional-default-arguments</li>
+</ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:hash_immutable">
+<p><a href="https://stackoverflow.com/questions/2671376/hashable-immutable">Immutable vs Hash</a>.&#160;<a class="footnote-backref" href="#fnref:hash_immutable" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:post_init">
+<p><a href="https://hackthedeveloper.com/python-post-init-data-class/">Post Init Example</a>&#160;<a class="footnote-backref" href="#fnref:post_init" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../git/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Git" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Git
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../gcp/" class="md-footer__link md-footer__link--next" aria-label="Next: GCP" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              GCP
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

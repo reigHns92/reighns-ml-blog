@@ -1,0 +1,3593 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://reighns92.github.io/reighns-ml-blog/reighns_ml_journey/machine_learning_and_deep_learning/metrics/classification_metrics/precision_recall_f1/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>Precision-Recall-F1 - Hongnan G. Machine Learning Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dependencies-and-utils" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Hongnan G. Machine Learning Blog" class="md-header__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan G. Machine Learning Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Precision-Recall-F1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Hongnan G. Machine Learning Blog" class="md-nav__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Hongnan G. Machine Learning Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../articles.md" class="md-nav__link">
+        How to write articles
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Software Engineering Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Engineering Practices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Software Engineering Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/workflow/" class="md-nav__link">
+        Workflow
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/code_design/" class="md-nav__link">
+        Code Design
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/gcp/" class="md-nav__link">
+        GCP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/github_actions_test_packages_compatibility/" class="md-nav__link">
+        Test Packages Compatibility
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/gradient_descent/" class="md-nav__link">
+        Gradient Descent
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Mathematics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/general_mathematical_terms_and_definitions/" class="md-nav__link">
+        General Mathematic Terms and Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Linear Algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_1" type="checkbox" id="__nav_6_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_1">
+          Preliminaries
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preliminaries" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Preliminaries
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/01_preliminaries/lines_and_planes/" class="md-nav__link">
+        Lines and Planes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/01_preliminaries/fields/" class="md-nav__link">
+        Fields
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2" type="checkbox" id="__nav_6_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2">
+          Vectors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vectors" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vectors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors/" class="md-nav__link">
+        Vector Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2_2" type="checkbox" id="__nav_6_2_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2_2">
+          Vector Products
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Products" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Products
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_linear_combination/" class="md-nav__link">
+        Linear Combination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_dot_product/" class="md-nav__link">
+        Dot Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_outer_product/" class="md-nav__link">
+        Outer Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_unit_vector/" class="md-nav__link">
+        Unit Vector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_exercises/" class="md-nav__link">
+        Exercises
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_3" type="checkbox" id="__nav_6_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_3">
+          Vector Spaces
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Spaces" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Spaces
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_subspaces/" class="md-nav__link">
+        Vector Space and Subspaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_span/" class="md-nav__link">
+        Vector Span
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_linear_independence/" class="md-nav__link">
+        Linear Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_basis_dimension/" class="md-nav__link">
+        Basis and Dimension
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_4" type="checkbox" id="__nav_6_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_4">
+          Matrix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix/" class="md-nav__link">
+        Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_basic_matrix_types/" class="md-nav__link">
+        Basic Matrix Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_basic_operations/" class="md-nav__link">
+        Basic Matrix Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_multiplication/" class="md-nav__link">
+        Matrix Multiplication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_5" type="checkbox" id="__nav_6_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_5">
+          Matrix Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix Theory" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.01_linear_algebra_systems_of_linear_equations/" class="md-nav__link">
+        System of Linear Equations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.02_linear_algebra_row_reduction_preserves_rank/" class="md-nav__link">
+        Row Reduction Preserves Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.03_linear_algebra_matrix_theory_matrix_spaces_row_space/" class="md-nav__link">
+        Row Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.04_linear_algebra_matrix_theory_matrix_spaces_column_space/" class="md-nav__link">
+        Column Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.05_linear_algebra_matrix_theory_matrix_spaces_right_nullspace/" class="md-nav__link">
+        Right Nullspace (Kernel)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.06_linear_algebra_matrix_theory_matrix_spaces_left_nullspace/" class="md-nav__link">
+        Left Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.07_linear_algebra_matrix_theory_matrix_rank/" class="md-nav__link">
+        Matrix Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.08_linear_algebra_matrix_theory_matrix_spaces_summary/" class="md-nav__link">
+        The Four Fundamental Subspaces (Summary)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_6" type="checkbox" id="__nav_6_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_6">
+          Linear Transformation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Transformation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Transformation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/06_linear_transformation/06.01_linear_algebra_linear_transformations/" class="md-nav__link">
+        Linear Transformation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/06_linear_transformation/06.02_linear_algebra_linear_transformations_nullspace/" class="md-nav__link">
+        Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/06_linear_transformation/06.03_linear_algebra_linear_transformations_ranges/" class="md-nav__link">
+        Range
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/06_linear_transformation/06.04_linear_algebra_linear_transformations_homomorphism/" class="md-nav__link">
+        Homomorphism
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem/" class="md-nav__link">
+        Fundamental Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix/" class="md-nav__link">
+        Linear Transformation and Matrix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_7" type="checkbox" id="__nav_6_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_7">
+          Analytic Geometry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Analytic Geometry" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Analytic Geometry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.01_motivation/" class="md-nav__link">
+        Motivation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.02_norms/" class="md-nav__link">
+        Norms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.03_inner_products/" class="md-nav__link">
+        Inner Product Spaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.04_lengths_and_distances/" class="md-nav__link">
+        Lengths and Distances
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.05_angles_and_orthogonality/" class="md-nav__link">
+        Angles and Orthogoanlity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.06_orthogonal_subspaces/" class="md-nav__link">
+        Orthogonal Subspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.07_orthogonal_projections/" class="md-nav__link">
+        Orthogonal Projection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.08_orthogonal_matrices_and_basis/" class="md-nav__link">
+        Orthogonal Matrices and Basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/08_analytic_geometry/08.09_gram_schmidt_orthogonalization/" class="md-nav__link">
+        Gram-Schmidt Orthogonalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/linear_algebra/linear_algebra_interview_questions/" class="md-nav__link">
+        Interview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Probability and Statistics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Probability and Statistics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Probability and Statistics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/probability_statistics_theory/probability4datascience/" class="md-nav__link">
+        Introduction to Probability for Data Science (Stanley H. Chan)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Introduction to Probability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction to Probability" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction to Probability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.01_probability_space/" class="md-nav__link">
+        Probability Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.02_probability_axioms/" class="md-nav__link">
+        Probability Axioms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.03_conditional_probability/" class="md-nav__link">
+        Conditional Probability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.04_independence/" class="md-nav__link">
+        Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.05_bayes_theorem/" class="md-nav__link">
+        Bayes Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.06_summary/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Machine Learning and Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning and Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning and Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Metrics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Metrics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Metrics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_1" type="checkbox" id="__nav_7_1_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_1">
+          Classification
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Classification" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Classification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classification_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accuracy/" class="md-nav__link">
+        Accuracy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../confusion_matrix/" class="md-nav__link">
+        Confusion Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Precision-Recall-F1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Precision-Recall-F1
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-and-utils" class="md-nav__link">
+    Dependencies and Utils
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#precision" class="md-nav__link">
+    Precision
+  </a>
+  
+    <nav class="md-nav" aria-label="Precision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition" class="md-nav__link">
+    Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-precision" class="md-nav__link">
+    When to use Precision?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-not-to-use-precision" class="md-nav__link">
+    When NOT to use Precision?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-precision" class="md-nav__link">
+    Implementation of Precision
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recallsensitivitytrue-positive-rate" class="md-nav__link">
+    Recall/Sensitivity/True Positive Rate
+  </a>
+  
+    <nav class="md-nav" aria-label="Recall/Sensitivity/True Positive Rate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition_1" class="md-nav__link">
+    Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-recall" class="md-nav__link">
+    When to use Recall?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-not-use-recall" class="md-nav__link">
+    When to NOT use Recall?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-recall" class="md-nav__link">
+    Implementation of Recall
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-precision-recall-tradeoff" class="md-nav__link">
+    The Precision-Recall Tradeoff
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specificitytrue-negative-rate" class="md-nav__link">
+    Specificity/True Negative Rate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#false-positive-rate" class="md-nav__link">
+    False Positive Rate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#false-negative-rate" class="md-nav__link">
+    False Negative Rate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1-score" class="md-nav__link">
+    F1-Score
+  </a>
+  
+    <nav class="md-nav" aria-label="F1-Score">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition_2" class="md-nav__link">
+    Definition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiclass-classification" class="md-nav__link">
+    Multiclass Classification
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiclass Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#label-binarize" class="md-nav__link">
+    Label Binarize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macro-averaging" class="md-nav__link">
+    Macro-Averaging
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#micro-averaging" class="md-nav__link">
+    Micro-Averaging
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#micro-vs-macro" class="md-nav__link">
+    Micro vs Macro
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-our-own-classification-report" class="md-nav__link">
+    Building our own Classification Report
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roc_pr_curve/" class="md-nav__link">
+        ROC and PR Curves
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cohens_kappa/" class="md-nav__link">
+        Cohen's Kappa
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_2" type="checkbox" id="__nav_7_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_2">
+          Regression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Regression" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Regression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../regression_metrics/regression_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../regression_metrics/mae_rmse/" class="md-nav__link">
+        MAE and MSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../regression_metrics/mape/" class="md-nav__link">
+        MAPE
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Computer Vision
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Computer Vision" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Computer Vision
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../computer_vision/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2" type="checkbox" id="__nav_7_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2">
+          Neural Network Interpretation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Neural Network Interpretation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Neural Network Interpretation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_1" type="checkbox" id="__nav_7_2_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_1">
+          Visualization of Feature Map Activations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization of Feature Map Activations" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of Feature Map Activations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation/" class="md-nav__link">
+        Feature Map Activations (Part I)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation_reduced/" class="md-nav__link">
+        Feature Map Activations (Part II)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../computer_vision/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md" class="md-nav__link">
+        Visualization of Convolutional Filters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../computer_vision/neural_network_interpretation/salient_map/Salient Map.md" class="md-nav__link">
+        Salient Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_4" type="checkbox" id="__nav_7_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_4">
+          Grad-CAM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Grad-CAM" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Grad-CAM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_explained/" class="md-nav__link">
+        Grad-CAM Explained
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_from_scratch/" class="md-nav__link">
+        Grad-CAM from Scratch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../computer_vision/image_normalization/Image_Normalization_and_Standardization/" class="md-nav__link">
+        Image Normalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Fundamental Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamental Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamental Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch/" class="md-nav__link">
+        Cross Entropy Loss
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Ensemble Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ensemble Theory" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ensemble Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ensemble_theory/forward_ensemble/" class="md-nav__link">
+        Forward Ensemble (Hill Climbing)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Data Structures and Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Structures and Algorithms" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Data Structures and Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../data_structures_and_algorithms/introduction.md" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../data_structures_and_algorithms/Linked%20List/" class="md-nav__link">
+        Linked Lists
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Machine Learning Projects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning Projects" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning Projects
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/RANZCR%20CLiP%20-%20Catheter%20and%20Line%20Position%20Challenge/notebooks/walkthrough/" class="md-nav__link">
+        RANZCR CLiP - Catheter and Line Position Challenge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/SIIM-ISIC%20Melanoma%20Classification/notebooks/walkthrough/" class="md-nav__link">
+        SIIM-ISIC Melanoma Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/LTA_road_cracks_detection/notebooks/walkthrough/" class="md-nav__link">
+        LTA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_4" type="checkbox" id="__nav_9_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_4">
+          Breast Cancer Wisconsin (Supervised Classification)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Breast Cancer Wisconsin (Supervised Classification)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_4">
+          <span class="md-nav__icon md-icon"></span>
+          Breast Cancer Wisconsin (Supervised Classification)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%200%20-%20Introduction%20and%20Problem%20Statement/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%201%20-%20Preliminary%20Data%20Inspection%20and%20Cleaning/" class="md-nav__link">
+        Preliminary Data Inspection and Cleaning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%202%20-%20Preliminary%20EDA/" class="md-nav__link">
+        EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%203%20-%20Feature%20Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%204%20-%20Modelling%20%28Metric%20to%20Optimize%29/" class="md-nav__link">
+        Modelling (Metrics)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%205%20-%20Modelling%20%28Cross-Validation%20Methodology%29/" class="md-nav__link">
+        Modelling (Cross-Validation Schema)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%206%20-%20Modelling%20%28Preprocessing%20and%20Spot%20Checking%29/" class="md-nav__link">
+        Modelling (Preprocessing and Spot Checking)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%207%20-%20Modelling%20%28Model%20Selection%20and%20Hyperparameter%20Tuning%29/" class="md-nav__link">
+        Modelling (Model Selection)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%208%20-%20Modelling%20%28Model%20Evaluation%20and%20Interpretation%29/" class="md-nav__link">
+        Modelling (Model Evaluation)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-and-utils" class="md-nav__link">
+    Dependencies and Utils
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#precision" class="md-nav__link">
+    Precision
+  </a>
+  
+    <nav class="md-nav" aria-label="Precision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition" class="md-nav__link">
+    Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-precision" class="md-nav__link">
+    When to use Precision?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-not-to-use-precision" class="md-nav__link">
+    When NOT to use Precision?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-precision" class="md-nav__link">
+    Implementation of Precision
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recallsensitivitytrue-positive-rate" class="md-nav__link">
+    Recall/Sensitivity/True Positive Rate
+  </a>
+  
+    <nav class="md-nav" aria-label="Recall/Sensitivity/True Positive Rate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition_1" class="md-nav__link">
+    Definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-recall" class="md-nav__link">
+    When to use Recall?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-not-use-recall" class="md-nav__link">
+    When to NOT use Recall?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-of-recall" class="md-nav__link">
+    Implementation of Recall
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-precision-recall-tradeoff" class="md-nav__link">
+    The Precision-Recall Tradeoff
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specificitytrue-negative-rate" class="md-nav__link">
+    Specificity/True Negative Rate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#false-positive-rate" class="md-nav__link">
+    False Positive Rate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#false-negative-rate" class="md-nav__link">
+    False Negative Rate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1-score" class="md-nav__link">
+    F1-Score
+  </a>
+  
+    <nav class="md-nav" aria-label="F1-Score">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition_2" class="md-nav__link">
+    Definition
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiclass-classification" class="md-nav__link">
+    Multiclass Classification
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiclass Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#label-binarize" class="md-nav__link">
+    Label Binarize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macro-averaging" class="md-nav__link">
+    Macro-Averaging
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#micro-averaging" class="md-nav__link">
+    Micro-Averaging
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#micro-vs-macro" class="md-nav__link">
+    Micro vs Macro
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-our-own-classification-report" class="md-nav__link">
+    Building our own Classification Report
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>Precision-Recall-F1</h1>
+
+<h2 id="dependencies-and-utils">Dependencies and Utils</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># !pip install -q scikit-learn==1.0.1</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">preprocessing</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">confusion_matrix_</span><span class="p">(</span><span class="n">y_true</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the confusion matrix.</span>
+<span class="sd">    We assume that the inputs are binarized already.</span>
+<span class="sd">    This can be used in both binary and multiclass classification</span>
+<span class="sd">    provided that we label binarized the multiclass labels.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (np.ndarray): the correct labels, shape (n_samples, )</span>
+<span class="sd">        y_pred (np.ndarray): the predicted labels, shape (n_samples, )</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        cm (np.ndarray): the confusion matrix, shape (n_classes, n_classes)</span>
+<span class="sd">                         with [[tp, fp], [fn, tn]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">y_t</span><span class="p">,</span> <span class="n">y_p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+        <span class="c1"># if actual and predicted both are positive class</span>
+        <span class="k">if</span> <span class="n">y_t</span> <span class="o">==</span> <span class="n">y_p</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">tp</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># if actual and predicted both are negative class</span>
+        <span class="k">elif</span> <span class="n">y_t</span> <span class="o">==</span> <span class="n">y_p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">tn</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># if actual is negative and predicted is positive</span>
+        <span class="k">elif</span> <span class="n">y_t</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y_p</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">fp</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># if actual is positive and predicted is negative</span>
+        <span class="k">elif</span> <span class="n">y_t</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">y_p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fn</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">],</span> <span class="p">[</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">cm</span>
+
+<span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">tick_labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Plots a Binary Confusion Matrix.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (np.ndarray): the actual labels.</span>
+<span class="sd">        y_pred (np.ndarray): the predicted labels.</span>
+<span class="sd">        title (str): the title of the plot.</span>
+<span class="sd">        tick_labels (List[str]): The labels for the ticks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Unravel into tn, fp, fn and tp</span>
+    <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span>
+        <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="c1"># reshape into tp, fp, fn, tn - this is personal preference</span>
+    <span class="n">reshaped_cm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">],</span> <span class="p">[</span><span class="n">fn</span><span class="p">,</span> <span class="n">tn</span><span class="p">]])</span>
+
+    <span class="c1"># flatten this 2d array</span>
+    <span class="n">cm_flattened</span> <span class="o">=</span> <span class="n">reshaped_cm</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;True Positive&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;False Positive&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;False Negative&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;True Negative&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">annot</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">cm_count</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">cm_count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">cm_flattened</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
+    <span class="n">heatmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+        <span class="n">reshaped_cm</span><span class="p">,</span>
+        <span class="n">annot</span><span class="o">=</span><span class="n">annot</span><span class="p">,</span>
+        <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">xticklabels</span><span class="o">=</span><span class="n">tick_labels</span><span class="p">,</span>
+        <span class="n">yticklabels</span><span class="o">=</span><span class="n">tick_labels</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Predicted labels&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;True labels&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="precision"><strong>Precision</strong></h2>
+<h3 id="definition">Definition</h3>
+<div class="admonition success">
+<p class="admonition-title">Definition</p>
+<p>Precision measures how many of the samples predicted as positive are actually positive. Mathematically, it is expressed as:</p>
+<div class="arithmatex">\[\text{Precision} = \dfrac{\text{TP}}{\text{TP} + \text{FP}}=P(Y=1 | \hat{Y} = 1)\]</div>
+</div>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">Probablistic Interpretation</p>
+<p>Notice that the above definition has a probabilitic interpretation <span class="arithmatex">\(P(Y = 1 | \hat{Y} = 1)\)</span>, where <span class="arithmatex">\(Y\)</span> and <span class="arithmatex">\(\hat{Y}\)</span> refers to the actual label and predicted labels respectively. We interpreted precision and recall not as ratios but as <a href="https://en.wikipedia.org/wiki/Precision_and_recall">estimations of probabilities</a>.
+Precision is then the estimated probability that a random point selected from the samples are positive. This might be a tough pill to swallow as someone who was never good in statistics but it is just conditional probability. If you try to think a bit further, you can form an intuition as follows:</p>
+<blockquote>
+<p>If your classifier <span class="arithmatex">\(h\)</span> is trained and the last layer is say, sigmoid, which in binary classification, calibrates the logits and turn them into probabilities. Then it can be interpretated that given a randomly chosen point <span class="arithmatex">\(x \in X_{train}\)</span>, what is the probability of this point <span class="arithmatex">\(x\)</span> to be positive given that it is predicted as positive by the classifer?</p>
+</blockquote>
+</div>
+<hr />
+<p>Informally, precision answers the question <strong>what proportion of positive predictions was actually correct</strong>? In other words, out of all the positive predictions made by the model, how many of those positive predictions were actually positive when compared to the ground truth?</p>
+<hr />
+<p>When I learned this back then, it is not immediately obvious what the denominator is doing. Dissecting the formula helps. The loose dynamics is that TP and FP are inversely related, and assuming a fixed threshold, the denominator is fixed as follows:</p>
+<div class="arithmatex">\[\text{Predicted Number of Positives} = \text{TP} + \text{FP}\]</div>
+<p>Thus, minimizing FP is equivalent to maximizing TP, doing so will lead to an increase in precision.</p>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Just like the confusion matrix, we yield different precision score should we treat benign as the positive class.</p>
+</div>
+<hr />
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Consider a email company that developed a email spam detector for their uses. There are two outcomes/classes:
+<div class="highlight"><pre><span></span><code><span class="n">positive</span> <span class="k">class</span> <span class="err">= </span><span class="nc">spam</span>
+<span class="n">negative</span> <span class="k">class</span> <span class="err">= </span><span class="nc">not</span> <span class="n">spam</span>
+</code></pre></div>
+From the company's perspective, they will be optimizing precision over recall because they want the spam detector to have minimal False Positives because predicting an not spam (which could be an important email) email as spam is much more costly than predicting a spam email as not spam. Imagine your important emails being put into spam folder by the spam detector?!</p>
+</div>
+<h3 id="when-to-use-precision">When to use Precision?</h3>
+<ul>
+<li>
+<p>When your company needs you to <strong><em>restrict the number of False Positives</em></strong>. Prime examples are email spam prediction.</p>
+</li>
+<li>
+<p>There is a trade-off between precision and recall, and restricting the number of FP <strong><em>may</em></strong> give rise to the increase in FN. So ultimately, bear in mind that it is not simply a matter of <strong><em>restricting the number of False Positives</em></strong> but a matter of <strong><em>use cases in your business setting, on whether achieving lesser FP is more important than achieving a lesser FN</em></strong>.</p>
+</li>
+</ul>
+<h3 id="when-not-to-use-precision">When NOT to use Precision?</h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<ul>
+<li>If you have a precision score of 1, then this means that <span class="arithmatex">\(TP = TP + FP = 1 \implies FP = 0\)</span>. This means it can be achieved if your predictions have 0 False Positives, but this does not tell us <strong>anything</strong> about the False Negatives.</li>
+<li>When you prioritize recall/sensitivity more than precision for your business needs.</li>
+<li>You should never ever use <code>precision</code> as a single metric.</li>
+</ul>
+</div>
+<h3 id="implementation-of-precision">Implementation of Precision</h3>
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+
+<span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">confusion_matrix_</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">reighns_precision</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;our precision: </span><span class="si">{</span><span class="n">reighns_precision</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">sklearn_precision</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sklearn precision: </span><span class="si">{</span><span class="n">sklearn_precision</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>our precision: 0.75
+sklearn precision: 0.75
+</code></pre></div>
+<h2 id="recallsensitivitytrue-positive-rate">Recall/Sensitivity/True Positive Rate</h2>
+<h3 id="definition_1">Definition</h3>
+<div class="admonition success">
+<p class="admonition-title">Definition</p>
+<p>Recall measures the following: out of all the actual positives (say, the real cancer patients), how many of them were identified correctly by the classifier? Mathematically, it is expressed as:</p>
+<div class="arithmatex">\[\text{Recall}= \dfrac{\text{TP}}{\text{TP} + \text{FN}}= P(\hat{Y}=1 | Y = 1)=1-FNR\]</div>
+</div>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">Probabilistic Interpretation</p>
+<p>Similarly, we can interpret recall probabilistically like how we did to precision. Recall is the conditional probability of the sample being predicted as positive given that the sample is positive.</p>
+</div>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>From the formula, we see the denominator to be defined as TP + FN, which is unsurprising as this gives you the actual number of positives. The dynamics is also similar to the one in precision.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>For cancer data modeling, anything that doesn't account for false-negatives is like committing a crime indirectly (a strong statement, but lives are at stake here!). Recall is a better measure than precision in this aspect assuming that the positive class is malignant.
+<div class="highlight"><pre><span></span><code><span class="n">positive</span> <span class="k">class</span> <span class="err">= </span><span class="nc">malignant</span>
+<span class="n">negative</span> <span class="k">class</span> <span class="err">= </span><span class="nc">benign</span>
+</code></pre></div>
+A healthcare company came up with a cancer test kit. Instead of reporting its accuracy, we should examine the recall first as the test kit should have minimum False Negatives because predicting a patient with cancer as benign yields a much higher cost than predicting a healthy patient to have cancer. You really do not want to miss any sick patients, you will see later on how we can tune the decision threshold of a classifier to achieve a higher recall at the expense of lowering precision.  </p>
+</div>
+<h3 id="when-to-use-recall">When to use Recall?</h3>
+<ul>
+<li>When your company needs you to <strong><em>restrict the number of False Negatives</em></strong>.</li>
+</ul>
+<h3 id="when-to-not-use-recall">When to NOT use Recall?</h3>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<ul>
+<li>If you have a recall score of 1, then this means that <span class="arithmatex">\(TP = TP + FN = 1 \implies FN = 0\)</span>; there are 0 False Negatives, but this does not tell us <strong>anything</strong> about the False Positives.</li>
+<li>When you prioritize precision more than recall for your business needs.</li>
+<li>You almost never ever use <code>recall</code> as a single metric.</li>
+</ul>
+</div>
+<h3 id="implementation-of-recall">Implementation of Recall</h3>
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+
+<span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">confusion_matrix_</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">reighns_recall</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;our recall: </span><span class="si">{</span><span class="n">reighns_recall</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">sklearn_recall</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sklearn recall: </span><span class="si">{</span><span class="n">sklearn_recall</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>our recall: 0.6
+sklearn recall: 0.6
+</code></pre></div>
+<h2 id="the-precision-recall-tradeoff">The Precision-Recall Tradeoff</h2>
+<p>Does this term reminisce with the Bias-Variance Tradeoff? More specifically, when we talk about precision and recall in the sections above, we are fixated at one <strong>decision threshold</strong> of our classifier. One should note that both metrics are parametrized by <span class="arithmatex">\(t\)</span>, the decision threshold. We can tune our threshold to achieve a better precision or recall, but usually not both, hence the tradeoff. </p>
+<hr />
+<p>We can read more from <a href="https://developers.google.com/machine-learning/crash-course/classification/precision-and-recall">Google's Machine Learning Crash Course on Precison and Recall</a>.</p>
+<h2 id="specificitytrue-negative-rate">Specificity/True Negative Rate</h2>
+<div class="admonition success">
+<p class="admonition-title">Definition</p>
+<div class="arithmatex">\[TNR = \dfrac{TN}{TN + FP} = P(\hat{Y} = 0| Y=0) = 1 - FPR\]</div>
+</div>
+<h2 id="false-positive-rate">False Positive Rate</h2>
+<div class="admonition success">
+<p class="admonition-title">Definition</p>
+<p>Out of all the real negative classes (negative ground truth), how many were predicted wrongly (predicted as positive from the model).</p>
+<div class="arithmatex">\[FPR = \dfrac{FP}{FP + TN}=1-TNR\]</div>
+</div>
+<h2 id="false-negative-rate">False Negative Rate</h2>
+<div class="admonition success">
+<p class="admonition-title">Definition</p>
+<div class="arithmatex">\[TNR = \dfrac{FN}{FN + TP} = 1 - TPR\]</div>
+</div>
+<h2 id="f1-score">F1-Score</h2>
+<h3 id="intuition">Intuition</h3>
+<p>Motivated by the examples above, where using single precision or recall do not tell us much about the whole story. We thus turn to a combination of the above metrics. Penalizes extreme values of precision and recall more than arithmetic mean<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<h3 id="definition_2">Definition</h3>
+<div class="admonition success">
+<p class="admonition-title">Definition</p>
+<p>The F1 score is the <b>harmonic mean</b> between Precision and Recall, bounded between 0 and 1. </p>
+<div class="arithmatex">\[F1 = \dfrac{2(\text{Precision} \times \text{Recall})}{\text{Precision} + \text{Recall}}\]</div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>TO CITE: For example, imagine that the blood protein levels in diseased people and healthy people are normally distributed with means of 2 g/dL and 1 g/dL respectively. A medical test might measure the level of a certain protein in a blood sample and classify any number above a certain threshold as indicating disease. The experimenter can adjust the threshold (black vertical line in the figure), which will in turn change the false positive rate. Increasing the threshold would result in fewer false positives (and more false negatives), corresponding to a leftward movement on the curve. The actual shape of the curve is determined by how much overlap the two distributions have.</p>
+</div>
+<h2 id="multiclass-classification">Multiclass Classification</h2>
+<p>We can extend the binary classification metrics to a multiclass classification setting. Initially, it is not entirely clear how we should handle precision, recall and f1-score because metrics like False Negatives are not well defined - we simply do not know who is the "positive" and "negative" class here. It turns out that this is not a problem if we use the One-vs-Rest scheme.</p>
+<p>We introduce two ways to do so, which is either using micro-averaging, or macro-averaging. Before we go deeper, we first need to understand the notion of One-vs-Rest.</p>
+<p>Consider a multiclass problem with 3 labels:<br />
+<div class="highlight"><pre><span></span><code><span class="c1"># Our dataset is as follows</span>
+<span class="n">label_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;benign&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">,</span> <span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Turn them into numbers in the label_dict</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">y_true</span><span class="p">])</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">])</span>
+</code></pre></div>
+We can calculate the metrics (precision etc) for each label indepedently. What we mean here is that we treat an n-class problem as n-binary classification problem, such as the following:</p>
+<div class="admonition example">
+<p class="admonition-title">Benign as Positive Class</p>
+<p>If we take benign as positive class, which is represented as 1, and both borderline and malignant as the negative class 0, then logically (even without the fancy term label binarize), we can just simply replace as follows:
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+where we just replace all 0 (initially benign) to 1, and all 1 and 2 (initially borderline and malignant) to 0 (may be confusing at first).</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Borderline as Positive Class</p>
+<p>If we take borderline as positive class, which is represented as 1, and both benign and malignant as the negative class 0, then logically (even without the fancy term label binarize), we can just simply replace as follows:
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+where we just replace all 1 (initially borderline) to 1, and all 0 and 2 (initially benign and malignant) to 0.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Malignant as Positive Class</p>
+<p>If we take malignant as positive class, which is represented as 2, and both benign and borderline as the negative class 0, then logically (even without the fancy term label binarize), we can just simply replace as follows:
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+where we just replace all 2 (initially malignant) to 1, and all 0 and 1 (initially benign and borderline) to 0.</p>
+</div>
+<hr />
+<p>In this case, we have 3 different confusion matrices, one for each class (diagram). In the example above, we did not mention a crucial technique, which is called label binarizer<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup>. We will introduce it in code below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Our dataset is as follows</span>
+<span class="n">label_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;benign&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">,</span> <span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Turn them into numbers in the label_dict</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">y_true</span><span class="p">])</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">])</span>
+</code></pre></div>
+<h3 id="label-binarize">Label Binarize</h3>
+<p>What we have just done in the previous example is that we binarized both <code>y_true</code> and <code>y_pred</code>. The process of treating each class <span class="arithmatex">\(C_i\)</span> as an independent class and then applying the "replacement" technique is called label binarizing. </p>
+<figure>
+    <img src='https://storage.googleapis.com/reighns/reighns_ml_projects/docs/metrics/classification_metrics/label_binarize.png'/>
+    <figcaption>Label Binarizing, by Hongnan G.</figcaption>
+</figure>
+
+<details class="note" open="open">
+<summary>Steps to label binarize</summary>
+<ol>
+<li>For each label (0, 1 and 2 here), we call <code>np.where</code> such that whenever the y array has this label, we replace it with 1 (positive class), and 0 otherwise (negative class).
+<div class="highlight"><pre><span></span><code><span class="n">binarized_cols</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">:</span>
+    <span class="n">binarize_col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_true</span> <span class="o">==</span> <span class="n">label</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">binarized_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">binarize_col</span><span class="p">)</span>
+</code></pre></div></li>
+<li>Conventially, we stack them column wise as follows: 
+<div class="highlight"><pre><span></span><code><span class="n">binarized_cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">binarized_cols</span><span class="p">)</span>
+<span class="n">binarized_cols</span> <span class="o">=</span> <span class="n">binarized_cols</span><span class="o">.</span><span class="n">T</span>
+</code></pre></div></li>
+</ol>
+</details>
+<p>Let us look at the binarized array for <code>y_true</code>, notice that the first column <code>[1,0,0,1,0,0]</code> corresponds exactly to the example above when we treat benign as positive class (we can verify the same for the rest).</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</code></pre></div>
+We note that it is commom practice to label binarize the y values first before passing in for metric calculation.</p>
+<p><strong>Setup:</strong></p>
+<ul>
+<li><code>classes</code>: <code>[0, 1, 2]</code></li>
+<li><code>y_true</code>: <code>([0, 1, 2, 0, 1, 2])</code></li>
+<li><code>label_binarized_y</code>: </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</code></pre></div>
+<p>First way:</p>
+<div class="highlight"><pre><span></span><code><span class="n">binarized_cols</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># this is a column wise operation but should eventually show &quot;transposed&quot;</span>
+<span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">:</span>
+    <span class="c1"># in the first loop, label = 0, so replace all instance of 0 in y_true with pos class 1 and others 0 </span>
+    <span class="n">binarize_col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_true</span> <span class="o">==</span> <span class="n">label</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">binarized_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">binarize_col</span><span class="p">)</span>
+
+<span class="n">label_binarized_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">binarized_cols</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[1 0 0 1 0 0]
+[0 1 0 0 1 0]
+[0 0 1 0 0 1]
+</code></pre></div>
+<p>Second way: </p>
+<ul>
+<li>Initialize <code>label_binarized_y</code> with shape <code>(len(y_true), len(classes))</code>. That is, if <code>y_true</code> is of length 6 elements, and we have 3 classes, then it is <strong>necessary</strong> that after binarizing (one-hot), we must have <span class="arithmatex">\((6, 3)\)</span> shape.</li>
+<li>loop through <code>y_true</code> with <code>enumerate</code>:<ul>
+<li>if we encounter <code>y_true = 0</code>, then we should have <code>[1, 0, 0]</code>, since we initialized our <code>label_binarized_y</code> as all zeros, then <code>label_binarized_y[y_index]</code> is just <code>[0, 0, 0]</code>, we want to assign the 0-th index (coincides with the class index by the way) as 1, so we do <code>label_binarized_y[y_index][int(each_y_true_element)] = 1</code>.</li>
+<li>if we encounter <code>y_true = 1</code>, then we should have <code>[0, 1, 0]</code>, since we initialized our <code>label_binarized_y</code> as all zeros, then <code>label_binarized_y[y_index]</code> is just <code>[0, 0, 0]</code>, we want to assign the 1-st index (coincides with the class index by the way) as 1, so we do <code>label_binarized_y[y_index][int(each_y_true_element)] = 1</code>.</li>
+<li>if we encounter <code>y_true = 2</code>, then we should have <code>[0, 0, 1]</code>, since we initialized our <code>label_binarized_y</code> as all zeros, then <code>label_binarized_y[y_index]</code> is just <code>[0, 0, 0]</code>, we want to assign the 2-nd index (coincides with the class index by the way) as 1, so we do <code>label_binarized_y[y_index][int(each_y_true_element)] = 1</code>.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">label_binarized_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)))</span>
+<span class="c1"># this is a column wise operation but should eventually show &quot;transposed&quot;</span>
+<span class="k">for</span> <span class="n">y_index</span><span class="p">,</span> <span class="n">each_y_true_element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_true</span><span class="p">):</span>
+     <span class="n">label_binarized_y</span><span class="p">[</span><span class="n">y_index</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">each_y_true_element</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div>
+<h3 id="macro-averaging">Macro-Averaging</h3>
+<p>Back to where we ended off, we have 3 confusion matrices, we filled up each cell manually by inspection over which is considered TP, FP, FN or TN. Well, the good news is, with label binarizing done, we can just use our good ol' <code>confusion_matrix_</code> function done earlier to calculate them for us!</p>
+<p>We encode the second method, the bad thing about this method is it has less flexibility than the first, if we wish to define "custom" positive label then we need to make more changes. For example, if positive label is defined to be 3, then this function can no longer take advantage that the class labels will always be in the form of <code>[0, 1, 2, ...]</code> where we easily index them.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># def multiclass_label_binarize(</span>
+<span class="c1">#     y: np.ndarray, class_labels: List[int], pos_label=1, neg_label=0</span>
+<span class="c1"># ):</span>
+<span class="c1">#     &quot;&quot;&quot;Binarize labels in one-vs-all fashion.</span>
+
+<span class="c1">#     Args:</span>
+<span class="c1">#         y (np.ndarray) Sequence of integer labels to encode</span>
+<span class="c1">#         class_labels (array-like) Labels for each class</span>
+<span class="c1">#         pos_label (int) Value for positive labels</span>
+<span class="c1">#         neg_label (int) Value for negative labels</span>
+<span class="c1">#     Returns:</span>
+<span class="c1">#         np.ndarray of shape (n_samples, n_classes) Encoded dataset</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     if isinstance(y, list):</span>
+<span class="c1">#         y = np.asarray(y)</span>
+
+<span class="c1">#     columns = [</span>
+<span class="c1">#         np.where(y == label, pos_label, neg_label) for label in class_labels</span>
+<span class="c1">#     ]</span>
+<span class="c1">#     label_binarized_y = np.vstack(columns).T</span>
+<span class="c1">#     return label_binarized_y</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">multiclass_label_binarize</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">class_labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Binarize labels in one-vs-all fashion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y (np.ndarray) Sequence of integer labels to encode</span>
+<span class="sd">        class_labels (array-like) Labels for each class, must start from 0 and be in order.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray of shape (n_samples, n_classes) Encoded dataset</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; y_true = np.array([0, 1, 2, 0, 1, 2])</span>
+<span class="sd">        &gt;&gt;&gt; class_labels = [0, 1, 2]</span>
+<span class="sd">        &gt;&gt;&gt; y_true_binarized = multiclass_label_binarize(y_true, class_labels)</span>
+<span class="sd">        &gt;&gt;&gt; from sklearn.preprocessing import label_binarize</span>
+<span class="sd">        &gt;&gt;&gt; assert label_binarize(y_true, classes = classes) == y_true_binarized</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">label_binarized_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">class_labels</span><span class="p">)))</span>
+    <span class="c1"># this is a column wise operation but should eventually show &quot;transposed&quot;</span>
+    <span class="k">for</span> <span class="n">y_index</span><span class="p">,</span> <span class="n">each_y_element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="n">label_binarized_y</span><span class="p">[</span><span class="n">y_index</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">each_y_element</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">label_binarized_y</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Binarize the labels</span>
+<span class="n">y_true_binarized</span> <span class="o">=</span> <span class="n">multiclass_label_binarize</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+<span class="n">y_pred_binarized</span> <span class="o">=</span> <span class="n">multiclass_label_binarize</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">label_binarize</span>
+
+<span class="n">label_binarize</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">classes</span><span class="p">)</span> <span class="o">==</span> <span class="n">y_true_binarized</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>array([[ True,  True,  True],
+       [ True,  True,  True],
+       [ True,  True,  True],
+       [ True,  True,  True],
+       [ True,  True,  True],
+       [ True,  True,  True]])
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">tp_c1</span><span class="p">,</span> <span class="n">fp_c1</span><span class="p">,</span> <span class="n">fn_c1</span><span class="p">,</span> <span class="n">tn_c1</span> <span class="o">=</span> \
+    <span class="n">confusion_matrix_</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">tp_c2</span><span class="p">,</span> <span class="n">fp_c2</span><span class="p">,</span> <span class="n">fn_c2</span><span class="p">,</span> <span class="n">tn_c2</span> <span class="o">=</span> \
+    <span class="n">confusion_matrix_</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">tp_c3</span><span class="p">,</span> <span class="n">fp_c3</span><span class="p">,</span> <span class="n">fn_c3</span><span class="p">,</span> <span class="n">tn_c3</span> <span class="o">=</span> \
+    <span class="n">confusion_matrix_</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">plot_confusion_matrix</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Confusion Matrix (Benign as +)&quot;</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">tick_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;not benign&quot;</span><span class="p">,</span> <span class="s2">&quot;benign&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Confusion Matrix (Borderline as +)&quot;</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">tick_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;not borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Confusion Matrix (Malignant as +)&quot;</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">tick_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;not malignant&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../precision_recall_f1_files/precision_recall_f1_38_0.png" /></p>
+<p><img alt="png" src="../precision_recall_f1_files/precision_recall_f1_38_1.png" /></p>
+<p><img alt="png" src="../precision_recall_f1_files/precision_recall_f1_38_2.png" /></p>
+<p>Then Macro-Average is calculated for each confusion matrix, and then averaged over the total number of classes.</p>
+<div class="arithmatex">\[\text{Macro-Average Precision} = \frac{1}{\text{num_class}}\sum_{i=1}^{\text{num_class}}P_{i}\]</div>
+<p>where <span class="arithmatex">\(P_i\)</span> is the precision score for each individual confusion matrix for each class. This can be extended for recall and f1 etc.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Macro-Average</span>
+<span class="n">precision_c1</span> <span class="o">=</span> <span class="n">tp_c1</span> <span class="o">/</span> <span class="p">(</span>
+    <span class="n">tp_c1</span> <span class="o">+</span> <span class="n">fp_c1</span>
+<span class="p">)</span>  <span class="c1"># precision for confusion matrix 1 where benign is +</span>
+<span class="n">precision_c2</span> <span class="o">=</span> <span class="n">tp_c2</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp_c2</span> <span class="o">+</span> <span class="n">fp_c2</span><span class="p">)</span>
+<span class="n">precision_c3</span> <span class="o">=</span> <span class="n">tp_c3</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp_c3</span> <span class="o">+</span> <span class="n">fp_c3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">precision_c1</span><span class="p">,</span> <span class="n">precision_c2</span><span class="p">,</span> <span class="n">precision_c3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Macro-Averaged Precision: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">precision_c1</span><span class="p">,</span> <span class="n">precision_c2</span><span class="p">,</span> <span class="n">precision_c3</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>0.6666666666666666 0.0 0.0
+Macro-Averaged Precision: 0.2222222222222222
+</code></pre></div>
+<h3 id="micro-averaging">Micro-Averaging</h3>
+<p>Similar to Micro-Averaging, we still have 3 confusion matrices, but we first aggregate all the 3 confusion matrices into one single confusion matrices.</p>
+<div class="arithmatex">\[TP_{\text{agg}}=\frac{1}{\text{num_class}}\sum_{i=1}^{\text{num_class}}TP_{i}\]</div>
+<div class="arithmatex">\[FP_{\text{agg}}=\frac{1}{\text{num_class}}\sum_{i=1}^{\text{num_class}}FP_{i}\]</div>
+<div class="arithmatex">\[FN_{\text{agg}}=\frac{1}{\text{num_class}}\sum_{i=1}^{\text{num_class}}FN_{i}\]</div>
+<div class="arithmatex">\[TN_{\text{agg}}=\frac{1}{\text{num_class}}\sum_{i=1}^{\text{num_class}}TN_{i}\]</div>
+<p>And then once we get the aggregated metrics, we can apply the normal calculation to it.</p>
+<div class="arithmatex">\[\text{Precision} = \frac{TP_{\text{agg}}}{TP_{\text{agg}} + FP_{\text{agg}}}\]</div>
+<div class="highlight"><pre><span></span><code><span class="n">tp_c1</span><span class="p">,</span> <span class="n">fp_c1</span><span class="p">,</span> <span class="n">fn_c1</span><span class="p">,</span> <span class="n">tn_c1</span> <span class="o">=</span> \
+    <span class="n">confusion_matrix_</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">tp_c2</span><span class="p">,</span> <span class="n">fp_c2</span><span class="p">,</span> <span class="n">fn_c2</span><span class="p">,</span> <span class="n">tn_c2</span> <span class="o">=</span> \
+    <span class="n">confusion_matrix_</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="n">tp_c3</span><span class="p">,</span> <span class="n">fp_c3</span><span class="p">,</span> <span class="n">fn_c3</span><span class="p">,</span> <span class="n">tn_c3</span> <span class="o">=</span> \
+    <span class="n">confusion_matrix_</span><span class="p">(</span>
+    <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Aggregation</span>
+<span class="n">tp_agg</span> <span class="o">=</span> <span class="p">(</span><span class="n">tp_c1</span> <span class="o">+</span> <span class="n">tp_c2</span> <span class="o">+</span> <span class="n">tp_c3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="n">fp_agg</span> <span class="o">=</span> <span class="p">(</span><span class="n">fp_c1</span> <span class="o">+</span> <span class="n">fp_c2</span> <span class="o">+</span> <span class="n">fp_c3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="n">fn_agg</span> <span class="o">=</span> <span class="p">(</span><span class="n">fn_c1</span> <span class="o">+</span> <span class="n">fn_c2</span> <span class="o">+</span> <span class="n">fn_c3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+<span class="n">tn_agg</span> <span class="o">=</span> <span class="p">(</span><span class="n">tn_c1</span> <span class="o">+</span> <span class="n">tn_c2</span> <span class="o">+</span> <span class="n">tn_c3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+
+<span class="c1"># Calculate precision using Micro-Averaging</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Micro-Averaged Precision: </span><span class="si">{</span><span class="n">tp_agg</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp_agg</span> <span class="o">+</span> <span class="n">fp_agg</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Micro-Averaged Precision: 0.3333333333333333
+</code></pre></div>
+<h3 id="micro-vs-macro">Micro vs Macro</h3>
+<p>The following content is taken from DataScienceExchange<sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>Micro- and macro-averages (for whatever metric) will compute slightly different things, and thus their interpretation differs. A macro-average will compute the metric independently for each class and then take the average (hence treating all classes equally), whereas a micro-average will aggregate the contributions of all classes to compute the average metric. In a multi-class classification setup, micro-average is preferable if you suspect there might be class imbalance (i.e you may have many more examples of one class than of other classes). </p>
+<p>To illustrate why, take for example precision <span class="arithmatex">\(Pr=\frac{TP}{(TP+FP)}\)</span>. Let's imagine you have a <em>One-vs-All</em> (there is only one correct class output per example) multi-class classification system with four classes and the following numbers when tested:</p>
+<ul>
+<li>Class A: 1 TP and 1 FP</li>
+<li>Class B: 10 TP and 90 FP</li>
+<li>Class C: 1 TP and 1 FP</li>
+<li>Class D: 1 TP and 1 FP</li>
+</ul>
+<p>You can see easily that <span class="arithmatex">\(Pr_A = Pr_C = Pr_D = 0.5\)</span>, whereas <span class="arithmatex">\(Pr_B=0.1\)</span>.</p>
+<ul>
+<li>A macro-average will then compute: <span class="arithmatex">\(Pr=\frac{0.5+0.1+0.5+0.5}{4}=0.4\)</span></li>
+<li>A micro-average will compute: <span class="arithmatex">\(Pr=\frac{1+10+1+1}{2+100+2+2}=0.123\)</span></li>
+</ul>
+<p>These are quite different values for precision. Intuitively, in the macro-average the "good" precision (0.5) of classes A, C and D is contributing to maintain a "decent" overall precision (0.4). While this is technically true (across classes, the average precision is 0.4), it is a bit misleading, since a large number of examples are not properly classified. These examples predominantly correspond to class B, so they only contribute 1/4 towards the average in spite of constituting 94.3% of your test data. The micro-average will adequately capture this class imbalance, and bring the overall precision average down to 0.123 (more in line with the precision of the dominating class B (0.1)).</p>
+<p>For computational reasons, it may sometimes be more convenient to compute class averages and then macro-average them. If class imbalance is known to be an issue, there are several ways around it. One is to report not only the macro-average, but also its standard deviation (for 3 or more classes). Another is to compute a weighted macro-average, in which each class contribution to the average is weighted by the relative number of examples available for it. In the above scenario, we obtain:</p>
+<p><span class="arithmatex">\(Pr_{macro-mean}={0.25·0.5+0.25·0.1+0.25·0.5+0.25·0.5}=0.4\)</span>
+<span class="arithmatex">\(Pr_{macro-stdev}=0.173\)</span></p>
+<p><span class="arithmatex">\(Pr_{macro-weighted}={0.0189·0.5+0.943·0.1+0.0189·0.5+0.0189·0.5}={0.009+0.094+0.009+0.009}=0.123\)</span></p>
+<p>The large standard deviation (0.173) already tells us that the 0.4 average does not stem from a uniform precision among classes, but it might be just easier to compute the weighted macro-average, which in essence is another way of computing the micro-average.</p>
+<h3 id="building-our-own-classification-report">Building our own Classification Report</h3>
+<p>Just like scikit-learn's <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html#sklearn.metrics.classification_report">classification report</a>, we can build our own and test if it correct.</p>
+<p>The code is made easy to follow such that you can detail each step in details if you do not understand how micro or macro is calculated.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">classification_report_</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">class_labels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+    <span class="n">display_labels</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Classification report that reports precision, recall and f1-score.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (np.ndarray): Ground truth (correct) target values.</span>
+<span class="sd">        y_pred (np.ndarray): Predicted target values.</span>
+<span class="sd">        class_labels (List[int]): List of class labels.</span>
+<span class="sd">        display_labels: List of display labels.</span>
+<span class="sd">                        (if None, class_labels is used).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        confusion_matrices (List[np.ndarray]): List of confusion matrices.</span>
+<span class="sd">        tp_fp_fn_tn (Dict[str, float]): List of true positive, false positive,</span>
+<span class="sd">                                        true negative and false negative</span>
+<span class="sd">                                        values.</span>
+<span class="sd">        metrics Dict[str, float]: List of precision, recall and f1-score</span>
+<span class="sd">                                    values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">display_labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># assign display labels to default labels if none is passed in.</span>
+        <span class="n">display_labels</span> <span class="o">=</span> <span class="n">class_labels</span>  
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="n">y_true_binarized</span> <span class="o">=</span> <span class="n">multiclass_label_binarize</span><span class="p">(</span>
+        <span class="n">y_true</span><span class="p">,</span> <span class="n">class_labels</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">neg_label</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="n">y_pred_binarized</span> <span class="o">=</span> <span class="n">multiclass_label_binarize</span><span class="p">(</span>
+        <span class="n">y_pred</span><span class="p">,</span> <span class="n">class_labels</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">neg_label</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+
+    <span class="n">confusion_matrices</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">tp_fp_fn_tn</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">class_labels</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">index</span> <span class="o">==</span> <span class="n">label</span>
+        <span class="p">),</span> <span class="s2">&quot;Index should coincide with label,</span><span class="se">\</span>
+<span class="s2">            if not, please check how your classes are labelled.&quot;</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix_</span><span class="p">(</span>
+            <span class="n">y_true_binarized</span><span class="p">[:,</span> <span class="n">index</span><span class="p">],</span> <span class="n">y_pred_binarized</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">confusion_matrices</span><span class="p">[</span><span class="n">display_labels</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cm</span>
+        <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+        <span class="n">precision</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>
+        <span class="n">recall</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">precision</span> <span class="o">*</span> <span class="n">recall</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">tp_fp_fn_tn</span><span class="p">[</span><span class="n">display_labels</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">precision</span><span class="p">,</span>
+            <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">recall</span><span class="p">,</span>
+            <span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="n">f1</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">calculate_micro_avg</span><span class="p">(</span><span class="n">confusion_matrices</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate micro average for precision, recall and f1-score.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            confusion_matrices ([type]): Pass in from local scope.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, float]: Dictionary of micro average values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tp_agg</span><span class="p">,</span> <span class="n">fp_agg</span><span class="p">,</span> <span class="n">fn_agg</span><span class="p">,</span> <span class="n">tn_agg</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="n">micro_metrics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">total_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">cm</span> <span class="ow">in</span> <span class="n">confusion_matrices</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+            <span class="n">tp_agg</span> <span class="o">+=</span> <span class="n">tp</span>
+            <span class="n">fp_agg</span> <span class="o">+=</span> <span class="n">fp</span>
+            <span class="n">fn_agg</span> <span class="o">+=</span> <span class="n">fn</span>
+            <span class="n">tn_agg</span> <span class="o">+=</span> <span class="n">tn</span>
+            <span class="n">total_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">assert</span> <span class="n">total_count</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">class_labels</span>
+        <span class="p">),</span> <span class="s2">&quot;Denominator total_count should equal number of class labels.&quot;</span>
+
+        <span class="n">tp_agg</span><span class="p">,</span> <span class="n">fp_agg</span><span class="p">,</span> <span class="n">fn_agg</span><span class="p">,</span> <span class="n">tn_agg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">tp_agg</span><span class="p">,</span> <span class="n">fp_agg</span><span class="p">,</span> <span class="n">fn_agg</span><span class="p">,</span> <span class="n">tn_agg</span><span class="p">])</span> <span class="o">/</span> <span class="n">total_count</span>
+        <span class="p">)</span>  <span class="c1"># aggregation is performed here using numpy broadcasting</span>
+
+        <span class="n">micro_precision</span> <span class="o">=</span> <span class="n">tp_agg</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp_agg</span> <span class="o">+</span> <span class="n">fp_agg</span><span class="p">)</span>
+        <span class="n">micro_recall</span> <span class="o">=</span> <span class="n">tp_agg</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp_agg</span> <span class="o">+</span> <span class="n">fn_agg</span><span class="p">)</span>
+        <span class="n">micro_f1</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">2</span>
+            <span class="o">*</span> <span class="p">(</span><span class="n">micro_precision</span> <span class="o">*</span> <span class="n">micro_recall</span><span class="p">)</span>
+            <span class="o">/</span> <span class="p">(</span><span class="n">micro_precision</span> <span class="o">+</span> <span class="n">micro_recall</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">micro_precision</span> <span class="o">+</span> <span class="n">micro_recall</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;micro_precision&quot;</span><span class="p">:</span> <span class="n">micro_precision</span><span class="p">,</span>
+            <span class="s2">&quot;micro_recall&quot;</span><span class="p">:</span> <span class="n">micro_recall</span><span class="p">,</span>
+            <span class="s2">&quot;micro_f1&quot;</span><span class="p">:</span> <span class="n">micro_f1</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;micro_scores&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_micro_avg</span><span class="p">(</span><span class="n">confusion_matrices</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">calculate_macro_avg</span><span class="p">(</span><span class="n">confusion_matrices</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Calculate macro average for precision, recall and f1-score.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            confusion_matrices ([type]): Pass in from local scope.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, float]: Dictionary of macro average values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">macro_precision</span><span class="p">,</span> <span class="n">macro_recall</span><span class="p">,</span> <span class="n">macro_f1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">cm</span> <span class="ow">in</span> <span class="n">confusion_matrices</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">tp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tn</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+            <span class="n">precision</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>
+            <span class="n">recall</span> <span class="o">=</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">precision</span> <span class="o">*</span> <span class="n">recall</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+                <span class="k">else</span> <span class="mi">0</span>
+            <span class="p">)</span>
+            <span class="n">macro_precision</span> <span class="o">+=</span> <span class="n">precision</span>
+            <span class="n">macro_recall</span> <span class="o">+=</span> <span class="n">recall</span>
+            <span class="n">macro_f1</span> <span class="o">+=</span> <span class="n">f1</span>
+
+        <span class="n">macro_precision</span> <span class="o">=</span> <span class="n">macro_precision</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">class_labels</span><span class="p">)</span>
+        <span class="n">macro_recall</span> <span class="o">=</span> <span class="n">macro_recall</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">class_labels</span><span class="p">)</span>
+        <span class="n">macro_f1</span> <span class="o">=</span> <span class="n">macro_f1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">class_labels</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;macro_precision&quot;</span><span class="p">:</span> <span class="n">macro_precision</span><span class="p">,</span>
+            <span class="s2">&quot;macro_recall&quot;</span><span class="p">:</span> <span class="n">macro_recall</span><span class="p">,</span>
+            <span class="s2">&quot;macro_f1&quot;</span><span class="p">:</span> <span class="n">macro_f1</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;macro_scores&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_macro_avg</span><span class="p">(</span><span class="n">confusion_matrices</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">confusion_matrices</span><span class="p">,</span> <span class="n">tp_fp_fn_tn</span><span class="p">,</span> <span class="n">metrics</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">confusion_matrices</span><span class="p">,</span> <span class="n">tp_fp_fn_tn</span><span class="p">,</span> <span class="n">metrics_report</span> <span class="o">=</span> <span class="n">classification_report_</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">,</span>
+    <span class="n">class_labels</span><span class="o">=</span><span class="n">classes</span><span class="p">,</span>
+    <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">sklearn_classification_report</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">classification_report</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">,</span>
+    <span class="n">y_pred</span><span class="p">,</span>
+    <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">classes</span><span class="p">,</span>
+    <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="s2">&quot;borderline&quot;</span><span class="p">,</span> <span class="s2">&quot;malignant&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Our own classification report: </span><span class="si">{</span><span class="n">metrics_report</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scikit-learn&#39;s classification report: </span><span class="si">{</span><span class="n">sklearn_classification_report</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Our own classification report: {&#39;micro_scores&#39;: {&#39;micro_precision&#39;: 0.3333333333333333, &#39;micro_recall&#39;: 0.3333333333333333, &#39;micro_f1&#39;: 0.3333333333333333}, &#39;macro_scores&#39;: {&#39;macro_precision&#39;: 0.2222222222222222, &#39;macro_recall&#39;: 0.3333333333333333, &#39;macro_f1&#39;: 0.26666666666666666}}
+scikit-learn&#39;s classification report: {&#39;benign&#39;: {&#39;precision&#39;: 0.6666666666666666, &#39;recall&#39;: 1.0, &#39;f1-score&#39;: 0.8, &#39;support&#39;: 2}, &#39;borderline&#39;: {&#39;precision&#39;: 0.0, &#39;recall&#39;: 0.0, &#39;f1-score&#39;: 0.0, &#39;support&#39;: 2}, &#39;malignant&#39;: {&#39;precision&#39;: 0.0, &#39;recall&#39;: 0.0, &#39;f1-score&#39;: 0.0, &#39;support&#39;: 2}, &#39;accuracy&#39;: 0.3333333333333333, &#39;macro avg&#39;: {&#39;precision&#39;: 0.2222222222222222, &#39;recall&#39;: 0.3333333333333333, &#39;f1-score&#39;: 0.26666666666666666, &#39;support&#39;: 6}, &#39;weighted avg&#39;: {&#39;precision&#39;: 0.2222222222222222, &#39;recall&#39;: 0.3333333333333333, &#39;f1-score&#39;: 0.26666666666666666, &#39;support&#39;: 6}}
+</code></pre></div>
+<p>We have successfully coded out classification report to behave the same way as scikit-learn's one.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelBinarizer.html&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../confusion_matrix/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Confusion Matrix" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Confusion Matrix
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../roc_pr_curve/" class="md-footer__link md-footer__link--next" aria-label="Next: ROC and PR Curves" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              ROC and PR Curves
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.annotate"], "search": "../../../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

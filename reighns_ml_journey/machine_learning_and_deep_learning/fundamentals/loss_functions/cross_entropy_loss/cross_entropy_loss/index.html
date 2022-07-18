@@ -1,0 +1,2938 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://reighns92.github.io/reighns-ml-blog/reighns_ml_journey/machine_learning_and_deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss/">
+      
+      <link rel="icon" href="../../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>Cross entropy loss - Hongnan G. Machine Learning Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cross-entropy-as-a-loss-function" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../../.." title="Hongnan G. Machine Learning Blog" class="md-header__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan G. Machine Learning Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cross entropy loss
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../../.." title="Hongnan G. Machine Learning Blog" class="md-nav__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Hongnan G. Machine Learning Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../articles.md" class="md-nav__link">
+        How to write articles
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Software Engineering Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Engineering Practices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Software Engineering Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../software_engineering/workflow/" class="md-nav__link">
+        Workflow
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../software_engineering/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../software_engineering/code_design/" class="md-nav__link">
+        Code Design
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../software_engineering/gcp/" class="md-nav__link">
+        GCP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../software_engineering/github_actions_test_packages_compatibility/" class="md-nav__link">
+        Test Packages Compatibility
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/gradient_descent/" class="md-nav__link">
+        Gradient Descent
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Mathematics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/general_mathematical_terms_and_definitions/" class="md-nav__link">
+        General Mathematic Terms and Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Linear Algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_1" type="checkbox" id="__nav_6_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_1">
+          Preliminaries
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preliminaries" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Preliminaries
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/01_preliminaries/lines_and_planes/" class="md-nav__link">
+        Lines and Planes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/01_preliminaries/fields/" class="md-nav__link">
+        Fields
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2" type="checkbox" id="__nav_6_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2">
+          Vectors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vectors" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vectors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors/" class="md-nav__link">
+        Vector Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2_2" type="checkbox" id="__nav_6_2_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2_2">
+          Vector Products
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Products" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Products
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_linear_combination/" class="md-nav__link">
+        Linear Combination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_dot_product/" class="md-nav__link">
+        Dot Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_outer_product/" class="md-nav__link">
+        Outer Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_unit_vector/" class="md-nav__link">
+        Unit Vector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_exercises/" class="md-nav__link">
+        Exercises
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_3" type="checkbox" id="__nav_6_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_3">
+          Vector Spaces
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Spaces" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Spaces
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_subspaces/" class="md-nav__link">
+        Vector Space and Subspaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_span/" class="md-nav__link">
+        Vector Span
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_linear_independence/" class="md-nav__link">
+        Linear Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_basis_dimension/" class="md-nav__link">
+        Basis and Dimension
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_4" type="checkbox" id="__nav_6_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_4">
+          Matrix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix/" class="md-nav__link">
+        Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_basic_matrix_types/" class="md-nav__link">
+        Basic Matrix Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_basic_operations/" class="md-nav__link">
+        Basic Matrix Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_multiplication/" class="md-nav__link">
+        Matrix Multiplication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_5" type="checkbox" id="__nav_6_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_5">
+          Matrix Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix Theory" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.01_linear_algebra_systems_of_linear_equations/" class="md-nav__link">
+        System of Linear Equations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.02_linear_algebra_row_reduction_preserves_rank/" class="md-nav__link">
+        Row Reduction Preserves Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.03_linear_algebra_matrix_theory_matrix_spaces_row_space/" class="md-nav__link">
+        Row Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.04_linear_algebra_matrix_theory_matrix_spaces_column_space/" class="md-nav__link">
+        Column Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.05_linear_algebra_matrix_theory_matrix_spaces_right_nullspace/" class="md-nav__link">
+        Right Nullspace (Kernel)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.06_linear_algebra_matrix_theory_matrix_spaces_left_nullspace/" class="md-nav__link">
+        Left Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.07_linear_algebra_matrix_theory_matrix_rank/" class="md-nav__link">
+        Matrix Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.08_linear_algebra_matrix_theory_matrix_spaces_summary/" class="md-nav__link">
+        The Four Fundamental Subspaces (Summary)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_6" type="checkbox" id="__nav_6_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_6">
+          Linear Transformation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Transformation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Transformation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/06_linear_transformation/06.01_linear_algebra_linear_transformations/" class="md-nav__link">
+        Linear Transformation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/06_linear_transformation/06.02_linear_algebra_linear_transformations_nullspace/" class="md-nav__link">
+        Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/06_linear_transformation/06.03_linear_algebra_linear_transformations_ranges/" class="md-nav__link">
+        Range
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/06_linear_transformation/06.04_linear_algebra_linear_transformations_homomorphism/" class="md-nav__link">
+        Homomorphism
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem/" class="md-nav__link">
+        Fundamental Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix/" class="md-nav__link">
+        Linear Transformation and Matrix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_7" type="checkbox" id="__nav_6_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_7">
+          Analytic Geometry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Analytic Geometry" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Analytic Geometry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.01_motivation/" class="md-nav__link">
+        Motivation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.02_norms/" class="md-nav__link">
+        Norms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.03_inner_products/" class="md-nav__link">
+        Inner Product Spaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.04_lengths_and_distances/" class="md-nav__link">
+        Lengths and Distances
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.05_angles_and_orthogonality/" class="md-nav__link">
+        Angles and Orthogoanlity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.06_orthogonal_subspaces/" class="md-nav__link">
+        Orthogonal Subspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.07_orthogonal_projections/" class="md-nav__link">
+        Orthogonal Projection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.08_orthogonal_matrices_and_basis/" class="md-nav__link">
+        Orthogonal Matrices and Basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/08_analytic_geometry/08.09_gram_schmidt_orthogonalization/" class="md-nav__link">
+        Gram-Schmidt Orthogonalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/linear_algebra/linear_algebra_interview_questions/" class="md-nav__link">
+        Interview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Probability and Statistics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Probability and Statistics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Probability and Statistics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/probability_statistics_theory/probability4datascience/" class="md-nav__link">
+        Introduction to Probability for Data Science (Stanley H. Chan)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Introduction to Probability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction to Probability" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction to Probability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.01_probability_space/" class="md-nav__link">
+        Probability Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.02_probability_axioms/" class="md-nav__link">
+        Probability Axioms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.03_conditional_probability/" class="md-nav__link">
+        Conditional Probability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.04_independence/" class="md-nav__link">
+        Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.05_bayes_theorem/" class="md-nav__link">
+        Bayes Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.06_summary/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Machine Learning and Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning and Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning and Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Metrics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Metrics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Metrics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_1" type="checkbox" id="__nav_7_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_1">
+          Classification
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Classification" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Classification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/classification_metrics/classification_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/classification_metrics/accuracy/" class="md-nav__link">
+        Accuracy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/classification_metrics/confusion_matrix/" class="md-nav__link">
+        Confusion Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/classification_metrics/precision_recall_f1/" class="md-nav__link">
+        Precision-Recall-F1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/classification_metrics/roc_pr_curve/" class="md-nav__link">
+        ROC and PR Curves
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/classification_metrics/cohens_kappa/" class="md-nav__link">
+        Cohen's Kappa
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_2" type="checkbox" id="__nav_7_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_2">
+          Regression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Regression" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Regression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/regression_metrics/regression_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/regression_metrics/mae_rmse/" class="md-nav__link">
+        MAE and MSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../metrics/regression_metrics/mape/" class="md-nav__link">
+        MAPE
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Computer Vision
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Computer Vision" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Computer Vision
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../computer_vision/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2" type="checkbox" id="__nav_7_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2">
+          Neural Network Interpretation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Neural Network Interpretation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Neural Network Interpretation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_1" type="checkbox" id="__nav_7_2_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_1">
+          Visualization of Feature Map Activations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization of Feature Map Activations" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of Feature Map Activations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation/" class="md-nav__link">
+        Feature Map Activations (Part I)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation_reduced/" class="md-nav__link">
+        Feature Map Activations (Part II)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../computer_vision/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md" class="md-nav__link">
+        Visualization of Convolutional Filters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../computer_vision/neural_network_interpretation/salient_map/Salient Map.md" class="md-nav__link">
+        Salient Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_4" type="checkbox" id="__nav_7_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_4">
+          Grad-CAM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Grad-CAM" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Grad-CAM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_explained/" class="md-nav__link">
+        Grad-CAM Explained
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_from_scratch/" class="md-nav__link">
+        Grad-CAM from Scratch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../computer_vision/image_normalization/Image_Normalization_and_Standardization/" class="md-nav__link">
+        Image Normalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Fundamental Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamental Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamental Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cross_entropy_loss_from_scratch/" class="md-nav__link">
+        Cross Entropy Loss
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Ensemble Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ensemble Theory" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ensemble Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ensemble_theory/forward_ensemble/" class="md-nav__link">
+        Forward Ensemble (Hill Climbing)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Data Structures and Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Structures and Algorithms" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Data Structures and Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../data_structures_and_algorithms/introduction.md" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../data_structures_and_algorithms/Linked%20List/" class="md-nav__link">
+        Linked Lists
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Machine Learning Projects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning Projects" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning Projects
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/RANZCR%20CLiP%20-%20Catheter%20and%20Line%20Position%20Challenge/notebooks/walkthrough/" class="md-nav__link">
+        RANZCR CLiP - Catheter and Line Position Challenge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/SIIM-ISIC%20Melanoma%20Classification/notebooks/walkthrough/" class="md-nav__link">
+        SIIM-ISIC Melanoma Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/LTA_road_cracks_detection/notebooks/walkthrough/" class="md-nav__link">
+        LTA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_4" type="checkbox" id="__nav_9_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_4">
+          Breast Cancer Wisconsin (Supervised Classification)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Breast Cancer Wisconsin (Supervised Classification)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_4">
+          <span class="md-nav__icon md-icon"></span>
+          Breast Cancer Wisconsin (Supervised Classification)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%200%20-%20Introduction%20and%20Problem%20Statement/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%201%20-%20Preliminary%20Data%20Inspection%20and%20Cleaning/" class="md-nav__link">
+        Preliminary Data Inspection and Cleaning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%202%20-%20Preliminary%20EDA/" class="md-nav__link">
+        EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%203%20-%20Feature%20Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%204%20-%20Modelling%20%28Metric%20to%20Optimize%29/" class="md-nav__link">
+        Modelling (Metrics)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%205%20-%20Modelling%20%28Cross-Validation%20Methodology%29/" class="md-nav__link">
+        Modelling (Cross-Validation Schema)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%206%20-%20Modelling%20%28Preprocessing%20and%20Spot%20Checking%29/" class="md-nav__link">
+        Modelling (Preprocessing and Spot Checking)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%207%20-%20Modelling%20%28Model%20Selection%20and%20Hyperparameter%20Tuning%29/" class="md-nav__link">
+        Modelling (Model Selection)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/breast_cancer_wisconsin/Stage%208%20-%20Modelling%20%28Model%20Evaluation%20and%20Interpretation%29/" class="md-nav__link">
+        Modelling (Model Evaluation)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cross-entropy-as-a-loss-function" class="md-nav__link">
+    Cross-Entropy as a Loss Function
+  </a>
+  
+    <nav class="md-nav" aria-label="Cross-Entropy as a Loss Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-entropy-on-one-example" class="md-nav__link">
+    Cross-Entropy on one Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categorical-cross-entropy-loss" class="md-nav__link">
+    Categorical Cross Entropy Loss
+  </a>
+  
+    <nav class="md-nav" aria-label="Categorical Cross Entropy Loss">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-dot-product-to-calculate" class="md-nav__link">
+    Using Dot Product to Calculate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>Cross entropy loss</h1>
+
+<div class="arithmatex">\[
+\newcommand{\ytrue}{\mathbf{y_{\textbf{true}}}}
+\newcommand{\yprob}{\mathbf{y_{\textbf{prob}}}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\x}{\mathbf{x}}
+\]</div>
+<h2 id="cross-entropy-as-a-loss-function">Cross-Entropy as a Loss Function</h2>
+<h3 id="intuition">Intuition</h3>
+<p>We need to make sense of entropy in the form of a loss function, we have to just enhance our thinking a little.</p>
+<p>We define our target to be a one-hot encoded vector of class 0 and 1.</p>
+<div class="highlight"><pre><span></span><code><span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+<p>Intuitively, take the cat vs dog binary classification again, we made 11 predictions for ONLY ONE query image using different model, and find that after going through many layers, the <strong>softmax</strong> predictions on the logits are as such:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>where the first index corresponds to the logits of class 0 and second index corresponds to the logits of class 1. </p>
+<p>For example, <code>[1, 0]</code> means the model is 100 percent confident the prediction is a class 0 (cat), and obviously we need to punish the model for spitting nonsense like this.</p>
+<p>As we can see in the <code>binary_cross_entropy</code> function below, we only need to add up two things. And note that we are hinging on class 1 and therefore <code>y_true[0] * log(y_pred[0]+eps)</code> goes to 0 as we are just relying on our feedback of probability of class 1.</p>
+<p>And in our graph, we can see that as predictions gets more wrong, meaning to say, if the query image is a dog, but our predictions is <code>[1, 0]</code>, which says it is a cat, our entropy loss will blow up to very high because </p>
+<div class="highlight"><pre><span></span><code><span class="n">y_true</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">almost</span> <span class="n">infinity</span>
+</code></pre></div>
+<p>Note again we do not calculate for class 0 because </p>
+<ol>
+<li>We one-hot encoded.</li>
+<li>We only look at class 1's probability and that's enough as we can deduce class 0's probability anyways.</li>
+</ol>
+<p>And conversely, note how the entropy loss goes to 0 if our prediction is say <code>[0, 1]</code>. In general, as our probability for the query image gets close to 1, or in agreement with our class, then our entropy loss becomes smaller.</p>
+<h3 id="cross-entropy-on-one-example">Cross-Entropy on one Example</h3>
+<p>We first understand the idea and intuition of <strong>Cross-Entropy Loss</strong> on one single example. Consider a dataset of cat (class 0) and dogs (class 1) where after one hot encoding we have class 0 to be <span class="arithmatex">\([1, 0]\)</span> and class 1 to be <span class="arithmatex">\([0, 1]\)</span>.</p>
+<p>We are given the following:</p>
+<ul>
+<li><span class="arithmatex">\(\mathcal{D}\)</span>: The dataset.</li>
+<li><span class="arithmatex">\(\mathbf{x}_q\)</span>: One single query image (i.e one image only). This can be a <strong>random variable</strong>.</li>
+<li><span class="arithmatex">\(\mathbf{y}_q\)</span>: The corresponding label - dog (class 1) which is <span class="arithmatex">\([0, 1]\)</span>. </li>
+<li><span class="arithmatex">\(P\)</span>: The probability distribution for the ground truth target - which is <span class="arithmatex">\([0, 1]\)</span>, one can understand it as the distribution where cat's probability is 0, and dog's probability is 1. </li>
+<li><span class="arithmatex">\(Q\)</span>: The probability distribtion of the estimate on the <span class="arithmatex">\(\mathbf{x}_q\)</span>, which is say, <span class="arithmatex">\([0.1, 0.9]\)</span>. </li>
+</ul>
+<p>Thus, we can compute the cross entropy loss of this single image by:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">__version__</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;1.10.1+cpu&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">torch_to_np</span><span class="p">(</span><span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Convert a PyTorch tensor to a numpy array.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tensor (torch.Tensor): The PyTorch tensor to convert.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: The converted numpy array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">tensor</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">compare_equality_two_tensors</span><span class="p">(</span>
+    <span class="n">tensor1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">tensor2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compare two PyTorch tensors for equality.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tensor1 (torch.Tensor): The first PyTorch tensor to compare.</span>
+<span class="sd">        tensor2 (torch.Tensor): The second PyTorch tensor to compare.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: Whether the two tensors are equal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">tensor1</span><span class="p">,</span> <span class="n">tensor2</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">compare_closeness_two_tensors</span><span class="p">(</span>
+    <span class="n">tensor1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">tensor2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compare two PyTorch tensors for closeness.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tensor1 (torch.Tensor): The first PyTorch tensor to compare.</span>
+<span class="sd">        tensor2 (torch.Tensor): The second PyTorch tensor to compare.</span>
+<span class="sd">        epsilon (float): The epsilon value to use for closeness.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: Whether the two tensors are close.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">tensor1</span><span class="p">,</span> <span class="n">tensor2</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">z_logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+
+<span class="n">y_true_ohe</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="n">compare_equality_two_tensors</span><span class="p">(</span><span class="n">y_true_ohe</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>True
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_softargmax</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute the softargmax of a PyTorch tensor.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        z (torch.Tensor): The PyTorch tensor to compute the softargmax of.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: The softargmax of the PyTorch tensor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># the output matrix should be the same size as the input matrix</span>
+    <span class="n">z_softargmax</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">z</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">row_index</span><span class="p">,</span> <span class="n">each_row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">each_row</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">element_index</span><span class="p">,</span> <span class="n">each_element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">each_row</span><span class="p">):</span>
+            <span class="n">z_softargmax</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="n">element_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">each_element</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominator</span>
+            <span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">compare_closeness_two_tensors</span><span class="p">(</span>
+        <span class="n">z_softargmax</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)(</span><span class="n">z</span><span class="p">),</span> <span class="mf">1e-15</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">z_softargmax</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">z_softargmax</span> <span class="o">=</span> <span class="n">compute_softargmax</span><span class="p">(</span><span class="n">z_logits</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()(</span><span class="n">z_logits</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor(1.2753)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">z_logits</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor([[1., 2., 3.],
+        [2., 4., 6.]])
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">z_softargmax</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor([[0.0900, 0.2447, 0.6652],
+        [0.0159, 0.1173, 0.8668]])
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">y_true_ohe</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor([[1, 0, 0],
+        [0, 0, 1]])
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">z_softargmax</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor([[2.4076, 4.1429],
+        [1.4076, 2.1429],
+        [0.4076, 0.1429]])
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">m</span> <span class="o">=</span> <span class="n">y_true_ohe</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">matmul</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">z_softargmax</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">m</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor([[2.4076, 4.1429],
+        [0.4076, 0.1429]])
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">torch</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor(2.5505)
+</code></pre></div>
+<h3 id="categorical-cross-entropy-loss">Categorical Cross Entropy Loss</h3>
+<p>We will start with this because the Binary Cross Entropy Loss is merely a special case of this. Finding the full compact formula for this took me a while since most tutorials cover the binary case.</p>
+<p>Given <span class="arithmatex">\(N\)</span> samples, and <span class="arithmatex">\(C\)</span> classes, the <strong>Categorical Cross Entropy Loss</strong> is the average loss across <span class="arithmatex">\(N\)</span> samples, given by:</p>
+<div class="arithmatex">\[\textbf{CE}(\ytrue, \yprob) = -\dfrac{1}{N}\sum_{i=1}^N\sum_{c=1}^C \mathbb{1}_{\y_{i} \in C_c} \log\left(p_{\textbf{model}}[\y_i \in C_c]\right)\]</div>
+<p>where</p>
+<ul>
+<li>The outer loop <span class="arithmatex">\(i\)</span> iterates over <span class="arithmatex">\(N\)</span> observations/samples.</li>
+<li>The inner loop <span class="arithmatex">\(c\)</span> iterates over <span class="arithmatex">\(C\)</span> classes.</li>
+<li><span class="arithmatex">\(\y_i\)</span> represents the true label (in this formula it should be one-hot encoded) of the <span class="arithmatex">\(i\)</span>-th sample.</li>
+<li><span class="arithmatex">\(\mathbb{1}_{y_{i} \in C_c}\)</span> is an indicator function, simply put, for sample <span class="arithmatex">\(i\)</span>, if the true label <span class="arithmatex">\(\y_i\)</span> belongs to the <span class="arithmatex">\(c\)</span>-th category, then we assign a <span class="arithmatex">\(1\)</span>, else <span class="arithmatex">\(0\)</span>. We can see it with an example later.</li>
+<li><span class="arithmatex">\(\left(p_{\textbf{model}}[\y_i \in C_c]\right)\)</span> means the probability predicted by the model for the <span class="arithmatex">\(i\)</span>-th observation that belongs to the <span class="arithmatex">\(c\)</span>-th class category. </li>
+</ul>
+<div class="arithmatex">\[
+\ytrue = \begin{bmatrix}  1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
+\]</div>
+<div class="arithmatex">\[
+\textbf{z_logits} = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 2 &amp; 4 &amp; 6 \end{bmatrix}
+\]</div>
+<div class="arithmatex">\[
+\yprob = \textbf{z_softargmax} = \begin{bmatrix} 0.09 &amp; 0.2447 &amp; 0.6652 \\ 0.0159 &amp; 0.1173 &amp; 0.8668\end{bmatrix}
+\]</div>
+<ul>
+<li>We first look at the first sample, index <span class="arithmatex">\(i = 1\)</span>:<ul>
+<li>We have the one-hot encoded label for first sample to be <span class="arithmatex">\(\y_1 = \begin{bmatrix} 1 &amp; 0 &amp; 0 \end{bmatrix}\)</span>. This means the label is a cat since the sequence is cat, dog and pig, and thus 1, 0, 0 corresponds to cat 1, dog 0 and pig 0.</li>
+<li>We have the one-hot encoded probability predicted by the model for the first sample to be <span class="arithmatex">\(\hat{\y_1} = \begin{bmatrix} 0.09 &amp; 0.2447 &amp; 0.6652 \end{bmatrix}\)</span>. This means the probability associated with this sample <span class="arithmatex">\(1\)</span> is probability of a cat from the model is <span class="arithmatex">\(9\%\)</span>, a dog <span class="arithmatex">\(24.47\%\)</span> and a pig <span class="arithmatex">\(66.52\%\)</span>.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>With these information, we go on to the first outer loop's content:<ul>
+<li><span class="arithmatex">\(\sum_{c=1}^C \mathbb{1}_{\y_{i} \in C_c} \log\left(p_{\textbf{model}}[\y_i \in C_c]\right)\)</span></li>
+<li>We are looping through the classes, which in this case is loop from <span class="arithmatex">\(c=1\)</span> to <span class="arithmatex">\(c=3\)</span> since <span class="arithmatex">\(C=3\)</span> (3 classes).</li>
+<li><span class="arithmatex">\(c = 1\)</span>:<ul>
+<li><span class="arithmatex">\(\mathbb{1}_{\y_{i} \in C_c} = \mathbb{1}_{\y_{1} \in C_1}\)</span>: The true label for the first sample is actually the first class, and hence belongs to the <span class="arithmatex">\(c=1\)</span> category, so our indicator function returns me a <span class="arithmatex">\(1\)</span>. </li>
+<li><span class="arithmatex">\(\log\left(p_{\textbf{model}}[\y_i \in C_c]\right) = \log\left(p_{\textbf{model}}[\y_1 \in C_1]\right)\)</span>: Applies the log function (natural log here) to the each probability associated with the class. So in this case, since <span class="arithmatex">\(c=1\)</span>, we apply the log function to the first entry <span class="arithmatex">\(0.09\)</span>. We get <span class="arithmatex">\(\log(0.09) = -2.4079\)</span></li>
+</ul>
+</li>
+<li><span class="arithmatex">\(c = 2\)</span>:<ul>
+<li><span class="arithmatex">\(\mathbb{1}_{\y_{i} \in C_c} = \mathbb{1}_{\y_{1} \in C_2}\)</span>: The true label for the first sample is actually the first class, and hence does not belong to the <span class="arithmatex">\(c=2\)</span> category, so our indicator function returns me a <span class="arithmatex">\(0\)</span>. </li>
+<li>Regardless, the log of this probability is <span class="arithmatex">\(\log(0.2447) = -1.4076\)</span></li>
+</ul>
+</li>
+<li><span class="arithmatex">\(c = 3\)</span>:<ul>
+<li><span class="arithmatex">\(\mathbb{1}_{\y_{i} \in C_c} = \mathbb{1}_{\y_{1} \in C_3}\)</span>: The true label for the first sample is actually the first class, and hence does not belong to the <span class="arithmatex">\(c=3\)</span> category, so our indicator function returns me a <span class="arithmatex">\(0\)</span>. </li>
+<li>Regardless, the log of this probability is <span class="arithmatex">\(\log(0.6652) = -0.4076\)</span></li>
+</ul>
+</li>
+<li>Lastly, we sum them up and get <span class="arithmatex">\(-2.4076 + 0 + 0 = -2.4076\)</span>, note here we only have the first entry! The second and third are <span class="arithmatex">\(0\)</span>.</li>
+<li>In code, this corresponds to the following:
+    <div class="highlight"><pre><span></span><code>    <span class="c1"># loop = 1</span>
+    <span class="n">current_sample_loss</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">each_y_true_element</span><span class="p">,</span> <span class="n">each_y_prob_element</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">each_y_true_one_hot_vector</span><span class="p">,</span> <span class="n">each_y_prob_one_hot_vector</span>
+    <span class="p">):</span>
+        <span class="c1"># Indicator Function</span>
+        <span class="k">if</span> <span class="n">each_y_true_element</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">current_sample_loss</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">each_y_prob_element</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_sample_loss</span> <span class="o">+=</span> <span class="mi">0</span>
+</code></pre></div></li>
+<li>Bonus: If you realize this is just a vector dot product: <span class="arithmatex">\(\begin{bmatrix} 1 &amp; 0 &amp; 0 \end{bmatrix} \cdot \log\left(\begin{bmatrix} 0.09 \\ 0.2447 \\ 0.6652 \end{bmatrix}\right) = \begin{bmatrix} 1 &amp; 0 &amp; 0 \end{bmatrix} \cdot \left(\begin{bmatrix} -2.4076 \\ -1.4076 \\ -0.4076 \end{bmatrix}\right) = -2.4076\)</span></li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>We now look at the second sample, index <span class="arithmatex">\(i = 2\)</span>:<ul>
+<li>We have the one-hot encoded label for second sample to be <span class="arithmatex">\(\y_2 = \begin{bmatrix} 0 &amp; 0 &amp; 1 \end{bmatrix}\)</span>. This means the label is a pig since the sequence is cat, dog and pig, and thus 0, 0, 1 corresponds to cat 0, dog 0 and pig 1.</li>
+<li>We have the one-hot encoded probability predicted by the model for the second sample to be <span class="arithmatex">\(\hat{\y_2} = \begin{bmatrix} 0.0159 &amp; 0.1173 &amp; 0.8868 \end{bmatrix}\)</span>. This means the probability associated with this sample <span class="arithmatex">\(2\)</span> is probability of a cat from the model is <span class="arithmatex">\(1.59\%\)</span>, a dog <span class="arithmatex">\(11.73\%\)</span> and a pig <span class="arithmatex">\(88.68\%\)</span>.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<ul>
+<li>With these information, we go on to the second outer loop's content:<ul>
+<li><span class="arithmatex">\(\sum_{c=2}^C \mathbb{1}_{\y_{i} \in C_c} \log\left(p_{\textbf{model}}[\y_i \in C_c]\right)\)</span></li>
+<li><span class="arithmatex">\(c = 2\)</span>:<ul>
+<li><span class="arithmatex">\(\mathbb{1}_{\y_{i} \in C_c} = \mathbb{1}_{\y_{2} \in C_1}\)</span>: The true label for the second sample is actually the third class, and hence belongs to the <span class="arithmatex">\(c=3\)</span> category, so our indicator function returns me a <span class="arithmatex">\(0\)</span>. </li>
+<li><span class="arithmatex">\(\log\left(p_{\textbf{model}}[\y_i \in C_c]\right)\)</span>: Applies the log function (natural log here) to the each probability associated with the class. So in this case, since <span class="arithmatex">\(c=1\)</span>, we apply the log function to the first entry <span class="arithmatex">\(0.0159\)</span>. We get <span class="arithmatex">\(\log(0.0159) = -4.1429\)</span></li>
+</ul>
+</li>
+<li><span class="arithmatex">\(c = 2\)</span>:<ul>
+<li><span class="arithmatex">\(\mathbb{1}_{\y_{i} \in C_c} = \mathbb{1}_{\y_{2} \in C_2}\)</span>: The true label for the second sample is actually the third class, and hence does not belong to the <span class="arithmatex">\(c=2\)</span> category, so our indicator function returns me a <span class="arithmatex">\(0\)</span>. </li>
+<li>Regardless, the log of this probability is <span class="arithmatex">\(\log(0.1173) = -2.1429\)</span></li>
+</ul>
+</li>
+<li><span class="arithmatex">\(c = 3\)</span>:<ul>
+<li><span class="arithmatex">\(\mathbb{1}_{\y_{i} \in C_c} = \mathbb{1}_{\y_{2} \in C_3}\)</span>: The true label for the second sample is actually the third class, so our indicator function returns me a <span class="arithmatex">\(1\)</span>. </li>
+<li>The log of this probability is <span class="arithmatex">\(\log(0.6652) = -0.1429\)</span></li>
+</ul>
+</li>
+<li>Lastly, we sum them up and get <span class="arithmatex">\(0 + 0 + (-0.1429) = -0.1429\)</span>, note here we only have the third entry! The first and second entries are <span class="arithmatex">\(0\)</span>.</li>
+<li>In code, this corresponds to the following:
+    <div class="highlight"><pre><span></span><code>    <span class="c1"># loop = 2</span>
+    <span class="n">current_sample_loss</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">each_y_true_element</span><span class="p">,</span> <span class="n">each_y_prob_element</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">each_y_true_one_hot_vector</span><span class="p">,</span> <span class="n">each_y_prob_one_hot_vector</span>
+    <span class="p">):</span>
+        <span class="c1"># Indicator Function</span>
+        <span class="k">if</span> <span class="n">each_y_true_element</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">current_sample_loss</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">each_y_prob_element</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_sample_loss</span> <span class="o">+=</span> <span class="mi">0</span>
+</code></pre></div></li>
+<li>Bonus: If you realize this is just a vector dot product: <span class="arithmatex">\(\begin{bmatrix} 0 &amp; 0 &amp; 1 \end{bmatrix} \cdot \log\left(\begin{bmatrix} 0.0159 \\ 0.1173 \\ 0.8868\end{bmatrix}\right) = \begin{bmatrix} 0 &amp; 0 &amp; 1 \end{bmatrix} \cdot \left(\begin{bmatrix} -4.1429 \\ -2.1429 \\ -0.1429 \end{bmatrix}\right) = -0.1429\)</span></li>
+</ul>
+</li>
+</ul>
+<p>To summarize the whole process:</p>
+<ul>
+<li>set <code>all_samples_loss = 0</code></li>
+<li>Start Outer Loop:<ul>
+<li>loop over first sample <code>i = 1</code> (actually index is 0 in python):<ul>
+<li>set <code>current_sample_loss = 0</code></li>
+<li>loop over <span class="arithmatex">\(C=3\)</span> classes:<ul>
+<li>when <span class="arithmatex">\(c = 1\)</span>: the loss associated is <span class="arithmatex">\(-2.4076\)</span>. Add this to <code>current_sample_loss</code>.</li>
+<li>when <span class="arithmatex">\(c = 2\)</span>: the loss associated is <span class="arithmatex">\(0\)</span>. Add this to <code>current_sample_loss</code>.</li>
+<li>when <span class="arithmatex">\(c = 3\)</span>: the loss associated is <span class="arithmatex">\(0\)</span>. Add this to <code>current_sample_loss</code>.</li>
+</ul>
+</li>
+<li>end first loop: update <code>all_samples_loss</code> by adding <code>current_sample_loss</code> to be <code>all_samples_loss = -2.4076</code>.</li>
+</ul>
+</li>
+<li>loop over second sample <code>i = 2</code> (actually index is 1 in python):<ul>
+<li>set <code>current_sample_loss = 0</code></li>
+<li>loop over <span class="arithmatex">\(C=3\)</span> classes:<ul>
+<li>when <span class="arithmatex">\(c = 1\)</span>: the loss associated is <span class="arithmatex">\(0\)</span>. Add this to <code>current_sample_loss</code>.</li>
+<li>when <span class="arithmatex">\(c = 2\)</span>: the loss associated is <span class="arithmatex">\(0\)</span>. Add this to <code>current_sample_loss</code>.</li>
+<li>when <span class="arithmatex">\(c = 3\)</span>: the loss associated is <span class="arithmatex">\(-0.1429\)</span>. Add this to <code>current_sample_loss</code>.</li>
+</ul>
+</li>
+<li>end second loop: update <code>all_samples_loss</code> by adding <code>current_sample_loss</code> to be <code>all_samples_loss = -2.4076 + (-0.1429) = -2.5505</code>. </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>End all loops: You can multiply by negative <span class="arithmatex">\(-1\)</span> to make <code>all_samples_loss</code> positive and get <code>all_samples_average_loss = all_samples_loss / num_of_samples = 2.5505 / 2 = 1.2753</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_categorical_cross_entropy_loss</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute the categorical cross entropy loss between two PyTorch tensors.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (torch.Tensor): The true labels.</span>
+<span class="sd">        y_prob (torch.Tensor): The predicted labels.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: The categorical cross entropy loss.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">all_samples_loss</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">each_y_true_one_hot_vector</span><span class="p">,</span> <span class="n">each_y_prob_one_hot_vector</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span>
+    <span class="p">):</span>
+        <span class="n">current_sample_loss</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">each_y_true_element</span><span class="p">,</span> <span class="n">each_y_prob_element</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="n">each_y_true_one_hot_vector</span><span class="p">,</span> <span class="n">each_y_prob_one_hot_vector</span>
+        <span class="p">):</span>
+            <span class="c1"># Indicator Function</span>
+            <span class="k">if</span> <span class="n">each_y_true_element</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">current_sample_loss</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">each_y_prob_element</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_sample_loss</span> <span class="o">+=</span> <span class="mi">0</span>
+
+        <span class="n">all_samples_loss</span> <span class="o">+=</span> <span class="n">current_sample_loss</span>
+
+    <span class="n">all_samples_average_loss</span> <span class="o">=</span> <span class="n">all_samples_loss</span> <span class="o">/</span> <span class="n">y_true</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">all_samples_average_loss</span>
+</code></pre></div>
+<h4 id="using-dot-product-to-calculate">Using Dot Product to Calculate</h4>
+<div class="arithmatex">\[
+\begin{aligned}
+\textbf{CE}(\ytrue, \yprob) &amp;= -\dfrac{1}{N}\sum_{i=1}^N\sum_{c=1}^C \mathbb{1}_{\y_{i} \in C_c} \log\left(p_{\textbf{model}}[\y_i \in C_c]\right)\\
+                            &amp;= \textbf{SUM}\left[\textbf{diag}\left(\ytrue \cdot -\log(\yprob)^\top\right)\right]
+\end{aligned}\]</div>
+<p>We can easily see </p>
+<div class="arithmatex">\[
+\ytrue = \begin{bmatrix}  1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
+\]</div>
+<div class="arithmatex">\[
+\textbf{z_logits} = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 2 &amp; 4 &amp; 6 \end{bmatrix}
+\]</div>
+<div class="arithmatex">\[
+\yprob = \textbf{z_softargmax} = \begin{bmatrix} 0.09 &amp; 0.2447 &amp; 0.6652 \\ 0.0159 &amp; 0.1173 &amp; 0.8668\end{bmatrix}
+\]</div>
+<div class="arithmatex">\[\log(\yprob) = \begin{bmatrix} 2.4076 &amp; 1.4076 &amp; 0.4076 \\ 4.1429 &amp; 2.1429 &amp; 0.1429 \end{bmatrix}\]</div>
+<div class="arithmatex">\[
+\ytrue \cdot -\log(\yprob)^\top = \begin{bmatrix}  1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \cdot \begin{bmatrix} 2.4076 &amp; 4.1429 \\ 1.4076 &amp; 2.1429 \\ 0.4076  &amp; 0.1429 \end{bmatrix} = \begin{bmatrix} 2.4076 &amp; 4.1429 \\ 0.4076 &amp; 0.1429 \end{bmatrix}
+\]</div>
+<p>The matrix <span class="arithmatex">\(\ytrue \cdot -\log(\yprob)^\top\)</span> diagonals are what we need, where we sum them up and divide by the number of samples. That is <span class="arithmatex">\(\frac{2.4076+0.1429}{2} = \frac{2.5505}{2} = 1.2753\)</span>. </p>
+<p>This makes sense because the one hot encoded <span class="arithmatex">\(\ytrue\)</span> vector guarantees only the indicator functions 1 gets activated and the rest gets zeroed out. Furthermore, we are only interested in the diagonal of the matrix as we are only interested in the dot product between the <span class="arithmatex">\(i\)</span>-th row and the <span class="arithmatex">\(i\)</span>-th column of <span class="arithmatex">\(\ytrue\)</span> and <span class="arithmatex">\(-\log(\yprob)^\top\)</span> respectively.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_categorical_cross_entropy_loss_dot_product</span><span class="p">(</span>
+    <span class="n">y_true</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute the categorical cross entropy loss between two PyTorch tensors using dot product.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (torch.Tensor): The true labels in one-hot form.</span>
+<span class="sd">        y_prob (torch.Tensor): The predicted labels in one-hot form.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: The categorical cross entropy loss.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">y_true</span><span class="o">.</span><span class="n">float</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">neg</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_prob</span><span class="o">.</span><span class="n">float</span><span class="p">())</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+    <span class="n">all_loss_vector</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">all_loss_sum</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">all_loss_vector</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">average_loss</span> <span class="o">=</span> <span class="n">all_loss_sum</span> <span class="o">/</span> <span class="n">y_true</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">average_loss</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">compute_categorical_cross_entropy_loss</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true_ohe</span><span class="p">,</span> <span class="n">y_prob</span> <span class="o">=</span> <span class="n">compute_softargmax</span><span class="p">(</span><span class="n">z_logits</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor(1.2753)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">compute_categorical_cross_entropy_loss_dot_product</span><span class="p">(</span><span class="n">y_true</span> <span class="o">=</span> <span class="n">y_true_ohe</span><span class="p">,</span> <span class="n">y_prob</span> <span class="o">=</span> <span class="n">compute_softargmax</span><span class="p">(</span><span class="n">z_logits</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor(1.2753)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">compute_softargmax</span><span class="p">(</span><span class="n">z_logits</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tensor([[0.0900, 0.2447, 0.6652],
+        [0.0159, 0.1173, 0.8668]])
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">cross_entropy</span><span class="p">(</span><span class="n">y_true</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        https://stackoverflow.com/questions/47377222/what-is-the-problem-with-my-implementation-of-the-cross-entropy-function</span>
+<span class="sd">        Computes cross entropy between targets (encoded as one-hot vectors)</span>
+<span class="sd">        and y_pred.</span>
+<span class="sd">        Input: y_pred (N, k) ndarray</span>
+<span class="sd">               y_true (N, k) ndarray</span>
+<span class="sd">        Returns: scalar</span>
+<span class="sd">        predictions = np.array([[0.25,0.25,0.25,0.25],</span>
+<span class="sd">                            [0.01,0.01,0.01,0.96]])</span>
+<span class="sd">    targets = np.array([[0,0,0,1],</span>
+<span class="sd">                       [0,0,0,1]])</span>
+<span class="sd">                       ans = 0.71355817782  #Correct answer</span>
+<span class="sd">    x = cross_entropy(predictions, targets)</span>
+<span class="sd">    print(np.isclose(x,ans))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">)</span>
+    <span class="c1"># take note that y_pred is of shape 1 x n_samples as stated in our framework</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># cross entropy function</span>
+    <span class="n">cross_entropy_function</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="c1"># cross entropy function here is same shape as y_true and y_pred since we are</span>
+    <span class="c1"># just performing element wise operations on both of them.</span>
+    <span class="k">assert</span> <span class="n">cross_entropy_function</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+
+    <span class="c1"># we sum up all the loss for each individual sample</span>
+    <span class="n">total_cross_entropy_loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cross_entropy_function</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">total_cross_entropy_loss</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+
+    <span class="c1"># we then average out the total loss across m samples, but we squeeze it to</span>
+    <span class="c1"># make it a scalar; squeeze along axis = None since there is no column axix</span>
+    <span class="n">average_cross_entropy_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">total_cross_entropy_loss</span> <span class="o">/</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1"># cross_entropy_loss = -np.sum(y_true * np.log(y_pred)) / n_samples</span>
+    <span class="c1"># print(np.isclose(average_cross_entropy_loss, cross_entropy_loss))</span>
+    <span class="k">return</span> <span class="n">average_cross_entropy_loss</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">cross_entropy</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>array(0.01005034)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">log</span>
+
+<span class="c1"># calculate cross-entropy</span>
+<span class="k">def</span> <span class="nf">cross_entropy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">ets</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="nb">sum</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">ets</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">))])</span>
+
+<span class="k">def</span> <span class="nf">binary_cross_entropy</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">y_true</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span> <span class="o">+</span> <span class="n">y_true</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">eps</span><span class="p">))</span>
+
+<span class="c1"># define the target distribution for two events</span>
+<span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="c1"># define probabilities for the first event</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="c1"># cat is 0% and dog is 100% confidence</span>
+    <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+<span class="p">]</span>
+
+<span class="c1"># create probability distributions for the two events</span>
+<span class="c1"># dists = [[1.0 - p, p] for p in probs]</span>
+<span class="c1"># calculate cross-entropy for each distribution</span>
+<span class="n">ents</span> <span class="o">=</span> <span class="p">[</span><span class="n">binary_cross_entropy</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">probs</span><span class="p">]</span>
+<span class="c1"># plot probability distribution vs cross-entropy</span>
+<span class="n">pyplot</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">probs</span><span class="p">],</span> <span class="n">ents</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">pyplot</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Probability Distribution vs Cross-Entropy&#39;</span><span class="p">)</span>
+<span class="c1">#pyplot.xticks([1-p for p in probs], [&#39;[%.1f,%.1f]&#39;%(d[0],d[1]) for d in dists], rotation=70)</span>
+<span class="n">pyplot</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">pyplot</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Probability Distribution for Query Image when ground truth is 1&#39;</span><span class="p">)</span>
+<span class="n">pyplot</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cross-Entropy (nats)&#39;</span><span class="p">)</span>
+<span class="n">pyplot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../cross_entropy_loss_files/cross_entropy_loss_34_0.png" /></p>
+<ul>
+<li><a href="https://medium.com/analytics-vidhya/understanding-entropy-the-golden-measurement-of-machine-learning-4ea97c663dc3#:~:text=By%20using%20entropy%20in%20machine,be%20desired%20in%20model%2Dbuilding.">analytics-vidhya-entropy-loss</a></li>
+<li><a href="https://machinelearningmastery.com/cross-entropy-for-machine-learning/">cross-entropy-loss-machine-learning-mastery</a></li>
+<li><a href="https://towardsdatascience.com/entropy-how-decision-trees-make-decisions-2946b9c18c8">entropy-how-decision-trees-make-decisions</a></li>
+<li>https://ramsane.github.io/articles/cross-entropy-explained-with-entropy-and-kl-divergence</li>
+<li>https://neptune.ai/blog/cross-entropy-loss-and-its-applications-in-deep-learning</li>
+</ul>
+<p>https://stackoverflow.com/questions/41990250/what-is-cross-entropy/41990932
+https://towardsdatascience.com/cross-entropy-loss-function-f38c4ec8643e
+https://neptune.ai/blog/cross-entropy-loss-and-its-applications-in-deep-learning
+https://machinelearningmastery.com/cross-entropy-for-machine-learning/
+https://d2l.ai/chapter_linear-networks/softmax-regression.html
+https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/geometry-linear-algebraic-ops.html#invertibility
+https://leimao.github.io/blog/Cross-Entropy-KL-Divergence-MLE/
+https://towardsdatascience.com/cross-entropy-for-classification-d98e7f974451
+https://gist.github.com/yang-zhang/217dcc6ae9171d7a46ce42e215c1fee0
+https://datascience.stackexchange.com/questions/20296/cross-entropy-loss-explanation
+https://ramsane.github.io/articles/cross-entropy-explained-with-entropy-and-kl-divergence</p>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../../../..", "features": ["content.code.annotate"], "search": "../../../../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

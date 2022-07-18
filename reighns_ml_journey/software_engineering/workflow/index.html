@@ -1,0 +1,3827 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://reighns92.github.io/reighns-ml-blog/reighns_ml_journey/software_engineering/workflow/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>Workflow - Hongnan G. Machine Learning Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Hongnan G. Machine Learning Blog" class="md-header__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan G. Machine Learning Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Hongnan G. Machine Learning Blog" class="md-nav__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Hongnan G. Machine Learning Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles.md" class="md-nav__link">
+        How to write articles
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Software Engineering Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Engineering Practices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Software Engineering Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Workflow
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Workflow
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-environment" class="md-nav__link">
+    Setting up Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-environment" class="md-nav__link">
+    Virtual Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-and-requirements" class="md-nav__link">
+    Setup and requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line" class="md-nav__link">
+    Command Line
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-hints" class="md-nav__link">
+    Type Hints
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-docstrings" class="md-nav__link">
+    Mkdocs + Docstrings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    Run
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-github-pages-and-mkdocs-website" class="md-nav__link">
+    Setting up GitHub Pages and Mkdocs (Website)
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up GitHub Pages and Mkdocs (Website)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initializing-your-website-repository" class="md-nav__link">
+    Initializing your Website Repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#website-configuration" class="md-nav__link">
+    Website Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-actions-configuration" class="md-nav__link">
+    GitHub Actions Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-local-development" class="md-nav__link">
+    Setting Up Local Development
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-website-content" class="md-nav__link">
+    Adding Website Content
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Website Content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploying-your-changes" class="md-nav__link">
+    Deploying Your Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activate-workflow" class="md-nav__link">
+    Activate Workflow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pandoc-markdown-converter" class="md-nav__link">
+    Pandoc (Markdown Converter)
+  </a>
+  
+    <nav class="md-nav" aria-label="Pandoc (Markdown Converter)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pandoc-wikitext-to-markdown" class="md-nav__link">
+    Pandoc (Wikitext to Markdown)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous-problems" class="md-nav__link">
+    Miscellaneous Problems
+  </a>
+  
+    <nav class="md-nav" aria-label="Miscellaneous Problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-environment" class="md-nav__link">
+    Path Environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs" class="md-nav__link">
+    Mkdocs
+  </a>
+  
+    <nav class="md-nav" aria-label="Mkdocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-page-width" class="md-nav__link">
+    Full page width
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-main-directory-ide" class="md-nav__link">
+    Setup Main Directory (IDE)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-environment_1" class="md-nav__link">
+    Virtual Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-setup" class="md-nav__link">
+    Requirements and Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    Git
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#styling-and-formatting" class="md-nav__link">
+    Styling and Formatting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocs_1" class="md-nav__link">
+    Mkdocs
+  </a>
+  
+    <nav class="md-nav" aria-label="Mkdocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-setup" class="md-nav__link">
+    Mkdocs Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings" class="md-nav__link">
+    Mkdocstrings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-github-actions" class="md-nav__link">
+    CI/CD (GitHub Actions)
+  </a>
+  
+    <nav class="md-nav" aria-label="CI/CD (GitHub Actions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commit-checks" class="md-nav__link">
+    Commit Checks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-to-website" class="md-nav__link">
+    Deploy to Website
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code_design/" class="md-nav__link">
+        Code Design
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gcp/" class="md-nav__link">
+        GCP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github_actions_test_packages_compatibility/" class="md-nav__link">
+        Test Packages Compatibility
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/gradient_descent/" class="md-nav__link">
+        Gradient Descent
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Mathematics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/general_mathematical_terms_and_definitions/" class="md-nav__link">
+        General Mathematic Terms and Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Linear Algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_1" type="checkbox" id="__nav_6_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_1">
+          Preliminaries
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preliminaries" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Preliminaries
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/01_preliminaries/lines_and_planes/" class="md-nav__link">
+        Lines and Planes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/01_preliminaries/fields/" class="md-nav__link">
+        Fields
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2" type="checkbox" id="__nav_6_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2">
+          Vectors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vectors" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vectors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors/" class="md-nav__link">
+        Vector Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2_2" type="checkbox" id="__nav_6_2_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2_2">
+          Vector Products
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Products" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Products
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_linear_combination/" class="md-nav__link">
+        Linear Combination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_dot_product/" class="md-nav__link">
+        Dot Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_outer_product/" class="md-nav__link">
+        Outer Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_unit_vector/" class="md-nav__link">
+        Unit Vector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/02_vectors/02_linear_algebra_vectors_exercises/" class="md-nav__link">
+        Exercises
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_3" type="checkbox" id="__nav_6_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_3">
+          Vector Spaces
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Spaces" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Spaces
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_subspaces/" class="md-nav__link">
+        Vector Space and Subspaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_span/" class="md-nav__link">
+        Vector Span
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_linear_independence/" class="md-nav__link">
+        Linear Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_basis_dimension/" class="md-nav__link">
+        Basis and Dimension
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_4" type="checkbox" id="__nav_6_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_4">
+          Matrix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix/" class="md-nav__link">
+        Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_basic_matrix_types/" class="md-nav__link">
+        Basic Matrix Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_basic_operations/" class="md-nav__link">
+        Basic Matrix Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/04_matrices/04_linear_algebra_matrix_multiplication/" class="md-nav__link">
+        Matrix Multiplication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_5" type="checkbox" id="__nav_6_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_5">
+          Matrix Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix Theory" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.01_linear_algebra_systems_of_linear_equations/" class="md-nav__link">
+        System of Linear Equations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.02_linear_algebra_row_reduction_preserves_rank/" class="md-nav__link">
+        Row Reduction Preserves Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.03_linear_algebra_matrix_theory_matrix_spaces_row_space/" class="md-nav__link">
+        Row Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.04_linear_algebra_matrix_theory_matrix_spaces_column_space/" class="md-nav__link">
+        Column Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.05_linear_algebra_matrix_theory_matrix_spaces_right_nullspace/" class="md-nav__link">
+        Right Nullspace (Kernel)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.06_linear_algebra_matrix_theory_matrix_spaces_left_nullspace/" class="md-nav__link">
+        Left Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.07_linear_algebra_matrix_theory_matrix_rank/" class="md-nav__link">
+        Matrix Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.08_linear_algebra_matrix_theory_matrix_spaces_summary/" class="md-nav__link">
+        The Four Fundamental Subspaces (Summary)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_6" type="checkbox" id="__nav_6_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_6">
+          Linear Transformation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Transformation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Transformation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.01_linear_algebra_linear_transformations/" class="md-nav__link">
+        Linear Transformation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.02_linear_algebra_linear_transformations_nullspace/" class="md-nav__link">
+        Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.03_linear_algebra_linear_transformations_ranges/" class="md-nav__link">
+        Range
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.04_linear_algebra_linear_transformations_homomorphism/" class="md-nav__link">
+        Homomorphism
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem/" class="md-nav__link">
+        Fundamental Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix/" class="md-nav__link">
+        Linear Transformation and Matrix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_7" type="checkbox" id="__nav_6_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_7">
+          Analytic Geometry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Analytic Geometry" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Analytic Geometry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.01_motivation/" class="md-nav__link">
+        Motivation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.02_norms/" class="md-nav__link">
+        Norms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.03_inner_products/" class="md-nav__link">
+        Inner Product Spaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.04_lengths_and_distances/" class="md-nav__link">
+        Lengths and Distances
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.05_angles_and_orthogonality/" class="md-nav__link">
+        Angles and Orthogoanlity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.06_orthogonal_subspaces/" class="md-nav__link">
+        Orthogonal Subspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.07_orthogonal_projections/" class="md-nav__link">
+        Orthogonal Projection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.08_orthogonal_matrices_and_basis/" class="md-nav__link">
+        Orthogonal Matrices and Basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/08_analytic_geometry/08.09_gram_schmidt_orthogonalization/" class="md-nav__link">
+        Gram-Schmidt Orthogonalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_algebra/linear_algebra_interview_questions/" class="md-nav__link">
+        Interview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Probability and Statistics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Probability and Statistics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Probability and Statistics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/probability4datascience/" class="md-nav__link">
+        Introduction to Probability for Data Science (Stanley H. Chan)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Introduction to Probability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction to Probability" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction to Probability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.01_probability_space/" class="md-nav__link">
+        Probability Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.02_probability_axioms/" class="md-nav__link">
+        Probability Axioms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.03_conditional_probability/" class="md-nav__link">
+        Conditional Probability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.04_independence/" class="md-nav__link">
+        Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.05_bayes_theorem/" class="md-nav__link">
+        Bayes Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability_statistics_theory/02_introduction_to_probability/02.06_summary/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Machine Learning and Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning and Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning and Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Metrics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Metrics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Metrics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_1" type="checkbox" id="__nav_7_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_1">
+          Classification
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Classification" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Classification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/classification_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/accuracy/" class="md-nav__link">
+        Accuracy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/confusion_matrix/" class="md-nav__link">
+        Confusion Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/precision_recall_f1/" class="md-nav__link">
+        Precision-Recall-F1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/roc_pr_curve/" class="md-nav__link">
+        ROC and PR Curves
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/cohens_kappa/" class="md-nav__link">
+        Cohen's Kappa
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_2" type="checkbox" id="__nav_7_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_2">
+          Regression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Regression" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Regression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/regression_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/mae_rmse/" class="md-nav__link">
+        MAE and MSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/mape/" class="md-nav__link">
+        MAPE
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Computer Vision
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Computer Vision" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Computer Vision
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2" type="checkbox" id="__nav_7_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2">
+          Neural Network Interpretation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Neural Network Interpretation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Neural Network Interpretation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_1" type="checkbox" id="__nav_7_2_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_1">
+          Visualization of Feature Map Activations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization of Feature Map Activations" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of Feature Map Activations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation/" class="md-nav__link">
+        Feature Map Activations (Part I)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation_reduced/" class="md-nav__link">
+        Feature Map Activations (Part II)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md" class="md-nav__link">
+        Visualization of Convolutional Filters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/salient_map/Salient Map.md" class="md-nav__link">
+        Salient Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_4" type="checkbox" id="__nav_7_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_4">
+          Grad-CAM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Grad-CAM" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Grad-CAM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_explained/" class="md-nav__link">
+        Grad-CAM Explained
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_from_scratch/" class="md-nav__link">
+        Grad-CAM from Scratch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/image_normalization/Image_Normalization_and_Standardization/" class="md-nav__link">
+        Image Normalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Fundamental Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamental Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamental Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch/" class="md-nav__link">
+        Cross Entropy Loss
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Ensemble Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ensemble Theory" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ensemble Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/ensemble_theory/forward_ensemble/" class="md-nav__link">
+        Forward Ensemble (Hill Climbing)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Data Structures and Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Structures and Algorithms" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Data Structures and Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_structures_and_algorithms/introduction.md" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_structures_and_algorithms/Linked%20List/" class="md-nav__link">
+        Linked Lists
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Machine Learning Projects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning Projects" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning Projects
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/RANZCR%20CLiP%20-%20Catheter%20and%20Line%20Position%20Challenge/notebooks/walkthrough/" class="md-nav__link">
+        RANZCR CLiP - Catheter and Line Position Challenge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/SIIM-ISIC%20Melanoma%20Classification/notebooks/walkthrough/" class="md-nav__link">
+        SIIM-ISIC Melanoma Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/LTA_road_cracks_detection/notebooks/walkthrough/" class="md-nav__link">
+        LTA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_4" type="checkbox" id="__nav_9_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_4">
+          Breast Cancer Wisconsin (Supervised Classification)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Breast Cancer Wisconsin (Supervised Classification)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_4">
+          <span class="md-nav__icon md-icon"></span>
+          Breast Cancer Wisconsin (Supervised Classification)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%200%20-%20Introduction%20and%20Problem%20Statement/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%201%20-%20Preliminary%20Data%20Inspection%20and%20Cleaning/" class="md-nav__link">
+        Preliminary Data Inspection and Cleaning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%202%20-%20Preliminary%20EDA/" class="md-nav__link">
+        EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%203%20-%20Feature%20Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%204%20-%20Modelling%20%28Metric%20to%20Optimize%29/" class="md-nav__link">
+        Modelling (Metrics)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%205%20-%20Modelling%20%28Cross-Validation%20Methodology%29/" class="md-nav__link">
+        Modelling (Cross-Validation Schema)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%206%20-%20Modelling%20%28Preprocessing%20and%20Spot%20Checking%29/" class="md-nav__link">
+        Modelling (Preprocessing and Spot Checking)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%207%20-%20Modelling%20%28Model%20Selection%20and%20Hyperparameter%20Tuning%29/" class="md-nav__link">
+        Modelling (Model Selection)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%208%20-%20Modelling%20%28Model%20Evaluation%20and%20Interpretation%29/" class="md-nav__link">
+        Modelling (Model Evaluation)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-environment" class="md-nav__link">
+    Setting up Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-environment" class="md-nav__link">
+    Virtual Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-and-requirements" class="md-nav__link">
+    Setup and requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line" class="md-nav__link">
+    Command Line
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-hints" class="md-nav__link">
+    Type Hints
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-docstrings" class="md-nav__link">
+    Mkdocs + Docstrings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    Run
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-github-pages-and-mkdocs-website" class="md-nav__link">
+    Setting up GitHub Pages and Mkdocs (Website)
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up GitHub Pages and Mkdocs (Website)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initializing-your-website-repository" class="md-nav__link">
+    Initializing your Website Repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#website-configuration" class="md-nav__link">
+    Website Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-actions-configuration" class="md-nav__link">
+    GitHub Actions Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-local-development" class="md-nav__link">
+    Setting Up Local Development
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-website-content" class="md-nav__link">
+    Adding Website Content
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Website Content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploying-your-changes" class="md-nav__link">
+    Deploying Your Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activate-workflow" class="md-nav__link">
+    Activate Workflow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pandoc-markdown-converter" class="md-nav__link">
+    Pandoc (Markdown Converter)
+  </a>
+  
+    <nav class="md-nav" aria-label="Pandoc (Markdown Converter)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pandoc-wikitext-to-markdown" class="md-nav__link">
+    Pandoc (Wikitext to Markdown)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous-problems" class="md-nav__link">
+    Miscellaneous Problems
+  </a>
+  
+    <nav class="md-nav" aria-label="Miscellaneous Problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-environment" class="md-nav__link">
+    Path Environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs" class="md-nav__link">
+    Mkdocs
+  </a>
+  
+    <nav class="md-nav" aria-label="Mkdocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-page-width" class="md-nav__link">
+    Full page width
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-main-directory-ide" class="md-nav__link">
+    Setup Main Directory (IDE)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-environment_1" class="md-nav__link">
+    Virtual Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-and-setup" class="md-nav__link">
+    Requirements and Setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    Git
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#styling-and-formatting" class="md-nav__link">
+    Styling and Formatting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocs_1" class="md-nav__link">
+    Mkdocs
+  </a>
+  
+    <nav class="md-nav" aria-label="Mkdocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-setup" class="md-nav__link">
+    Mkdocs Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings" class="md-nav__link">
+    Mkdocstrings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-github-actions" class="md-nav__link">
+    CI/CD (GitHub Actions)
+  </a>
+  
+    <nav class="md-nav" aria-label="CI/CD (GitHub Actions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commit-checks" class="md-nav__link">
+    Commit Checks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-to-website" class="md-nav__link">
+    Deploy to Website
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<div align="center">
+<h1>Setup Guide</a></h1>
+by Hongnan Gao
+<br>
+</div>
+
+<hr />
+<h1 id="introduction">Introduction</h1>
+<p>This getting started guide is written to ensure I follow standard coding practices.</p>
+<div class="admonition note">
+<p class="admonition-title">Important</p>
+<p>To render Table of Content when compiling <code>mkdocs serve</code>, one must always have the following structure:
+<div class="highlight"><pre><span></span><code><span class="gh"># Type your article title here</span>
+<span class="gu">## ... </span>
+<span class="gu">## ...</span>
+</code></pre></div>
+Notice that the top level header must be #, and subsequent nested headers should be ##.</p>
+</div>
+<hr />
+<h2 id="setting-up-environment">Setting up Environment</h2>
+<p>Assuming VSCode setup, open up terminal/powershell in your respective system and type:
+    <div class="highlight"><pre><span></span><code>code <span class="s2">&quot;path to folder&quot;</span>
+</code></pre></div>
+    to open up VSCode.</p>
+<h2 id="virtual-environment">Virtual Environment</h2>
+<p>In your IDE, you want to set up a virtual environment.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For Ubuntu</span>
+sudo apt install python3.8 python3.8-venv python3-venv
+
+<span class="c1"># For Mac</span>
+pip3 install virtualenv
+</code></pre></div>
+<p>You can activate the VM as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Assuming Windows</span>
+python -m venv venv_bcw
+.<span class="se">\v</span>env_bcw<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+python -m pip install --upgrade pip setuptools wheel <span class="c1"># upgrade pip</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Assuming Linux</span>
+python3 -m venv venv_bcw
+<span class="nb">source</span> venv_bcw/bin/activate
+python -m pip install --upgrade pip setuptools wheel <span class="c1"># upgrade pip</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Assuming Mac</span>
+virtualenv venv_bcw
+<span class="nb">source</span> venv_bcw/bin/activate
+python -m pip install --upgrade pip setuptools wheel <span class="c1"># upgrade pip</span>
+</code></pre></div>
+<hr />
+<h2 id="setup-and-requirements">Setup and requirements</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For small projects, we can have <code>requirements.txt</code> and just run <code>(venv_ml) pip install -r requirements.txt</code>. For larger projects, we can follow the steps below.</p>
+</div>
+<p>Create a file named <code>setup.py</code> and <code>requirements.txt</code> concurrently. The latter should have the libraries that one is interested in having for his project while the formal is a <code>setup.py</code> file where it contains the setup object which describes how to set up our package and it's dependencies. The first several lines cover metadata (name, description, etc.) and then we define the requirements. Here we're stating that we require a Python version equal to or above 3.8 and then passing in our required packages to install_requires. Finally, we define extra requirements that different types of users may require. This is a standard practice and more can be understood from madewithml.com.</p>
+<p>The user can now call the following commands to install the dependencies in their own virtual environment. </p>
+<p>See <a href="https://www.reddit.com/r/learnpython/comments/ayx7za/how_does_pip_install_e_work_is_there_a_specific/">here</a> on what <code>pip install -e .</code> does.</p>
+<div class="highlight"><pre><span></span><code>pip install -e .  <span class="c1"># installs required packages only       </span>
+python -m pip install -e <span class="s2">&quot;.[dev]&quot;</span>                                       <span class="c1"># installs required + dev packages</span>
+python -m pip install -e <span class="s2">&quot;.[test]&quot;</span>                                      <span class="c1"># installs required + test packages</span>
+python -m pip install -e <span class="s2">&quot;.[docs_packages]&quot;</span>                             <span class="c1"># installs required documentation packages</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Important</p>
+<p>Something worth taking note is when you download PyTorch Library, there is a dependency link since we are downloading cuda directly, you may execute as such:</p>
+</div>
+<div class="highlight"><pre><span></span><code>pip install -e . -f https://download.pytorch.org/whl/torch_stable.html
+</code></pre></div>
+<hr />
+<h2 id="command-line">Command Line</h2>
+<p>Something worth noting is we need to use dash instead of underscore when calling a function in command line.</p>
+<p>reighns_linear_regression regression-test --solver "Batch Gradient Descent" --num-epochs 500</p>
+<h2 id="documentation">Documentation</h2>
+<h3 id="type-hints">Type Hints</h3>
+<h3 id="mkdocs-docstrings">Mkdocs + Docstrings</h3>
+<ol>
+<li>Copy paste the template from Goku in, most of what he use will be in <code>mkdocs.yml</code> file. Remember to create the <code>mkdocs.yml</code> in the root path.</li>
+<li>Then change accordingly the content inside <code>mkdocs.yml</code>, you can see my template that I have done up.</li>
+<li>Remember to run <code>python -m pip install -e ".[docs_packages]"</code> to make sure you do have the packages.</li>
+<li>Along the way you need to create a few folders, follow the page tree in mkdocs.yml, everything should be created in <code>docs/</code> folder.</li>
+<li>
+<p>As an example, in our reighns-linear-regression folder, we want to show two scenarios:</p>
+<ul>
+<li>
+<p>Scenario 1: I merely want a full markdown file to show on the website. In this case, in the "watch", we specify a path we want to watch in our <code>docs/</code> folder. In this case, I created a <code>documentation</code> folder under <code>docs/</code> so I specify that. Next in the <code>docs/documentation/</code> folder I create a file called <code>linear_regression.md</code> where I dump all my markdown notes inside. Then in the <code>nav</code> tree in <code>mkdocs.yml</code>, specify
+<div class="highlight"><pre><span></span><code>nav:
+- Home:
+    - Introduction: index.md
+- Getting started: getting_started.md
+- Detailed Notes:
+    - Notes: documentation/linear_regression.md
+    - Reference: documentation/reference_links.md
+</code></pre></div>
+Note that Home and Getting Started are optional but let us keep it for the sake of completeness. What you need to care is "Detailed Notes" and note the path I gave to them - which will point to the folders in <code>docs/documentation/</code>.</p>
+</li>
+<li>
+<p>Scenario 2: I want a python file with detailed docstrings to appear in my static website. This is slightly more complicated. First if you want a new section of this you can create a section called <code>code_reference</code>, both under the <code>nav</code> above and also in the folder <code>docs/</code>, meaning <code>docs/code_reference/</code> must exist. Put it under watch as well. Now in <code>docs/code_reference/</code> create a file named say <code>linear_regression_from_scratch.md</code> and put <code>src.linear_regression</code> inside, note that you should not have space in between.</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="run">Run</h2>
+<ol>
+<li>Run config.py as this will create folders for you automatically.</li>
+</ol>
+<h2 id="setting-up-github-pages-and-mkdocs-website">Setting up GitHub Pages and Mkdocs (Website)</h2>
+<div class="admonition note">
+<p class="admonition-title">Update November 9th, 2021</p>
+<p>You can skip most steps if you just fork this repository and follow the format.</p>
+</div>
+<p>Welcome to my example website! This website uses
+<a href="https://www.mkdocs.org/">MkDocs</a> with the <a href="https://squidfunk.github.io/mkdocs-material/">Material
+theme</a> and an automated
+deployment workflow for publishing to <a href="https://pages.github.com/">GitHub
+Pages</a>.</p>
+<p>This guide will help you create your own GitHub Pages website with
+this setup. If you're using Windows, you should run all the commands
+in this guide on a Windows Subsystem for Linux (WSL) terminal.</p>
+<h3 id="initializing-your-website-repository">Initializing your Website Repository</h3>
+<p>First, <a href="https://github.com/new">create a new repository</a> on
+GitHub. Make sure to skip the initialization step on the website
+&mdash; you will be initializing the contents of this repository with
+this template! Note down the Git remote for your new repository,
+you'll need it later when initializing your local copy of the
+repository.</p>
+<p>Next, download the website template and extract it:</p>
+<div class="highlight"><pre><span></span><code>$ wget https://github.com/jansky/test-website/archive/refs/tags/template.tar.gz
+$ tar xvf template.tar.gz
+$ rm template.tar.gz
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the <code>wget</code> command is not found, you can install it using
+apt-get: <code>sudo apt-get install wget</code>.</p>
+</div>
+<p>This will create a new folder called <code>test-website-template</code> in
+your current directory with the website template contents. You may
+wish to rename this folder to something like <code>my-website</code>:</p>
+<div class="highlight"><pre><span></span><code>$ mv test-website-template my-website
+</code></pre></div>
+<p>Now you can initialize a Git repository with the website contents:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> my-website
+$ git init
+$ git remote add origin YOUR_GITHUB_REPOSITORY_REMOTE
+</code></pre></div>
+<h3 id="website-configuration">Website Configuration</h3>
+<p>The configuration for your website is stored in <code>mkdocs.yml</code> in the
+repository root. You only need to change a few settings at the
+top of the file:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example Website</span><span class="w"></span>
+<span class="nt">site_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://reighns92.github.io/test-website</span><span class="w"></span>
+<span class="nt">nav</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">About</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">about.md</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Notebooks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notebooks_list.md</span><span class="w"></span>
+<span class="nn">...</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<p>First, update the <code>site_name</code> and <code>site_url</code> fields to be correct for
+your website. The URL format for GitHub pages websites is</p>
+<div class="highlight"><pre><span></span><code>https://USERNAME.github.io/REPOSITORY-NAME
+</code></pre></div>
+<p>As you add content to your website, you can also control the pages
+that appear on your website's navbar in the <code>nav</code> field. Each <code>nav</code>
+list element is of the form</p>
+<div class="highlight"><pre><span></span><code><span class="nt">Link Text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filename.md</span><span class="w"></span>
+</code></pre></div>
+<p>For navbar links pointing to pages in your site, you should use a file
+path which is relative to the <code>docs/</code> folder where all your website
+content is stored. You may also link to external pages and include
+sub-links. For more information, you can view the <a href="https://www.mkdocs.org/user-guide/writing-your-docs/#configure-pages-and-navigation">MkDocs nav
+documentation</a>.</p>
+<h3 id="github-actions-configuration">GitHub Actions Configuration</h3>
+<p>You also need to update the GitHub Actions deployment workflow
+with the name and e-mail address to use when the workflow
+pushes your built website to the <code>gh-pages</code> branch of your
+repository. In the file <code>.github/workflows/deploy-website.yml</code>,
+update lines 25 and 26 to reflect your account information:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nn">...</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Push Build Website to gh-pages Branch</span><span class="w"></span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="hll"><span class="w">   </span><span class="no">git config --global user.name &#39;YOUR NAME(Automated)&#39;</span><span class="w"></span>
+</span><span class="hll"><span class="w">   </span><span class="no">git config --global user.email &#39;YOUR-GITHUB-USERNAME@users.noreply.github.com&#39;</span><span class="w"></span>
+</span><span class="nn">...</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<h3 id="setting-up-local-development">Setting Up Local Development</h3>
+<p>MkDocs makes it easy to develop your website locally and see your
+changes in real time. To begin, set up and activate Python virtual
+environment for this project. Then, install the project dependencies:</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span> $ pip install -r requirements.txt
+</code></pre></div>
+<p>MkDocs includes a small webserver that allows you to preview your
+website in your browser as you make changes. Whenever you save one of
+your source files, the website will be rebuilt and your browser will
+automatically refresh to show the new changes. You can start this
+development server using the <code>serve</code> command:</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span> $ mkdocs serve
+INFO     -  Building documentation...
+...
+INFO     -  Documentation built <span class="k">in</span> <span class="m">0</span>.16 seconds
+<span class="hll">INFO     -  <span class="o">[</span><span class="m">20</span>:09:07<span class="o">]</span> Serving on http://127.0.0.1:8000/...
+</span>...
+</code></pre></div>
+<p>If you copy and paste the URL given by MkDocs into your browser you
+will see your website preview.</p>
+<h3 id="adding-website-content">Adding Website Content</h3>
+<p>Markdown files added under the <code>docs/</code> folder will be converted
+to HTML pages on your website. This website template enables some
+helpful extensions for</p>
+<ul>
+<li>rendering of math in LaTeX style,</li>
+<li>admonitions such as notes and warnings, and</li>
+<li>code blocks with syntax highlighting.</li>
+</ul>
+<p>In addition, MkDocs also supports GitHub-flavored Markdown tables. To
+see examples of syntax for these elements, see the MkDocs website <a href="https://squidfunk.github.io/mkdocs-material/">here</a>.</p>
+<h4 id="deploying-your-changes">Deploying Your Changes</h4>
+<p>When you are ready to deploy your website for the first time, make an
+initial commit and push to your GitHub remote:</p>
+<div class="highlight"><pre><span></span><code>$ git add .
+$ git commit -a -m <span class="s2">&quot;Initial Commit&quot;</span>
+$ git push origin master -u
+</code></pre></div>
+<h3 id="activate-workflow">Activate Workflow</h3>
+<p>The GitHub Actions deployment workflow included with this template
+runs whenever you push to the <code>master</code> branch. This workflow will
+build your website using MkDocs and push the built website files to
+the <code>gh-pages</code> branch of your repository, which GitHub Pages can use
+to serve your website.</p>
+<p>Once you have pushed your changes, go to your repository page on
+GitHub and confirm that the GitHub Actions workflow has completed
+successfully (you should see a green checkmark next to the name of the
+most recent commit). Then, go to your repository settings page, and
+click on 'Pages'. You will see a section that will let you set the
+source for your GitHub Pages website. Click the box labelled 'None'
+and select the <code>gh-pages</code> branch. Leave the selectd folder at '/
+(root)' and click 'Save'. Your website is now live!</p>
+<p>To push additional changes, simply commit and push to the master
+branch. The GitHub Actions deployment workflow will handle deploying
+your changes to GitHub Pages.</p>
+<h3 id="pandoc-markdown-converter">Pandoc (Markdown Converter)</h3>
+<p>More often than not, you will need to convert a jupyter notebook to markdown file for deployment (as markdown supports Admonitions in Mkdocs). Here is a way to do it, it is very convenient as it not only converts your notebook files to markdown, it also stores your output as images in a folder for you. This means any images rendered in notebook by <code>matplotlib</code> etc will now show up in markdown!</p>
+<div class="highlight"><pre><span></span><code>brew install pandoc
+git clone https://github.com/jupyter/nbconvert.git
+<span class="nb">cd</span> nbconvert
+pip install -e .
+</code></pre></div>
+<p>Then to convert, simply do the following:
+<div class="highlight"><pre><span></span><code>jupyter nbconvert --to markdown mynotebook.ipynb
+</code></pre></div></p>
+<hr />
+<h4 id="pandoc-wikitext-to-markdown">Pandoc (Wikitext to Markdown)</h4>
+<p>From the solution <a href="https://stackoverflow.com/questions/70484071/how-to-use-pandoc-to-convert-wikitext-to-markdown-with-latex-mathjax-etc-properl">here</a>. We can do the following:</p>
+<div class="highlight"><pre><span></span><code>pandoc --from mediawiki --to<span class="o">=</span>markdown-definition_lists wiki.txt  -o wiki.md
+</code></pre></div>
+<p>where <code>wiki.txt</code> is a text file with wiki markup.</p>
+<hr />
+<h2 id="miscellaneous-problems">Miscellaneous Problems</h2>
+<h3 id="path-environment">Path Environment</h3>
+<p>Often times, you will encounter a problem with the path environment when working with Windows especially. For example, when you do the following:</p>
+<div class="highlight"><pre><span></span><code>jupyter nbconvert --to markdown mynotebook.ipynb
+</code></pre></div>
+<p>then <code>'jupyter' is not recognized as an internal or external command, operable program or batch file.</code> is the error message even though <code>jupyter</code> is installed. Usually, the shell will prompt a message to check <code>PATH</code>. </p>
+<p>Now go to Advanced System Settings and click on Environment Variables. You will see a list of environment variables. You can add a new environment variable by clicking on the plus sign in the <strong>System Variables</strong>. Add the path recommended by <code>jupyter</code> to the <code>PATH</code> variable. In my case, it is the obscure <code>C:\Users\reighns\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\Scripts</code>.</p>
+<h3 id="mkdocs">Mkdocs</h3>
+<h4 id="full-page-width">Full page width</h4>
+<p>Use this custom <code>css</code> code to make page full width.</p>
+<h2 id="setup-main-directory-ide">Setup Main Directory (IDE)</h2>
+<p>Let us create our main directory for the project:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">creating main directory</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>$ mkdir pkd_exercise_counter
+$ <span class="nb">cd</span> pkd_exercise_counter
+$ code .                      <span class="c1"># (1)</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>Open the project directory in Visual Studio Code. To change appropriately if using different IDE.</li>
+</ol>
+<h2 id="virtual-environment_1">Virtual Environment</h2>
+<p>Set up a virtual environment in your IDE.</p>
+<div class="admonition note">
+<p class="admonition-title">Virtual Environment</p>
+<p>If you are using Linux or Mac, then you may need to install the virtual environment manager. For windows, python comes with a virtual environment manager <code>venv</code> installed.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">install venv</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>$ sudo apt install python3.8 python3.8-venv python3-venv  <span class="c1"># For Ubuntu</span>
+$ pip3 install virtualenv                                 <span class="c1"># For Mac</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<p>You can activate the virtual environment (assuming Windows) as follows:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">virtual environment windows</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>$ python -m venv venv_pkd_exercise_counter                      <span class="c1"># (1)</span>
+$ .<span class="se">\v</span>env_pkd_exercise_counter<span class="se">\S</span>cripts<span class="se">\a</span>ctivate                  <span class="c1"># (2)</span>
+<span class="o">(</span>venv<span class="o">)</span> $ python -m pip install --upgrade pip setuptools wheel   <span class="c1"># (3)</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>Create virtual environment.</li>
+<li>Activate virtual environment.</li>
+<li>Upgrade pip.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the virtual environment name is <code>venv_pkd_exercise_counter</code>, it is too long and I will use <code>venv</code> for future references.</p>
+</div>
+<p>You should see the following directory structure:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">main directory tree</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>pkd_exercise_counter/
+└── venv_pkd_exercise_counter/
+</code></pre></div></td></tr></table></div>
+<h2 id="requirements-and-setup">Requirements and Setup</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We note that <code>echo &gt; "filename"</code> command is used to create a file in Windows. One can use <code>touch</code> in other OS such as macOS or even <code>code</code> if you are using Visual Studio Code.</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">creating requirements</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span> $ <span class="nb">echo</span> &gt; setup.py 
+<span class="o">(</span>venv<span class="o">)</span> $ <span class="nb">echo</span> &gt; requirements.txt 
+<span class="o">(</span>venv<span class="o">)</span> $ pip install -e .
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code class="highlight"><span class="o">[</span>Line <span class="m">1</span>-2<span class="o">]</span></code>: <a href="https://stackoverflow.com/questions/60145069/what-is-the-purpose-of-setup-py"><code>setup.py</code></a> file informs you about the module or package-dependencies you are about to install has been packaged and distributed with Distutils, which is the standard for distributing Python Modules. You can skip <code>setup.py</code> if you are just using <code>requirements.txt</code> to install dependencies.</li>
+<li><code class="highlight"><span class="o">[</span>Line <span class="m">3</span><span class="o">]</span></code>: Installs packages from <code>requirements.txt</code>. One can also use commands such as <code>python -m pip install -e ".[dev]"</code> to install additional dev packages specified in <code>setup.py</code>.</li>
+</ul>
+<p>After which we quickly run a verification to see if PeekingDuck is installed correctly.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">peekingduck verification</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span> $ peekingduck --verify_install
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In my <code>setup.py</code>, I specified <code>python</code> to be <span class="arithmatex">\(3.8\)</span> and above. This has been tested on ubuntu latest and windows latest in GitHub Actions.</p>
+</div>
+<p>You should see the following directory structure:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">main directory tree</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>pkd_exercise_counter/
+├── venv_pkd_exercise_counter/
+├── requirements.txt
+└── setup.py
+</code></pre></div></td></tr></table></div>
+<h2 id="git">Git</h2>
+<p>Git is a version control system that is used to track changes to files. It is integral to the development process of any software. Here we initiate our main directory with git.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The commands below may differ depending on personal style and preferences. (i.e. ssh or https)</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">git</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span> $ <span class="nb">echo</span> &gt; README.md 
+<span class="o">(</span>venv<span class="o">)</span> $ <span class="nb">echo</span> &gt; .gitignore 
+<span class="o">(</span>venv<span class="o">)</span> $ git init
+<span class="o">(</span>venv<span class="o">)</span> $ git config --global user.name <span class="s2">&quot;Your Name&quot;</span>
+<span class="o">(</span>venv<span class="o">)</span> $ git config --global user.email <span class="s2">&quot;your@email.com&quot;</span>                               <span class="c1"># (1) </span>
+<span class="o">(</span>venv<span class="o">)</span> $ git add .
+<span class="o">(</span>venv<span class="o">)</span> $ git commit -a                                                                 <span class="c1"># (2)</span>
+<span class="o">(</span>venv<span class="o">)</span> $ git remote add origin <span class="s2">&quot;your-repo-http&quot;</span>                                        <span class="c1"># (3)</span>
+<span class="o">(</span>venv<span class="o">)</span> $ git remote set-url origin https://<span class="o">[</span>token<span class="o">]</span>@github.com/<span class="o">[</span>username<span class="o">]</span>/<span class="o">[</span>repository<span class="o">]</span>  <span class="c1"># (4)</span>
+<span class="o">(</span>venv<span class="o">)</span> $ git push origin master -u                                                     <span class="c1"># (5)</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>important to set the email linked to the git account.</li>
+<li>write commit message.</li>
+<li>add remote origin.</li>
+<li>set the remote origin.</li>
+<li>push to remote origin.</li>
+</ol>
+<h2 id="styling-and-formatting">Styling and Formatting</h2>
+<p>We will be using a very popular blend of style and formatting conventions that makes some very opinionated decisions on our behalf (with configurable options)<sup id="fnref:styling_made_with_ml"><a class="footnote-ref" href="#fn:styling_made_with_ml">1</a></sup>.</p>
+<ul>
+<li><a href="https://black.readthedocs.io/en/stable/"><code>black</code></a>: an in-place reformatter that (mostly) adheres to PEP8.</li>
+<li><a href="https://pycqa.github.io/isort/"><code>isort</code></a>: sorts and formats import statements inside Python scripts.</li>
+<li><a href="https://flake8.pycqa.org/en/latest/index.html"><code>flake8</code></a>: a code linter with stylistic conventions that adhere to PEP8.</li>
+</ul>
+<p>We also have <code>pyproject.toml</code> and <code>.flake8</code> to configure our formatter and linter.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">create pyproject.toml and .flake8</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span> $ <span class="nb">echo</span> &gt; pyproject.toml
+<span class="o">(</span>venv<span class="o">)</span> $ <span class="nb">echo</span> &gt; .flake8
+</code></pre></div></td></tr></table></div>
+<p>For example, the configuration for <code>black</code> below tells us that our maximum line length should be <span class="arithmatex">\(79\)</span> characters. We also want to exclude certain file extensions and in particular the <strong>virtual environment</strong> folder we created earlier. </p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pyproject.toml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Black formatting</span><span class="w"></span>
+<span class="k">[tool.black]</span><span class="w"></span>
+<span class="n">line-length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">79</span><span class="w"></span>
+<span class="n">include</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;\.pyi?$&#39;</span><span class="w"></span>
+<span class="n">exclude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;&#39;</span>
+<span class="s">/(</span>
+<span class="s">      \.eggs         # exclude a few common directories in the</span>
+<span class="s">    | \.git          # root of the project</span>
+<span class="s">    | \.hg</span>
+<span class="s">    | \.mypy_cache</span>
+<span class="s">    | \.tox</span>
+<span class="s">    | _build</span>
+<span class="s">    | buck-out</span>
+<span class="s">    | build</span>
+<span class="s">    | dist</span>
+<span class="s">    | venv_*</span>
+<span class="s">  )/</span>
+<span class="s">&#39;&#39;&#39;</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<p>You can run <code>black --check</code> to check if your code is formatted correctly or <code>black .</code> to format your code.</p>
+<h2 id="mkdocs_1">Mkdocs</h2>
+<h3 id="mkdocs-setup">Mkdocs Setup</h3>
+<p>We will be using <a href="https://www.mkdocs.org/">Mkdocs</a> to generate our markdown documentation into a static website.</p>
+<ol>
+<li>
+<p>The following requirements are necessary to run <code>mkdocs</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">requirements.txt</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>mkdocs                            1.3.0
+mkdocs-material                   8.2.13
+mkdocs-material-extensions        1.0.3
+mkdocstrings                      0.18.1
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>Initialize default template by calling <code>mkdocs new .</code> where <code>.</code> refers to the current directory. The <code>.</code> can be replaced with a path to your directory as well. Subsequently, a folder <code>docs</code> alongside with <code>mkdocs.yml</code> file will be created.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">mkdocs folder structure</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>pkd_exercise_counter/
+├── venv_pkd_exercise_counter/
+<span class="hll">├── docs/
+</span><span class="hll">│   └── index.md
+</span><span class="hll">├── mkdocs.yml
+</span>├── requirements.txt
+└── setup.py
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>We can specify the following configurations in <code>mkdocs.yml</code>:</p>
+<details class="example" open="open">
+<summary>Show/Hide mkdocs.yml</summary>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">mkdocs.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code>site_name: Hongnan G. PeekingDuck Exercise Counter
+site_url: &quot;&quot;
+nav:
+  - Home: index.md
+  - PeekingDuck:
+    - Setup: workflows.md
+    - Push-up Counter: pushup.md
+theme:
+  name: material
+  features:
+    - content.code.annotate
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - footnotes
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - javascript/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra_css:
+    - css/extra.css
+plugins:
+  - search 
+  - mkdocstrings # plugins for mkdocstrings
+</code></pre></div></td></tr></table></div>
+</details>
+<p>Some of the key features include:</p>
+<ul>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/code-blocks/">Code block Line Numbering</a>;</li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/code-blocks/">Code block Annotations</a>;</li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/mathjax/">MathJax</a>.</li>
+</ul>
+<p>One missing feature is the ability to <strong>toggle</strong> code blocks. Two workarounds are provided:</p>
+<details>
+<summary>Toggle Using Admonition</summary>
+<div class="highlight"><span class="filename">Setting Up</span><pre><span></span><code>mkdir custom_hn_push_up_counter 
+</code></pre></div>
+</details>
+<p><details>
+<summary>Toggle Using HTML</summary>
+<div class="highlight"><span class="filename">Setting Up</span><pre><span></span><code>mkdir custom_hn_push_up_counter 
+</code></pre></div>
+</details></p>
+</li>
+<li>
+<p>We added some custom CSS and JavaScript files. In particular, we added <code>mathjax.js</code> for easier latex integration.</p>
+</li>
+<li>You can now call <code>mkdocs serve</code> to start the server at a local host to view your document.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To link to a section or header, you can do this: [link to Styling and Formatting by <a href="workflows.md#styling-and-formatting">workflows.md#styling-and-formatting</a>.</p>
+</div>
+<h3 id="mkdocstrings">Mkdocstrings</h3>
+<p>We also can create docstrings as API reference using <a href="https://mkdocstrings.github.io/usage/">Mkdocstrings</a>:</p>
+<ul>
+<li>Install mkdocstrings: <code>pip install mkdocstrings</code></li>
+<li>Place plugings to <code>mkdocs.yml</code>:
+    <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">mkdocs.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>plugins:
+  - search
+  - mkdocstrings
+</code></pre></div></td></tr></table></div></li>
+<li>
+<p>In <code>mkdocs.yml</code>'s navigation tree: 
+    <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">mkdocs.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>- API Documentation: 
+  - Exercise Counter: api/exercise_counter_api.md
+</code></pre></div></td></tr></table></div>
+    For example you have a python file called <code>exercise_counter.py</code> and want to render it, create a file named <code>api/exercise_counter_api.md</code> and in this markdown file:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">api/exercise_counter_api.md</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>::: custom_hn_exercise_counter.src.custom_nodes.dabble.exercise_counter # package path.
+</code></pre></div></td></tr></table></div>
+</li>
+</ul>
+<h2 id="tests">Tests</h2>
+<p>Set up <code>pytest</code> for testing codes.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Install pytest</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">pytest</span><span class="o">==</span><span class="m">6</span>.0.2
+pytest-cov<span class="o">==</span><span class="m">2</span>.10.1
+</code></pre></div></td></tr></table></div>
+<p>In general, <strong>Pytest</strong> expects our testing codes to be grouped under a folder called <code>tests</code>. We can configure in our <code>pyproject.toml</code> file to override this if we wish to ask <code>pytest</code> to check from a different directory. After specifying the folder holding the test codes, <code>pytest</code> will then look for python scripts starting with <code>tests_*.py</code>; we can also change the extensions accordingly if you want <code>pytest</code> to look for other kinds of files (extensions)<sup id="fnref:testing_made_with_ml"><a class="footnote-ref" href="#fn:testing_made_with_ml">2</a></sup>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pyproject.toml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Pytest</span>
+<span class="o">[</span>tool.pytest.ini_options<span class="o">]</span>
+<span class="nv">testpaths</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;tests&quot;</span><span class="o">]</span>
+<span class="nv">python_files</span> <span class="o">=</span> <span class="s2">&quot;test_*.py&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="cicd-github-actions">CI/CD (GitHub Actions)</h2>
+<p>The following content is with reference to:</p>
+<ul>
+<li><a href="https://www.ravirajag.dev/blog/mlops-github-actions">MLOps Basics [Week 6]: CI/CD - GitHub Actions</a></li>
+<li><a href="https://madewithml.com/courses/mlops/cicd/">CI/CD for Machine Learning</a></li>
+</ul>
+<p>We will be using <a href="https://github.com/features/actions">GitHub Actions</a> to setup our mini CI/CD.</p>
+<h3 id="commit-checks">Commit Checks</h3>
+<p>Commit checks is to ensure the following:</p>
+<ul>
+<li>The requirements can be installed on various OS and python versions.</li>
+<li>Ensure code quality and adherence to PEP8 (or other coding standards).</li>
+<li>Ensure tests are passed.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">lint_test.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Commit Checks</span><span class="w">                                                                                             </span><span class="c1"># (1)</span><span class="w"></span>
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pull_request</span><span class="p p-Indicator">]</span><span class="w">                                                                                        </span><span class="c1"># (2)</span><span class="w"></span>
+
+<span class="nt">jobs</span><span class="p">:</span><span class="w">                                                                                                           </span><span class="c1"># (3)</span><span class="w"></span>
+<span class="w">  </span><span class="nt">check_code</span><span class="p">:</span><span class="w">                                                                                                   </span><span class="c1"># (4)</span><span class="w"></span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.os }}</span><span class="w">                                                                                   </span><span class="c1"># (5)</span><span class="w"></span>
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span><span class="w">                                                                                                   </span><span class="c1"># (6)</span><span class="w"></span>
+<span class="w">      </span><span class="nt">fail-fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                                                                                          </span><span class="c1"># (7)</span><span class="w"></span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w">                                                                                                   </span><span class="c1"># (8)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ubuntu-latest</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">windows-latest</span><span class="p p-Indicator">]</span><span class="w">                                                                     </span><span class="c1"># (9)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">3.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3.9</span><span class="p p-Indicator">]</span><span class="w">                                                                              </span><span class="c1"># (10)</span><span class="w"></span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">                                                                                                      </span><span class="c1"># (11)</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span><span class="w">                                                                                     </span><span class="c1"># (12)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w">                                                                               </span><span class="c1"># (13)</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Python</span><span class="w">                                                                                      </span><span class="c1"># (14)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span><span class="w">                                                                           </span><span class="c1"># (15)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">                                                                                                   </span><span class="c1"># (16)</span><span class="w"></span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-version }}</span><span class="w">                                                          </span><span class="c1"># (17)</span><span class="w"></span>
+<span class="w">          </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pip&quot;</span><span class="w">                                                                                          </span><span class="c1"># (18)</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span><span class="w">                                                                              </span><span class="c1"># (19)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w">                                                                                                  </span><span class="c1"># (20)</span><span class="w"></span>
+<span class="w">          </span><span class="no">python -m pip install --upgrade pip setuptools wheel</span><span class="w"></span>
+<span class="w">          </span><span class="no">pip install -e . </span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Black Formatter</span><span class="w">                                                                               </span><span class="c1"># (21)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">black --check .</span><span class="w">                                                                                    </span><span class="c1"># (22)</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># - name: Run flake8 Linter</span><span class="w"></span>
+<span class="w">      </span><span class="c1">#   run: flake8 . # look at my pyproject.toml file and see if there is a flake8 section, if so, run flake8 on the files in the flake8 section</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Pytest</span><span class="w">                                                                                        </span><span class="c1"># (23)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python -m coverage run --source=custom_hn_exercise_counter -m pytest &amp;&amp; python -m coverage report</span><span class="w">  </span><span class="c1"># (24)</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>This is the name that will show up under the <strong>Actions</strong> tab in GitHub. Typically, we should name it appropriately like how we indicate the subject of an email.</li>
+<li>The list here indicates the <a href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request">workflow will be triggered</a> whenever someone directly pushes or submits a PR to the main branch.</li>
+<li>Once an event is triggered, a set of <strong>jobs</strong> will run on a <a href="https://github.com/actions/runner">runner</a>. In our example, we will run a job called <code>check_code</code> on a runner to check for formatting and linting errors as well as run the <code>pytest</code> tests.</li>
+<li>This is the name of the job that will run on the runner.</li>
+<li>We specify which OS system we want the code to be run on. We can simply say <code>ubuntu-latest</code> or <code>windows-latest</code> if we just want the code to be tested on a single OS. However, here we want to check if it works on both Ubuntu and Windows, and hence we define <code>${{ matrix.os }}</code> where <code>matrix.os</code> is <code>[ubuntu-latest, windows-latest]</code>. A cartesian product is created for us and the job will run on both OSs.</li>
+<li>Strategy is a way to control how the jobs are run. In our example, we want the job to run as fast as possible, so we set <code>strategy.fail-fast</code> to <code>false</code>.</li>
+<li>If one job fails, then the whole workflow will fail, this is not ideal if we want to test multiple jobs, we can set <code>fail-fast</code> to <code>false</code> to allow the workflow to continue running on the remaining jobs.</li>
+<li>Matrix is a way to control how the jobs are run. In our example, we want to run the job on both Python 3.8 and 3.9, so we set <code>matrix.python-version</code> to <code>[3.8, 3.9]</code>.</li>
+<li>This list consists of the OS that the job will run on in cartesian product.</li>
+<li>This is the python version that the job will run on in cartesian product. We can simply say <code>3.8</code> or <code>3.9</code> if we just want the code to be tested on a single python version. However, here we want to check if it works on both python 3.8 and python 3.9, and hence we define <code>${{ matrix.python-version }}</code> where <code>matrix.python-version</code> is <code>[3.8, 3.9]</code>. A cartesian product is created for us and the job will run on both python versions.</li>
+<li>This is a list of dictionaries that defines the steps that will be run.</li>
+<li>Name is the name of the step that will be run.</li>
+<li>It is important to specify <code>@v2</code> as if unspecified, then the workflow will use the latest version from actions/checkout template, potentially causing libraries to break. The idea here is like your <code>requirements.txt</code> idea, if different versions then will break.</li>
+<li>Setup Python is a step that will be run before the job.</li>
+<li>Same as above, we specify <code>@v2</code> as if unspecified, then the workflow will use the latest version from actions/setup-python template, potentially causing libraries to break.</li>
+<li>With is a way to pass parameters to the step.</li>
+<li>This is the python version that the job will run on in cartesian product and if run 1 python version then can define as just say 3.7</li>
+<li>Cache is a way to control how the libraries are installed.</li>
+<li>Install dependencies is a step that will be run before the job.</li>
+<li><code>|</code> is multi-line string that runs the below code, which sets up the libraries from <code>setup.py</code> file.</li>
+<li>Run Black Formatter is a step that will be run before the job.</li>
+<li>Runs <code>black</code> with configurations from <code>pyproject.toml</code> file.</li>
+<li>Run Pytest is a step that will be run before the job.</li>
+<li>Runs pytest, note that I specified <code>python -m</code> to resolve PATH issues.</li>
+</ol>
+<h3 id="deploy-to-website">Deploy to Website</h3>
+<p>The other workflow for this project is to deploy the website built from Mkdocsto gh-pages branch.</p>
+<details class="example">
+<summary>Show/Hide content for deploy_website.yml</summary>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">deploy_website.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Website to GitHub Pages</span><span class="w"></span>
+
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">master</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;docs/**&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;mkdocs.yml&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;.github/workflows/deploy_website.yml&quot;</span><span class="w"></span>
+
+<span class="nt">permissions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write-all</span><span class="w"></span>
+
+<span class="nt">jobs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span><span class="w"></span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Website</span><span class="w"></span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set Up Python</span><span class="w"></span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span><span class="w"></span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.8</span><span class="w"></span>
+<span class="w">          </span><span class="nt">architecture</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x64</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span><span class="w"></span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"> </span><span class="c1"># this symbol is called a multiline string</span><span class="w"></span>
+<span class="w">          </span><span class="no">python -m pip install --upgrade pip setuptools wheel</span><span class="w"></span>
+<span class="w">          </span><span class="no">pip install -e . </span><span class="w"></span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build Website</span><span class="w"></span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">          </span><span class="no">mkdocs build</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Push Built Website to gh-pages Branch</span><span class="w"></span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">          </span><span class="no">git config --global user.name &#39;Hongnan G.&#39;</span><span class="w"></span>
+<span class="w">          </span><span class="no">git config --global user.email &#39;reighns92@users.noreply.github.com&#39;</span><span class="w"></span>
+<span class="w">          </span><span class="no">ghp-import \</span><span class="w"></span>
+<span class="w">          </span><span class="no">--no-jekyll \</span><span class="w"></span>
+<span class="w">          </span><span class="no">--force \</span><span class="w"></span>
+<span class="w">          </span><span class="no">--no-history \</span><span class="w"></span>
+<span class="w">          </span><span class="no">--push \</span><span class="w"></span>
+<span class="w">          </span><span class="no">--message &quot;Deploying ${{ github.sha }}&quot; \</span><span class="w"></span>
+<span class="w">          </span><span class="no">site</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+</details>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:styling_made_with_ml">
+<p>This part is extracted from <a href="https://madewithml.com/courses/mlops/styling/">madewithml</a>.&#160;<a class="footnote-backref" href="#fnref:styling_made_with_ml" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:testing_made_with_ml">
+<p>This part is extracted from <a href="https://madewithml.com/courses/mlops/testing/#pytest">madewithml</a>.&#160;<a class="footnote-backref" href="#fnref:testing_made_with_ml" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../../about/" class="md-footer__link md-footer__link--prev" aria-label="Previous: About" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              About
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../git/" class="md-footer__link md-footer__link--next" aria-label="Next: Git" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Git
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

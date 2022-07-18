@@ -1,0 +1,2976 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://reighns92.github.io/reighns-ml-blog/reighns_ml_journey/mathematics/gradient_descent/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>Gradient Descent - Hongnan G. Machine Learning Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gradient-descent" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Hongnan G. Machine Learning Blog" class="md-header__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan G. Machine Learning Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Gradient Descent
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Hongnan G. Machine Learning Blog" class="md-nav__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Hongnan G. Machine Learning Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles.md" class="md-nav__link">
+        How to write articles
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Software Engineering Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Engineering Practices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Software Engineering Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software_engineering/workflow/" class="md-nav__link">
+        Workflow
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software_engineering/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software_engineering/code_design/" class="md-nav__link">
+        Code Design
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software_engineering/gcp/" class="md-nav__link">
+        GCP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software_engineering/github_actions_test_packages_compatibility/" class="md-nav__link">
+        Test Packages Compatibility
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Gradient Descent
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Gradient Descent
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gradient-descent" class="md-nav__link">
+    Gradient Descent
+  </a>
+  
+    <nav class="md-nav" aria-label="Gradient Descent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-intuition" class="md-nav__link">
+    The Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-idea-of-neighbourhood" class="md-nav__link">
+    The idea of neighbourhood
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-vector" class="md-nav__link">
+    Gradient Vector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directional-derivatives" class="md-nav__link">
+    Directional Derivatives
+  </a>
+  
+    <nav class="md-nav" aria-label="Directional Derivatives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition-of-directional-derivative" class="md-nav__link">
+    Intuition of Directional Derivative
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-the-direction-derivative" class="md-nav__link">
+    Theorem (The Direction Derivative)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#difference-between-gradient-and-directional-derivative8" class="md-nav__link">
+    Difference between Gradient and Directional Derivative8
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-points-to-the-direction-of-steepest-ascent" class="md-nav__link">
+    Gradient Points to the Direction of Steepest Ascent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Mathematics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general_mathematical_terms_and_definitions/" class="md-nav__link">
+        General Mathematic Terms and Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Linear Algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_1" type="checkbox" id="__nav_6_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_1">
+          Preliminaries
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preliminaries" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Preliminaries
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/01_preliminaries/lines_and_planes/" class="md-nav__link">
+        Lines and Planes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/01_preliminaries/fields/" class="md-nav__link">
+        Fields
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2" type="checkbox" id="__nav_6_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2">
+          Vectors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vectors" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vectors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/02_vectors/02_linear_algebra_vectors/" class="md-nav__link">
+        Vector Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2_2" type="checkbox" id="__nav_6_2_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2_2">
+          Vector Products
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Products" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Products
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/02_vectors/02_linear_algebra_vectors_linear_combination/" class="md-nav__link">
+        Linear Combination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/02_vectors/02_linear_algebra_vectors_dot_product/" class="md-nav__link">
+        Dot Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/02_vectors/02_linear_algebra_vectors_outer_product/" class="md-nav__link">
+        Outer Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/02_vectors/02_linear_algebra_vectors_unit_vector/" class="md-nav__link">
+        Unit Vector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/02_vectors/02_linear_algebra_vectors_exercises/" class="md-nav__link">
+        Exercises
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_3" type="checkbox" id="__nav_6_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_3">
+          Vector Spaces
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Spaces" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Spaces
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_subspaces/" class="md-nav__link">
+        Vector Space and Subspaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_vector_span/" class="md-nav__link">
+        Vector Span
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_linear_independence/" class="md-nav__link">
+        Linear Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/03_vector_spaces/03_linear_algebra_vector_spaces_basis_dimension/" class="md-nav__link">
+        Basis and Dimension
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_4" type="checkbox" id="__nav_6_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_4">
+          Matrix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/04_matrices/04_linear_algebra_matrix/" class="md-nav__link">
+        Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/04_matrices/04_linear_algebra_matrix_basic_matrix_types/" class="md-nav__link">
+        Basic Matrix Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/04_matrices/04_linear_algebra_matrix_basic_operations/" class="md-nav__link">
+        Basic Matrix Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/04_matrices/04_linear_algebra_matrix_multiplication/" class="md-nav__link">
+        Matrix Multiplication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_5" type="checkbox" id="__nav_6_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_5">
+          Matrix Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix Theory" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.01_linear_algebra_systems_of_linear_equations/" class="md-nav__link">
+        System of Linear Equations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.02_linear_algebra_row_reduction_preserves_rank/" class="md-nav__link">
+        Row Reduction Preserves Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.03_linear_algebra_matrix_theory_matrix_spaces_row_space/" class="md-nav__link">
+        Row Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.04_linear_algebra_matrix_theory_matrix_spaces_column_space/" class="md-nav__link">
+        Column Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.05_linear_algebra_matrix_theory_matrix_spaces_right_nullspace/" class="md-nav__link">
+        Right Nullspace (Kernel)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.06_linear_algebra_matrix_theory_matrix_spaces_left_nullspace/" class="md-nav__link">
+        Left Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.07_linear_algebra_matrix_theory_matrix_rank/" class="md-nav__link">
+        Matrix Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.08_linear_algebra_matrix_theory_matrix_spaces_summary/" class="md-nav__link">
+        The Four Fundamental Subspaces (Summary)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_6" type="checkbox" id="__nav_6_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_6">
+          Linear Transformation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Transformation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Transformation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/06_linear_transformation/06.01_linear_algebra_linear_transformations/" class="md-nav__link">
+        Linear Transformation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/06_linear_transformation/06.02_linear_algebra_linear_transformations_nullspace/" class="md-nav__link">
+        Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/06_linear_transformation/06.03_linear_algebra_linear_transformations_ranges/" class="md-nav__link">
+        Range
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/06_linear_transformation/06.04_linear_algebra_linear_transformations_homomorphism/" class="md-nav__link">
+        Homomorphism
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem/" class="md-nav__link">
+        Fundamental Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix/" class="md-nav__link">
+        Linear Transformation and Matrix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_7" type="checkbox" id="__nav_6_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_7">
+          Analytic Geometry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Analytic Geometry" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Analytic Geometry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.01_motivation/" class="md-nav__link">
+        Motivation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.02_norms/" class="md-nav__link">
+        Norms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.03_inner_products/" class="md-nav__link">
+        Inner Product Spaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.04_lengths_and_distances/" class="md-nav__link">
+        Lengths and Distances
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.05_angles_and_orthogonality/" class="md-nav__link">
+        Angles and Orthogoanlity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.06_orthogonal_subspaces/" class="md-nav__link">
+        Orthogonal Subspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.07_orthogonal_projections/" class="md-nav__link">
+        Orthogonal Projection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.08_orthogonal_matrices_and_basis/" class="md-nav__link">
+        Orthogonal Matrices and Basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/08_analytic_geometry/08.09_gram_schmidt_orthogonalization/" class="md-nav__link">
+        Gram-Schmidt Orthogonalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linear_algebra/linear_algebra_interview_questions/" class="md-nav__link">
+        Interview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Probability and Statistics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Probability and Statistics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Probability and Statistics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probability_statistics_theory/probability4datascience/" class="md-nav__link">
+        Introduction to Probability for Data Science (Stanley H. Chan)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Introduction to Probability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction to Probability" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction to Probability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probability_statistics_theory/02_introduction_to_probability/02.01_probability_space/" class="md-nav__link">
+        Probability Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probability_statistics_theory/02_introduction_to_probability/02.02_probability_axioms/" class="md-nav__link">
+        Probability Axioms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probability_statistics_theory/02_introduction_to_probability/02.03_conditional_probability/" class="md-nav__link">
+        Conditional Probability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probability_statistics_theory/02_introduction_to_probability/02.04_independence/" class="md-nav__link">
+        Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probability_statistics_theory/02_introduction_to_probability/02.05_bayes_theorem/" class="md-nav__link">
+        Bayes Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../probability_statistics_theory/02_introduction_to_probability/02.06_summary/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Machine Learning and Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning and Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning and Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Metrics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Metrics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Metrics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_1" type="checkbox" id="__nav_7_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_1">
+          Classification
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Classification" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Classification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/classification_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/accuracy/" class="md-nav__link">
+        Accuracy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/confusion_matrix/" class="md-nav__link">
+        Confusion Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/precision_recall_f1/" class="md-nav__link">
+        Precision-Recall-F1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/roc_pr_curve/" class="md-nav__link">
+        ROC and PR Curves
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/classification_metrics/cohens_kappa/" class="md-nav__link">
+        Cohen's Kappa
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_2" type="checkbox" id="__nav_7_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_2">
+          Regression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Regression" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Regression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/regression_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/mae_rmse/" class="md-nav__link">
+        MAE and MSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/metrics/regression_metrics/mape/" class="md-nav__link">
+        MAPE
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Computer Vision
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Computer Vision" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Computer Vision
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2" type="checkbox" id="__nav_7_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2">
+          Neural Network Interpretation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Neural Network Interpretation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Neural Network Interpretation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_1" type="checkbox" id="__nav_7_2_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_1">
+          Visualization of Feature Map Activations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization of Feature Map Activations" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of Feature Map Activations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation/" class="md-nav__link">
+        Feature Map Activations (Part I)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation_reduced/" class="md-nav__link">
+        Feature Map Activations (Part II)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md" class="md-nav__link">
+        Visualization of Convolutional Filters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/salient_map/Salient Map.md" class="md-nav__link">
+        Salient Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_4" type="checkbox" id="__nav_7_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_4">
+          Grad-CAM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Grad-CAM" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Grad-CAM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_explained/" class="md-nav__link">
+        Grad-CAM Explained
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_from_scratch/" class="md-nav__link">
+        Grad-CAM from Scratch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/computer_vision/image_normalization/Image_Normalization_and_Standardization/" class="md-nav__link">
+        Image Normalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Fundamental Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamental Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamental Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch/" class="md-nav__link">
+        Cross Entropy Loss
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Ensemble Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ensemble Theory" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ensemble Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine_learning_and_deep_learning/ensemble_theory/forward_ensemble/" class="md-nav__link">
+        Forward Ensemble (Hill Climbing)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Data Structures and Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Structures and Algorithms" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Data Structures and Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_structures_and_algorithms/introduction.md" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_structures_and_algorithms/Linked%20List/" class="md-nav__link">
+        Linked Lists
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Machine Learning Projects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning Projects" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning Projects
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/RANZCR%20CLiP%20-%20Catheter%20and%20Line%20Position%20Challenge/notebooks/walkthrough/" class="md-nav__link">
+        RANZCR CLiP - Catheter and Line Position Challenge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/SIIM-ISIC%20Melanoma%20Classification/notebooks/walkthrough/" class="md-nav__link">
+        SIIM-ISIC Melanoma Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/LTA_road_cracks_detection/notebooks/walkthrough/" class="md-nav__link">
+        LTA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_4" type="checkbox" id="__nav_9_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_4">
+          Breast Cancer Wisconsin (Supervised Classification)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Breast Cancer Wisconsin (Supervised Classification)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_4">
+          <span class="md-nav__icon md-icon"></span>
+          Breast Cancer Wisconsin (Supervised Classification)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%200%20-%20Introduction%20and%20Problem%20Statement/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%201%20-%20Preliminary%20Data%20Inspection%20and%20Cleaning/" class="md-nav__link">
+        Preliminary Data Inspection and Cleaning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%202%20-%20Preliminary%20EDA/" class="md-nav__link">
+        EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%203%20-%20Feature%20Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%204%20-%20Modelling%20%28Metric%20to%20Optimize%29/" class="md-nav__link">
+        Modelling (Metrics)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%205%20-%20Modelling%20%28Cross-Validation%20Methodology%29/" class="md-nav__link">
+        Modelling (Cross-Validation Schema)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%206%20-%20Modelling%20%28Preprocessing%20and%20Spot%20Checking%29/" class="md-nav__link">
+        Modelling (Preprocessing and Spot Checking)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%207%20-%20Modelling%20%28Model%20Selection%20and%20Hyperparameter%20Tuning%29/" class="md-nav__link">
+        Modelling (Model Selection)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/breast_cancer_wisconsin/Stage%208%20-%20Modelling%20%28Model%20Evaluation%20and%20Interpretation%29/" class="md-nav__link">
+        Modelling (Model Evaluation)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gradient-descent" class="md-nav__link">
+    Gradient Descent
+  </a>
+  
+    <nav class="md-nav" aria-label="Gradient Descent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-intuition" class="md-nav__link">
+    The Intuition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-idea-of-neighbourhood" class="md-nav__link">
+    The idea of neighbourhood
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-vector" class="md-nav__link">
+    Gradient Vector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directional-derivatives" class="md-nav__link">
+    Directional Derivatives
+  </a>
+  
+    <nav class="md-nav" aria-label="Directional Derivatives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intuition-of-directional-derivative" class="md-nav__link">
+    Intuition of Directional Derivative
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-the-direction-derivative" class="md-nav__link">
+    Theorem (The Direction Derivative)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#difference-between-gradient-and-directional-derivative8" class="md-nav__link">
+    Difference between Gradient and Directional Derivative8
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-points-to-the-direction-of-steepest-ascent" class="md-nav__link">
+    Gradient Points to the Direction of Steepest Ascent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>Gradient Descent</h1>
+
+<div class="arithmatex">\[
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\u}{\mathbf{u}}
+\newcommand{\v}{\mathbf{v}}
+\newcommand{\x}{\mathbf{x}}
+\]</div>
+<h2 id="gradient-descent">Gradient Descent</h2>
+<p>In mathematics, <strong>gradient descent</strong> (also often called steepest descent) is a <strong>first-order iterative optimization algorithm</strong> for finding a local minimum of a differentiable function. The idea is to take repeated steps in the opposite direction of the gradient (or approximate gradient) of the function at the current point, because this is the direction of steepest descent. Conversely, stepping in the direction of the gradient will lead to a local maximum of that function; the procedure is then known as gradient ascent.<sup id="fnref:gradient_descent_intro"><a class="footnote-ref" href="#fn:gradient_descent_intro">1</a></sup> </p>
+<p>This blog answers two questions:</p>
+<ol>
+<li>How does the gradient descent algorithm work?</li>
+<li>Why does the gradient points in the direction of the steepest ascent? </li>
+</ol>
+<p>In many articles and courses, gradient descent is often used to find the minimum of a function, by way of the following procedure:
+<span class="arithmatex">\({\color{red} \textbf{To rewrite this pseudocode}}\)</span></p>
+<div class="highlight"><pre><span></span><code>1. Start at the initial point.
+2. Take a step in the opposite direction of the gradient.
+3. Repeat steps 2 and 3 until the function is no longer decreasing.
+4. The point where the function is no longer decreasing is the minimum.
+</code></pre></div>
+<p>Our second question is equivalent to answering the point 2, on why do we take a step in the opposite direction of the gradient.</p>
+<h3 id="the-intuition">The Intuition</h3>
+<p>Quote wikipedia's example.</p>
+<h3 id="the-idea-of-neighbourhood">The idea of neighbourhood</h3>
+<p>Let us start with an one-dimensional example to illustrate the idea of neighbourhood.</p>
+<p>Define <span class="arithmatex">\(f: \R \to \R\)</span> to be <span class="arithmatex">\(f(x) = x^2\)</span>, then the gradient of <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\(x = x_0\)</span> is <span class="arithmatex">\(\frac {\partial f(x)} {\partial x} \vert x_0 = 2x_0\)</span>.</p>
+<p>A wrong interpretation is to treat the understanding of gradient as if it is a linear function. </p>
+<p>Let us fix a point <span class="arithmatex">\(x = 2\)</span>, its output <span class="arithmatex">\(f(x) = 4\)</span> and the gradient at that point is <span class="arithmatex">\(\frac {\partial f(x)} {\partial x} \vert_{x=2} = 4\)</span>.
+It is wrong to say that for every <span class="arithmatex">\(1\)</span> unit increase of <span class="arithmatex">\(x\)</span>, <span class="arithmatex">\(f(x)\)</span> will increase by <span class="arithmatex">\(4\)</span>, where <span class="arithmatex">\(4\)</span> is the gradient at that point.
+One can indeed verify that if <span class="arithmatex">\(x\)</span> is increased by <span class="arithmatex">\(1\)</span> unit from <span class="arithmatex">\(x=2\)</span> to <span class="arithmatex">\(x = 3\)</span>, then <span class="arithmatex">\(f(x) = 3^2 = 9\)</span>, where <span class="arithmatex">\(f(x)\)</span> is increased by <span class="arithmatex">\(5\)</span> units, and not by <span class="arithmatex">\(4\)</span>.</p>
+<p>Unlike the case of a linear function, the gradient of <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\(x = x_0\)</span> is not fixed, but depends on the value of <span class="arithmatex">\(x_0\)</span>. 
+Consequently, the meaning of the gradient in such a function is only well defined in a small <span class="arithmatex">\(\epsilon\)</span>-neighbourhood<sup id="fnref:epsilon"><a class="footnote-ref" href="#fn:epsilon">2</a></sup> around <span class="arithmatex">\(x = 2\)</span>.
+Within this small neighbourhood, we can "loosely" visualize the portion of the function to be a "linear function" with a slope of <span class="arithmatex">\(2\)</span>, as illustrated in the following figure.
+The enclosed green box is the neighborhood of <span class="arithmatex">\(x = 2\)</span>, where if we zoom in, the portion of the function inside looks like a linear function with a slope of <span class="arithmatex">\(2\)</span>.</p>
+<figure>
+<p><img alt="Image title" src="../../../assets/mathematics/gradient_descent/neighbourhood.jpg" width="300" />
+  </p>
+<figcaption>Neighbourhood around x = 2.</figcaption>
+</figure>
+<p>Indeed, if we set <span class="arithmatex">\(\epsilon = 0.001\)</span>, then if <span class="arithmatex">\(x = 2\)</span>, we have <span class="arithmatex">\(f(x) = 4\)</span>; moving <span class="arithmatex">\(x\)</span> by <span class="arithmatex">\(\epsilon\)</span> from <span class="arithmatex">\(x = 2\)</span> to <span class="arithmatex">\(x = 2.001\)</span> 
+yields us <span class="arithmatex">\(f(x) \approxeq 4.004\)</span>. We now see that <span class="arithmatex">\(x\)</span> increasing by <span class="arithmatex">\(0.001\)</span> unit indeed yields us an increase of <span class="arithmatex">\(4.004 - 4 = 0.004\)</span>, 
+a factor of <span class="arithmatex">\(4\)</span> increase to the output <span class="arithmatex">\(f(x)\)</span>.</p>
+<hr />
+<h3 id="gradient-vector">Gradient Vector</h3>
+<div class="admonition abstract">
+<p class="admonition-title">Definition: Gradient Vector</p>
+<p>Let <span class="arithmatex">\(f: \R^n \to \R\)</span> be a function that maps <span class="arithmatex">\(\x\)</span> to <span class="arithmatex">\(f(\x)\)</span>:</p>
+<div class="arithmatex">\[
+\begin{align*}
+f \colon \R^n &amp;\longrightarrow \R \\
+\x &amp;\longmapsto f(\x) \\
+\end{align*}
+\]</div>
+<p>where <span class="arithmatex">\(\x = [x_1, x_2, \ldots, x_n]^\top\)</span> is a vector of <span class="arithmatex">\(n\)</span> variables. </p>
+<p>Then the <strong><em>gradient</em></strong> of <span class="arithmatex">\(f\)</span> is the <strong>vector</strong> of first-order partial derivatives of <span class="arithmatex">\(f\)</span> with respect to each of the <span class="arithmatex">\(n\)</span> variables.</p>
+<div class="arithmatex">\[
+\begin{equation}
+\nabla f(\x) = \bigg[\frac{\partial f(\x)}{\partial x_1}, \frac{\partial f(\x)}{\partial x_2}, \ldots, \frac{\partial f(\x)}{\partial x_n} \bigg]^\top
+\label{eq:grad_vec}
+\end{equation}
+\]</div>
+<p>We can also replace the notation <span class="arithmatex">\(\frac{\partial f(\x)}{\partial x_i}\)</span> in equation <span class="arithmatex">\(\eqref{eq:grad_vec}\)</span> with <span class="arithmatex">\(f_{x_i}\)</span>.</p>
+</div>
+<hr />
+<h3 id="directional-derivatives">Directional Derivatives</h3>
+<div class="admonition abstract">
+<p class="admonition-title">Definition: Directional Derivative</p>
+<p>Let <span class="arithmatex">\(f: \R^n \to \R\)</span> be a function that maps <span class="arithmatex">\(\x\)</span> to <span class="arithmatex">\(f(\x)\)</span>:</p>
+<div class="arithmatex">\[
+\begin{align*}
+f \colon \R^n &amp;\longrightarrow \R \\
+\x &amp;\longmapsto f(\x) \\
+\end{align*}
+\]</div>
+<p>where <span class="arithmatex">\(\x = [x_1, x_2, \ldots, x_n]^\top\)</span> is a vector of <span class="arithmatex">\(n\)</span> variables. </p>
+<p>Then the <strong><em>directional derivative</em></strong> of <span class="arithmatex">\(f\)</span> <strong>at a point</strong> <span class="arithmatex">\(\x\)</span> along a <strong>direction vector</strong></p>
+<div class="arithmatex">\[
+\v = [v_1, v_2, \ldots, v_n]^\top
+\]</div>
+<p>is the function <span class="arithmatex">\(D_{\v}(f)\)</span> defined by the limit:</p>
+<div class="arithmatex">\[
+\begin{equation}
+D_{\v}(f) = \lim_{h \to 0} \frac{f(\x + h\v) - f(\x)}{h}
+\label{eq:directional_derivative_def}
+\end{equation}
+\]</div>
+</div>
+<p>To avoid notation confusion and also understand the definition better, we use a simple example in 2-dimensional to illustrate the definition of the directional derivative.</p>
+<div class="admonition example">
+<p class="admonition-title">Example: Directional Derivative</p>
+<p>Let <span class="arithmatex">\(f: \R^2 \to \R\)</span> be defined as </p>
+<div class="arithmatex">\[
+f(\x) = f(x_1, x_2) = x_1^2 + x_2^2
+\]</div>
+<p>where <span class="arithmatex">\(\x\)</span> is a vector of scalar values <span class="arithmatex">\(x_1\)</span> and <span class="arithmatex">\(x_2\)</span>, both corresponds to the x- and y-coordinates of a point in the plane respectively.</p>
+<p>Following closely the definition, we need to define a <strong>direction vector</strong> <span class="arithmatex">\(\v\)</span>.
+Since the definition did not say what <span class="arithmatex">\(\v\)</span> was, we can define <span class="arithmatex">\(\v\)</span> to be the unit vector in the south-east direction.</p>
+<div class="arithmatex">\[
+\v = \begin{bmatrix} 1 \\ -1 \end{bmatrix}
+\]</div>
+<p>We also note that we want to compute the <strong>directional derivative</strong> of <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\((x_1, x_2)\)</span>, where we arbitrarily choose <span class="arithmatex">\((x_1, x_2) = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\)</span>.</p>
+<p>Then, we can define the directional derivative of <span class="arithmatex">\(f\)</span> at the point <span class="arithmatex">\(\x = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\)</span> along <span class="arithmatex">\(\v = \begin{bmatrix} 1 \\ -1 \end{bmatrix}\)</span> as:</p>
+<div class="arithmatex">\[
+\begin{equation*}
+\begin{split}
+D_{\v}(f(1, 1)) &amp;= \lim_{h \to 0} \frac{f(\x + h\v) - f(\x)}{h} \\
+          &amp;= \lim_{h \to 0} \frac{f(x_1 + hv_1, x_2 + hv_2) - f(x_1, x_2)}{h} \\
+          &amp;= \lim_{h \to 0} \frac{f(1 + h, 1 - h) - f(1, 1)}{h} 
+\end{split}
+\end{equation*}
+\]</div>
+<p>which evaluates to how much <span class="arithmatex">\(f\)</span> changes when it moves a small unit distance <span class="arithmatex">\(h\)</span> from <span class="arithmatex">\(\x\)</span> to <span class="arithmatex">\(\x + h\)</span> along the direction <span class="arithmatex">\(\v\)</span>.</p>
+</div>
+<hr />
+<h4 id="intuition-of-directional-derivative">Intuition of Directional Derivative</h4>
+<p>This section builds up to an important derivation of the idea of the directional derivative.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In this section, we should constantly recall the idea of a <a href="./#the-idea-of-neighbourhood">neighbourhood</a> whenever we talk about per unit change, we should visualize that this unit is very small.</p>
+</div>
+<p>Let us restrict our focus to 2-variable mutlivariate function <span class="arithmatex">\(f(x, y)\)</span>, bearing in mind that it can be scaled up to <span class="arithmatex">\(n\)</span> variables.
+The components of <span class="arithmatex">\(\nabla f\)</span> are the partial derivatives of <span class="arithmatex">\(f\)</span> with respect to <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span>.</p>
+<p>More concretely, given the partial derivative </p>
+<div class="arithmatex">\[
+\begin{equation}
+\frac{\partial f(x, y)}{\partial x} 
+\label{eq:partial_x}
+\end{equation}
+\]</div>
+<p>equation <span class="arithmatex">\(\eqref{eq:partial_x}\)</span> answers the question: 
+how much does the value of <span class="arithmatex">\(f\)</span> change when we hold <span class="arithmatex">\(y\)</span> constant and nudge <span class="arithmatex">\(x\)</span> by a small amount in the <span class="arithmatex">\(x\)</span> direction (i.e. in the direction pointed to by the vector <span class="arithmatex">\(\begin{bmatrix} 1 &amp; 0 \end{bmatrix}^\top\)</span>)?<sup id="fnref:partial_x_intuition"><a class="footnote-ref" href="#fn:partial_x_intuition">3</a></sup></p>
+<p>In a similar vein, given the partial derivative</p>
+<div class="arithmatex">\[
+\begin{equation}
+\frac{\partial f(x, y)}{\partial y}
+\label{eq:partial_y}
+\end{equation}
+\]</div>
+<p>equation <span class="arithmatex">\(\eqref{eq:partial_y}\)</span> answers the question:
+how much does the value of <span class="arithmatex">\(f\)</span> change when we hold <span class="arithmatex">\(x\)</span> constant and nudge <span class="arithmatex">\(y\)</span> by a small amount in the <span class="arithmatex">\(y\)</span> direction (i.e. in the direction pointed to by the vector <span class="arithmatex">\(\begin{bmatrix} 0 &amp; 1 \end{bmatrix}^\top\)</span>)?<sup id="fnref:partial_y_intuition"><a class="footnote-ref" href="#fn:partial_y_intuition">4</a></sup></p>
+<p>Finally, it is often useful to note that <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> can move in tandem (i.e. we do not hold any of them constant), how do we then calculate how much <span class="arithmatex">\(f\)</span> changes when we nudge both <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> by a small amount. 
+Note that moving <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> both by <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> respectively is synonymous with moving the point <span class="arithmatex">\((x, y)\)</span> by the vector <span class="arithmatex">\(\begin{bmatrix} a &amp; b \end{bmatrix}^\top\)</span>. With vector in the playing field, we now attach the notion of a "direction".</p>
+<p>We can use equation <span class="arithmatex">\(\eqref{eq:directional_derivative_def}\)</span> to compute how much <span class="arithmatex">\(f\)</span> changes when we nudge the points <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> by a small amount in the <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> directions respectively.
+However, the calculation is cumbersome if we use the definition of the directional derivative. 
+We will now use an example to derive an <em>alternate</em> formula by relating directional derivative to their partial derivatives composition. </p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>If we want to move <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> by <span class="arithmatex">\(1\)</span> and <span class="arithmatex">\(-1\)</span> respectively, then it simply means that <span class="arithmatex">\(x\)</span> is moved 1 unit along the <span class="arithmatex">\(x\)</span> axis
+and <span class="arithmatex">\(y\)</span> is moved -1 unit along the <span class="arithmatex">\(y\)</span> axis. </p>
+<p>In vector terms, this means we moved <span class="arithmatex">\((x, y)\)</span> in the direction <span class="arithmatex">\(\begin{bmatrix} 1 &amp; -1 \end{bmatrix}^\top\)</span>.</p>
+<p>More generically, let <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> move <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> units respectively, then we moved <span class="arithmatex">\((x, y)\)</span> in the direction <span class="arithmatex">\(\begin{bmatrix} a &amp; b \end{bmatrix}^\top\)</span>.
+It turns out that the amount that <span class="arithmatex">\(f\)</span> changes when we move in the <span class="arithmatex">\(\v = \begin{bmatrix} a &amp; b \end{bmatrix}^\top\)</span> direction is exactly how much 
+<span class="arithmatex">\(f\)</span> changes when we move <span class="arithmatex">\(a\)</span> units along the <span class="arithmatex">\(x\)</span> axis and <span class="arithmatex">\(b\)</span> units along the <span class="arithmatex">\(y\)</span> axis<sup id="fnref:partial_xy_intuition"><a class="footnote-ref" href="#fn:partial_xy_intuition">5</a></sup>. </p>
+<p>Recall that we <strong>know</strong> how much <span class="arithmatex">\(f\)</span> changes when we move <span class="arithmatex">\(x\)</span> by 1 unit: </p>
+<ul>
+<li>The partial derivative of <span class="arithmatex">\(f\)</span> with respect to <span class="arithmatex">\(x\)</span>: <span class="arithmatex">\(\frac{\partial f(x, y)}{\partial x}\)</span></li>
+</ul>
+<p>Recall that we <strong>know</strong> how much <span class="arithmatex">\(f\)</span> changes when we move <span class="arithmatex">\(y\)</span> by 1 unit:</p>
+<ul>
+<li>The partial derivative of <span class="arithmatex">\(f\)</span> with respect to <span class="arithmatex">\(y\)</span>: <span class="arithmatex">\(\frac{\partial f(x, y)}{\partial y}\)</span></li>
+</ul>
+<p>It follows that if we move <span class="arithmatex">\(x\)</span> by <span class="arithmatex">\(a\)</span> units, then <span class="arithmatex">\(f\)</span> changes by</p>
+<ul>
+<li><span class="arithmatex">\(a \cdot \frac{\partial f(x, y)}{\partial x}\)</span></li>
+</ul>
+<p>and if we move <span class="arithmatex">\(y\)</span> by <span class="arithmatex">\(b\)</span> units, then <span class="arithmatex">\(f\)</span> changes by</p>
+<ul>
+<li><span class="arithmatex">\(b \cdot \frac{\partial f(x, y)}{\partial y}\)</span></li>
+</ul>
+<p>Therefore, the amount that <span class="arithmatex">\(f\)</span> changes when we move <span class="arithmatex">\(x\)</span> by <span class="arithmatex">\(a\)</span> units and <span class="arithmatex">\(y\)</span> by <span class="arithmatex">\(b\)</span> units is</p>
+<ul>
+<li><span class="arithmatex">\(a \cdot \frac{\partial f(x, y)}{\partial x} + b \cdot \frac{\partial f(x, y)}{\partial y}\)</span></li>
+</ul>
+<p>One might notice that for multivariate <span class="arithmatex">\(f:\R^n \to \R\)</span>, the derivative <span class="arithmatex">\(D_{\v}(f)\)</span> at the point <span class="arithmatex">\(x \in \R^n\)</span> is defined to be a linear map <span class="arithmatex">\(T: \R^n \to \R\)</span>.
+Therefore, the linearity rule applies.</p>
+<p>If the above is still not obvious, then we can approach it geometrically. 
+Recall that we are mapping from <span class="arithmatex">\(\R^2\)</span> to <span class="arithmatex">\(\R\)</span>, the below diagram illustrates the mapping.</p>
+<p><figure markdown>
+<img alt="Image title" src="../../../assets/mathematics/gradient_descent/geometric_r2_r1.jpg" width="300" />
+<figcaption>Geometric Intuition.</figcaption>
+</figure></p>
+</div>
+<hr />
+<h4 id="theorem-the-direction-derivative">Theorem (The Direction Derivative)</h4>
+<p>The intuition <a href="./#intuition-of-directional-derivative">developed in the previous section</a> allows us to 
+derive a new formula to calculate the directional derivative of <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\(\x\)</span> when moved in the direction of <span class="arithmatex">\(\v\)</span>.</p>
+<p>Although the example used is in 2-dimensions, we can generalize to <span class="arithmatex">\(n\)</span> variables and we state it formally.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Theorem: Directional Derivative</p>
+<p>Let <span class="arithmatex">\(f: \R^n \to \R\)</span> be a function <span class="arithmatex">\(f(\x)\)</span> where <span class="arithmatex">\(\x = [x_1, x_2, \ldots, x_n]^\top\)</span> is a vector of <span class="arithmatex">\(n\)</span> variables. </p>
+<p>If <span class="arithmatex">\(f\)</span> is <strong>differentiable</strong> at <span class="arithmatex">\(\x\)</span>, then the directional derivative <span class="arithmatex">\(D_{\v}(f)\)</span> at <span class="arithmatex">\(\x\)</span> is defined as follows:</p>
+<div class="arithmatex">\[
+\begin{equation}
+D_{\v}(f(\x)) = \nabla f(\x) \cdot \v
+\label{eq:directional_derivative_theorem}
+\end{equation}
+\]</div>
+<p>In most textbooks, we will <strong>normalize</strong> the direction vector <span class="arithmatex">\(\v\)</span> to the standard unit vector <span class="arithmatex">\(\u\)</span>.
+However, the usage of unit vector simplifies the derivation and other applications<sup id="fnref:unit_vector_1"><a class="footnote-ref" href="#fn:unit_vector_1">6</a></sup><sup id="fnref:unit_vector_2"><a class="footnote-ref" href="#fn:unit_vector_2">7</a></sup> , it is not an universal rule.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Important</p>
+<p>It is extremely important to remember that the <strong>gradient vector</strong> of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(\x\)</span> is already defined as <span class="arithmatex">\(\nabla f(\x)\)</span>, to be the vector of partial derivatives of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(\x\)</span>.</p>
+<p>This has two consequences:</p>
+<ol>
+<li>Given the gradient vector of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(\x\)</span> and any direction <span class="arithmatex">\(\v\)</span>, we can recover the directional derivative <span class="arithmatex">\(D_{\v}(f)\)</span> at <span class="arithmatex">\(\x\)</span> by simply multiplying it by <span class="arithmatex">\(\v\)</span>.</li>
+<li>Given the gradient vector of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(\x\)</span> and a scalar value directional derivative <span class="arithmatex">\(D_{\v}(f)\)</span>, we can recover the direction <span class="arithmatex">\(\v\)</span> by division.</li>
+</ol>
+</div>
+<p>One variant of the proof:</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The </p>
+</div>
+<hr />
+<h4 id="difference-between-gradient-and-directional-derivative8">Difference between Gradient and Directional Derivative<sup id="fnref:gradient_directional_derivative_difference"><a class="footnote-ref" href="#fn:gradient_directional_derivative_difference">8</a></sup></h4>
+<p>When I was learning multivariate calculus, I have had my fair share of trouble with the difference between the gradient and the directional derivative.
+It is easy to confuse the two terms.</p>
+<p>Let us go back to the definitions:</p>
+<ul>
+<li>The <strong>gradient</strong> of a mutlivariate function <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\(\x\)</span> is the <strong><em>vector</em></strong> of partial derivatives of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(\x\)</span>, as defined in equation <span class="arithmatex">\(\eqref{eq:grad_vec}\)</span>.</li>
+</ul>
+<div class="arithmatex">\[
+\nabla f(\x) = \bigg[\frac{\partial f(\x)}{\partial x_1}, \frac{\partial f(\x)}{\partial x_2}, \ldots, \frac{\partial f(\x)}{\partial x_n} \bigg]^\top
+\]</div>
+<ul>
+<li>The <strong>directional derivative</strong> of a mutlivariate function <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\(\x\)</span> is the <strong><em>scalar</em></strong> value of the partial derivative of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(\x\)</span> in the direction of <span class="arithmatex">\(\v\)</span>,
+  as defined in equation <span class="arithmatex">\(\eqref{eq:directional_derivative_def}\)</span> and <span class="arithmatex">\(\eqref{eq:directional_derivative_theorem}\)</span>.</li>
+</ul>
+<p>There are infinite directional derivatives around a point <span class="arithmatex">\(\x\)</span> since there are infinitely many directions <span class="arithmatex">\(\v\)</span>. 
+However, there is only one gradient vector around a point <span class="arithmatex">\(\x\)</span> and this is defined to be the vector that is the steepest ascent, which we will prove in the next section.</p>
+<p>Consider the following example:</p>
+<ul>
+<li>
+<p>We have a point <span class="arithmatex">\((x, y)\)</span> in <span class="arithmatex">\(f\)</span>, where <span class="arithmatex">\(f\)</span> is a function of two variables. 
+  Since this function can be graphed in 3-dimensions, we can visualize that there are <strong><em>infinite</em></strong> number of directions around the point <span class="arithmatex">\((x, y)\)</span>.</p>
+</li>
+<li>
+<p>We can categorize the directions around the point as vectors <span class="arithmatex">\(\v\)</span>. For simplicity, we restrict <span class="arithmatex">\(\v\)</span> to be unit vectors.</p>
+</li>
+<li>
+<p>Recall the definition of the directional derivative of <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\(\x\)</span> to be a <strong>scalar-valued</strong> function <span class="arithmatex">\(D_{\v}(f)\)</span> parametrized by the direction vector <span class="arithmatex">\(\v\)</span>.</p>
+<ul>
+<li>We also note that <span class="arithmatex">\(D_{\v}(f)\)</span> is the instantaneous rate of change of <span class="arithmatex">\(f\)</span> when we move in the direction <span class="arithmatex">\(\v\)</span>.</li>
+</ul>
+</li>
+<li>
+<p>There exists <strong>infinite</strong> number of such directional derivatives of <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\(\x\)</span> since there are infinite number of directions <span class="arithmatex">\(\v\)</span>. This can be seen by the orange arrows.</p>
+</li>
+<li>
+<p>However, there exists an <strong>unique</strong> direction <span class="arithmatex">\(\v\)</span> which gives rise to the fastest instantaneous rate of change of <span class="arithmatex">\(f\)</span> when moved in that direction.</p>
+</li>
+<li>
+<p>This unique direction points in the same direction as the gradient vector <span class="arithmatex">\(\v\)</span>.</p>
+</li>
+</ul>
+<figure>
+<p><img alt="Image title" height="100" src="../../../assets/mathematics/gradient_descent/infinite_directions.jpg" width="500" />
+  </p>
+<figcaption>Infinite directions around a point in cross-sectional plane of 3d-figure.</figcaption>
+</figure>
+<hr />
+<h3 id="gradient-points-to-the-direction-of-steepest-ascent">Gradient Points to the Direction of Steepest Ascent</h3>
+<p>We finally have the necessary definitions and theorems to prove the following statement:</p>
+<blockquote>
+<p>The <strong>direction</strong> of steepest ascent of a function <span class="arithmatex">\(f: \R^n \to \R\)</span> is given by the <strong>gradient vector</strong> of <span class="arithmatex">\(f\)</span>
+  at a point <span class="arithmatex">\(\x = \begin{bmatrix} x_1 &amp; x_2 &amp; \ldots &amp; x_n \end{bmatrix}^\top\)</span>.
+  In other words, <span class="arithmatex">\(f\)</span> increases the fastest when we move in the direction of the <strong>gradient vector</strong>.</p>
+</blockquote>
+<p>Before we prove this, it is best for us to rephrase the question to:</p>
+<blockquote>
+<p>Given a function <span class="arithmatex">\(f\)</span> and a point <span class="arithmatex">\(\x\)</span>, which direction vector (unit vector) <span class="arithmatex">\(\v\)</span> gives the fastest rate of change of <span class="arithmatex">\(f\)</span> when moved in that direction?</p>
+</blockquote>
+<p>This can be then be found easily by following the theorem/definition in the <a href="./#theorem-the-direction-derivative">section on the alternative definition of the directional derivative</a>.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The logic is that the <strong>directional derivative</strong> of <span class="arithmatex">\(f\)</span> at <span class="arithmatex">\(\x\)</span> is the <strong>rate of change</strong>, then it suffices to find the <strong>direction vector</strong> <span class="arithmatex">\(\v\)</span> that gives the <strong>fastest rate of change</strong>.</p>
+</div>
+<p>The definition <span class="arithmatex">\(\eqref{eq:directional_derivative_theorem}\)</span> states that <span class="arithmatex">\(D_{\v}(f(\x)) = \nabla f(\x) \cdot \v\)</span>.
+We then seek to solve the optimization problem:</p>
+<div class="arithmatex">\[
+\begin{align}
+\v_{\max} &amp;= \underset{\v, \lVert \v \rVert = 1}{\operatorname{argmax}}D_{\v}(f(\x)) \label{eq:steepest_ascent_1} \\ 
+          &amp;= \underset{\v, \lVert \v \rVert = 1}{\operatorname{argmax}}\nabla f(\x) \cdot \v \label{eq:steepest_ascent_2} \\
+          &amp;= \underset{\v, \lVert \v \rVert = 1}{\operatorname{argmax}} \lVert \nabla f(\x) \rVert \cdot \lVert \v \rVert \cos(\theta) \label{eq:steepest_ascent_3} \\
+\end{align}
+\]</div>
+<p>where we want to find the <strong>unique</strong> <span class="arithmatex">\(\v_{\max}\)</span> such that <span class="arithmatex">\(D_{\v}(f(\x))\)</span> is the <strong>maximum</strong>.</p>
+<p>In equation <span class="arithmatex">\(\eqref{eq:steepest_ascent_3}\)</span>, we invoked the <a href="https://en.wikipedia.org/wiki/Dot_product#Geometric_definition">geometric definition of the dot product</a> 
+to represent the dot product as the <strong>cosine of the angle between the two vectors</strong>.</p>
+<p>Since we are optimizing over <span class="arithmatex">\(\v\)</span> and the length of <span class="arithmatex">\(\v\)</span> is 1, we can simplify the expression to:</p>
+<div class="arithmatex">\[
+\begin{align}
+\v_{\max} &amp;= \underset{\v, \lVert \v \rVert = 1}{\operatorname{argmax}} \lVert \nabla f(\x) \rVert \cdot \lVert \v \rVert \cos(\theta)  \\
+          &amp;= \underset{\v}{\operatorname{argmax}} \lVert \nabla f(\x) \rVert \cos(\theta) \label{eq:steepest_ascent_4} \\
+          &amp;= \underset{\v}{\operatorname{argmax}} \cos(\theta) \label{eq:steepest_ascent_5} \\
+\end{align}
+\]</div>
+<p>where </p>
+<ul>
+<li>In equation <span class="arithmatex">\(\eqref{eq:steepest_ascent_4}\)</span>, <span class="arithmatex">\(\lVert \v \rVert\)</span> was dropped since it is 1;</li>
+<li>In equation <span class="arithmatex">\(\eqref{eq:steepest_ascent_5}\)</span>, <span class="arithmatex">\(\lVert \nabla f(\x) \rVert\)</span> was dropped since it is not a function of <span class="arithmatex">\(\v\)</span> and hence it is irrelevant.</li>
+<li><span class="arithmatex">\(\theta\)</span>, however, being the angle between <span class="arithmatex">\(\v\)</span> and <span class="arithmatex">\(\nabla f(\x)\)</span>, is dependent on <span class="arithmatex">\(\v\)</span>.</li>
+<li>Therefore, <span class="arithmatex">\(\cos(\theta)\)</span> is maximal when <span class="arithmatex">\(\cos(\theta) = 1 \implies \theta = 0\)</span>.</li>
+<li>Consequently, <span class="arithmatex">\(\theta = 0\)</span> implies <span class="arithmatex">\(\nabla f(\x)\)</span> and <span class="arithmatex">\(\v\)</span> are parallel.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At this point, we have answered the question posed: </p>
+<p>Given a function <span class="arithmatex">\(f\)</span> and a point <span class="arithmatex">\(\x\)</span>, which direction vector (unit vector) <span class="arithmatex">\(\v\)</span> gives the fastest rate of change of <span class="arithmatex">\(f\)</span> when moved in that direction?</p>
+<p>It turns out this direction/unit vector we are finding is the gradient vector <span class="arithmatex">\(\nabla f(\x)\)</span> itself, but reduced to its unit vector since we proved that <span class="arithmatex">\(\v \parallel \nabla f(\x)\)</span>.</p>
+<p>As a result, we can then say that <span class="arithmatex">\(f\)</span> increases the fastest when we move in the direction of the gradient vector <span class="arithmatex">\(\nabla f(\x)\)</span>.</p>
+<p>It is worth noting that the rate of change of <span class="arithmatex">\(f\)</span> at a point <span class="arithmatex">\(\x\)</span> in the direction of the gradient vector <span class="arithmatex">\(\nabla f(\x)\)</span>
+is given by the magnitude of the gradient vector itself.<sup id="fnref:proof_rate_of_change_is_magnitude_of_grad_vec"><a class="footnote-ref" href="#fn:proof_rate_of_change_is_magnitude_of_grad_vec">9</a></sup></p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>We finally convinced ourselves that subtracting the gradient vector indeed (local) minimizes the objective/loss function provided it's differentiable.</p>
+</div>
+<hr />
+<h3 id="references">References</h3>
+<p>Bibliography.</p>
+<ul>
+<li>https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/the-gradient</li>
+<li>https://sootlasten.github.io/2017/gradient-steepest-ascent/</li>
+</ul>
+<hr />
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:gradient_descent_intro">
+<p><strong>"Gradient Descent," Wikipedia (Wikimedia Foundation, June 28, 2022), https://en.wikipedia.org/wiki/Gradient_descent.</strong>&#160;<a class="footnote-backref" href="#fnref:gradient_descent_intro" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:epsilon">
+<p><span class="arithmatex">\(\epsilon\)</span> is often denoted <span class="arithmatex">\(h\)</span> in the limit definition of derivatives.&#160;<a class="footnote-backref" href="#fnref:epsilon" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:partial_x_intuition">
+<p><a href="https://sootlasten.github.io/2017/gradient-steepest-ascent/">Proof That the Gradient Points in the Direction of Steepest Ascent</a>: Sten Sootla's Blog, Sten Sootla, March 15, 2017.&#160;<a class="footnote-backref" href="#fnref:partial_x_intuition" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:partial_y_intuition">
+<p><a href="https://sootlasten.github.io/2017/gradient-steepest-ascent/">Proof That the Gradient Points in the Direction of Steepest Ascent</a>: Sten Sootla's Blog, Sten Sootla, March 15, 2017.&#160;<a class="footnote-backref" href="#fnref:partial_y_intuition" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:partial_xy_intuition">
+<p><a href="https://sootlasten.github.io/2017/gradient-steepest-ascent/">Proof That the Gradient Points in the Direction of Steepest Ascent</a>: Sten Sootla's Blog, Sten Sootla, March 15, 2017.&#160;<a class="footnote-backref" href="#fnref:partial_xy_intuition" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:unit_vector_1">
+<p><a href="https://math.stackexchange.com/questions/1486767/why-in-a-directional-derivative-it-has-to-be-a-unit-vector#:~:text=If%20you%20don't%20use,the%20magnitude%20of%20the%20vector.&amp;text=That%20is%20a%20way%20to,to%20use%20a%20unit%20vector">Why in a directional derivative it has to be a unit vector</a>&#160;<a class="footnote-backref" href="#fnref:unit_vector_1" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:unit_vector_2">
+<p><a href="https://math.stackexchange.com/questions/809376/why-normalize-and-the-definition-of-directional-derivative">why normalize and the definition of directional derivative</a>&#160;<a class="footnote-backref" href="#fnref:unit_vector_2" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:gradient_directional_derivative_difference">
+<p><a href="https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative">What is the difference between the gradient and the directional derivative?</a>&#160;<a class="footnote-backref" href="#fnref:gradient_directional_derivative_difference" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:proof_rate_of_change_is_magnitude_of_grad_vec">
+<p><a href="https://sootlasten.github.io/2017/gradient-steepest-ascent/">Proof the magnitude of the gradient vector is exactly the rate of change in that direction</a>: Sten Sootla's Blog, Sten Sootla, March 15, 2017.&#160;<a class="footnote-backref" href="#fnref:proof_rate_of_change_is_magnitude_of_grad_vec" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../software_engineering/github_actions_test_packages_compatibility/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Test Packages Compatibility" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Test Packages Compatibility
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../general_mathematical_terms_and_definitions/" class="md-footer__link md-footer__link--next" aria-label="Next: General Mathematic Terms and Definitions" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              General Mathematic Terms and Definitions
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

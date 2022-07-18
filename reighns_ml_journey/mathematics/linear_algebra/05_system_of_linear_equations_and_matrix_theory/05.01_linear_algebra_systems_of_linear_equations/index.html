@@ -1,0 +1,3395 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://reighns92.github.io/reighns-ml-blog/reighns_ml_journey/mathematics/linear_algebra/05_system_of_linear_equations_and_matrix_theory/05.01_linear_algebra_systems_of_linear_equations/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>System of Linear Equations - Hongnan G. Machine Learning Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#general-form-of-linear-equations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Hongnan G. Machine Learning Blog" class="md-header__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan G. Machine Learning Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              System of Linear Equations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Hongnan G. Machine Learning Blog" class="md-nav__button md-logo" aria-label="Hongnan G. Machine Learning Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Hongnan G. Machine Learning Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../articles.md" class="md-nav__link">
+        How to write articles
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Software Engineering Practices
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Engineering Practices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Software Engineering Practices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/workflow/" class="md-nav__link">
+        Workflow
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/code_design/" class="md-nav__link">
+        Code Design
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/gcp/" class="md-nav__link">
+        GCP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_engineering/github_actions_test_packages_compatibility/" class="md-nav__link">
+        Test Packages Compatibility
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gradient_descent/" class="md-nav__link">
+        Gradient Descent
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Mathematics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../general_mathematical_terms_and_definitions/" class="md-nav__link">
+        General Mathematic Terms and Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" type="checkbox" id="__nav_6_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Linear Algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_1" type="checkbox" id="__nav_6_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_1">
+          Preliminaries
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preliminaries" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Preliminaries
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_preliminaries/lines_and_planes/" class="md-nav__link">
+        Lines and Planes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_preliminaries/fields/" class="md-nav__link">
+        Fields
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2" type="checkbox" id="__nav_6_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2">
+          Vectors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vectors" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vectors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_vectors/02_linear_algebra_vectors/" class="md-nav__link">
+        Vector Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_2_2" type="checkbox" id="__nav_6_2_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_2_2">
+          Vector Products
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Products" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Products
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_vectors/02_linear_algebra_vectors_linear_combination/" class="md-nav__link">
+        Linear Combination
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_vectors/02_linear_algebra_vectors_dot_product/" class="md-nav__link">
+        Dot Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_vectors/02_linear_algebra_vectors_outer_product/" class="md-nav__link">
+        Outer Product
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_vectors/02_linear_algebra_vectors_unit_vector/" class="md-nav__link">
+        Unit Vector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_vectors/02_linear_algebra_vectors_exercises/" class="md-nav__link">
+        Exercises
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_3" type="checkbox" id="__nav_6_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_3">
+          Vector Spaces
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vector Spaces" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Vector Spaces
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_vector_spaces/03_linear_algebra_vector_spaces_vector_subspaces/" class="md-nav__link">
+        Vector Space and Subspaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_vector_spaces/03_linear_algebra_vector_spaces_vector_span/" class="md-nav__link">
+        Vector Span
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_vector_spaces/03_linear_algebra_vector_spaces_linear_independence/" class="md-nav__link">
+        Linear Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_vector_spaces/03_linear_algebra_vector_spaces_basis_dimension/" class="md-nav__link">
+        Basis and Dimension
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_4" type="checkbox" id="__nav_6_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_4">
+          Matrix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_matrices/04_linear_algebra_matrix/" class="md-nav__link">
+        Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_matrices/04_linear_algebra_matrix_basic_matrix_types/" class="md-nav__link">
+        Basic Matrix Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_matrices/04_linear_algebra_matrix_basic_operations/" class="md-nav__link">
+        Basic Matrix Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_matrices/04_linear_algebra_matrix_multiplication/" class="md-nav__link">
+        Matrix Multiplication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_5" type="checkbox" id="__nav_6_2_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_5">
+          Matrix Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Matrix Theory" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Matrix Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          System of Linear Equations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        System of Linear Equations
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-form-of-linear-equations" class="md-nav__link">
+    General Form of Linear Equations
+  </a>
+  
+    <nav class="md-nav" aria-label="General Form of Linear Equations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algebraic-definition-system-of-linear-equations" class="md-nav__link">
+    Algebraic Definition (System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matrix-definition-system-of-linear-equations" class="md-nav__link">
+    Matrix Definition (System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-definition-system-of-linear-equations" class="md-nav__link">
+    Vector Definition (System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-homogeneous-system-of-equations" class="md-nav__link">
+    Definition (Homogeneous System of Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-inconsistent-and-consistent-systems" class="md-nav__link">
+    Definition (Inconsistent and Consistent Systems)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elementary-row-operations" class="md-nav__link">
+    Elementary Row Operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Elementary Row Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-elementary-row-operations" class="md-nav__link">
+    Definition (Elementary Row Operations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-elementary-column-operations" class="md-nav__link">
+    Definition (Elementary Column Operations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-elementary-row-operations-preserve-solution-set-of-linear-systems" class="md-nav__link">
+    Theorem (Elementary Row Operations Preserve Solution Set of Linear Systems)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gauss-elimination" class="md-nav__link">
+    Gauss Elimination
+  </a>
+  
+    <nav class="md-nav" aria-label="Gauss Elimination">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-augmented-matrix-of-a-system-of-linear-equations" class="md-nav__link">
+    Definition (Augmented Matrix of a System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-solving-augmented-matrix-solves-the-system-of-linear-equations" class="md-nav__link">
+    Theorem (Solving Augmented Matrix Solves the System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-row-echolon-form" class="md-nav__link">
+    Definition (Row Echolon Form)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-reduced-row-echolon-form" class="md-nav__link">
+    Definition (Reduced Row Echolon Form)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-pivot-position-and-pivot-column" class="md-nav__link">
+    Definition (Pivot Position and Pivot Column)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-gaussian-and-gaussian-jordan-elimination" class="md-nav__link">
+    Algorithm (Gaussian and Gaussian-Jordan Elimination)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-types-of-solutions" class="md-nav__link">
+    Definition (Types of Solutions)
+  </a>
+  
+    <nav class="md-nav" aria-label="Definition (Types of Solutions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-no-solution" class="md-nav__link">
+    Definition (No Solution)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-one-unique-solution" class="md-nav__link">
+    Definition (One Unique Solution)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-infinitely-many-solutions" class="md-nav__link">
+    Definition (Infinitely Many Solutions)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uniqueness-of-reduced-row-echolon-form" class="md-nav__link">
+    Uniqueness of Reduced Row-Echolon Form
+  </a>
+  
+    <nav class="md-nav" aria-label="Uniqueness of Reduced Row-Echolon Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-basis-variable" class="md-nav__link">
+    Definition (Basis Variable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-free-variable" class="md-nav__link">
+    Definition (Free Variable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-free-column" class="md-nav__link">
+    Definition (Free Column)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-basic-and-free-variable" class="md-nav__link">
+    Example (Basic and Free Variable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorting-out-the-confusion-basic-and-free-variables" class="md-nav__link">
+    Sorting out the confusion (Basic and Free Variables)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#word-of-caution-basic-and-free-variables" class="md-nav__link">
+    Word of Caution (Basic and Free Variables)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposition-basic-and-free-variables" class="md-nav__link">
+    Proposition (Basic and Free Variables)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lemma-solutions-and-the-reduced-row-echelon-form-of-a-matrix" class="md-nav__link">
+    Lemma (Solutions and the Reduced Row-Echelon Form of a Matrix)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-row-equivalence" class="md-nav__link">
+    Definition (Row Equivalence)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-every-matrix-is-row-equivalent-to-its-rref" class="md-nav__link">
+    Theorem (Every Matrix is row equivalent to its RREF)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-row-equivalent-augmented-matrices-have-the-same-solution-set" class="md-nav__link">
+    Theorem (Row Equivalent Augmented Matrices have the same solution set)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-rref-is-unique" class="md-nav__link">
+    Theorem (RREF is Unique)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rank-and-homogeneous-systems" class="md-nav__link">
+    Rank and Homogeneous Systems
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elementary-matrices" class="md-nav__link">
+    Elementary Matrices
+  </a>
+  
+    <nav class="md-nav" aria-label="Elementary Matrices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permutation-matrix" class="md-nav__link">
+    Permutation Matrix
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.02_linear_algebra_row_reduction_preserves_rank/" class="md-nav__link">
+        Row Reduction Preserves Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.03_linear_algebra_matrix_theory_matrix_spaces_row_space/" class="md-nav__link">
+        Row Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.04_linear_algebra_matrix_theory_matrix_spaces_column_space/" class="md-nav__link">
+        Column Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.05_linear_algebra_matrix_theory_matrix_spaces_right_nullspace/" class="md-nav__link">
+        Right Nullspace (Kernel)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.06_linear_algebra_matrix_theory_matrix_spaces_left_nullspace/" class="md-nav__link">
+        Left Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.07_linear_algebra_matrix_theory_matrix_rank/" class="md-nav__link">
+        Matrix Rank
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.08_linear_algebra_matrix_theory_matrix_spaces_summary/" class="md-nav__link">
+        The Four Fundamental Subspaces (Summary)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_6" type="checkbox" id="__nav_6_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_6">
+          Linear Transformation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linear Transformation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linear Transformation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_linear_transformation/06.01_linear_algebra_linear_transformations/" class="md-nav__link">
+        Linear Transformation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_linear_transformation/06.02_linear_algebra_linear_transformations_nullspace/" class="md-nav__link">
+        Nullspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_linear_transformation/06.03_linear_algebra_linear_transformations_ranges/" class="md-nav__link">
+        Range
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_linear_transformation/06.04_linear_algebra_linear_transformations_homomorphism/" class="md-nav__link">
+        Homomorphism
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_linear_transformation/06.05_linear_algebra_linear_transformations_fundamental_theorem/" class="md-nav__link">
+        Fundamental Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_linear_transformation/06.06_linear_algebra_linear_transformations_matrix/" class="md-nav__link">
+        Linear Transformation and Matrix
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2_7" type="checkbox" id="__nav_6_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_2_7">
+          Analytic Geometry
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Analytic Geometry" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Analytic Geometry
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.01_motivation/" class="md-nav__link">
+        Motivation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.02_norms/" class="md-nav__link">
+        Norms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.03_inner_products/" class="md-nav__link">
+        Inner Product Spaces
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.04_lengths_and_distances/" class="md-nav__link">
+        Lengths and Distances
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.05_angles_and_orthogonality/" class="md-nav__link">
+        Angles and Orthogoanlity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.06_orthogonal_subspaces/" class="md-nav__link">
+        Orthogonal Subspace
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.07_orthogonal_projections/" class="md-nav__link">
+        Orthogonal Projection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.08_orthogonal_matrices_and_basis/" class="md-nav__link">
+        Orthogonal Matrices and Basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_analytic_geometry/08.09_gram_schmidt_orthogonalization/" class="md-nav__link">
+        Gram-Schmidt Orthogonalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linear_algebra_interview_questions/" class="md-nav__link">
+        Interview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Probability and Statistics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Probability and Statistics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Probability and Statistics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability_statistics_theory/probability4datascience/" class="md-nav__link">
+        Introduction to Probability for Data Science (Stanley H. Chan)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Introduction to Probability
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction to Probability" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction to Probability
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability_statistics_theory/02_introduction_to_probability/02.01_probability_space/" class="md-nav__link">
+        Probability Space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability_statistics_theory/02_introduction_to_probability/02.02_probability_axioms/" class="md-nav__link">
+        Probability Axioms
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability_statistics_theory/02_introduction_to_probability/02.03_conditional_probability/" class="md-nav__link">
+        Conditional Probability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability_statistics_theory/02_introduction_to_probability/02.04_independence/" class="md-nav__link">
+        Independence
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability_statistics_theory/02_introduction_to_probability/02.05_bayes_theorem/" class="md-nav__link">
+        Bayes Theorem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability_statistics_theory/02_introduction_to_probability/02.06_summary/" class="md-nav__link">
+        Summary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Machine Learning and Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning and Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning and Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1" type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1">
+          Metrics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Metrics" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Metrics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_1" type="checkbox" id="__nav_7_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_1">
+          Classification
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Classification" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Classification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/classification_metrics/classification_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/classification_metrics/accuracy/" class="md-nav__link">
+        Accuracy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/classification_metrics/confusion_matrix/" class="md-nav__link">
+        Confusion Matrix
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/classification_metrics/precision_recall_f1/" class="md-nav__link">
+        Precision-Recall-F1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/classification_metrics/roc_pr_curve/" class="md-nav__link">
+        ROC and PR Curves
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/classification_metrics/cohens_kappa/" class="md-nav__link">
+        Cohen's Kappa
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_1_2" type="checkbox" id="__nav_7_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1_2">
+          Regression
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Regression" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Regression
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/regression_metrics/regression_metrics/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/regression_metrics/mae_rmse/" class="md-nav__link">
+        MAE and MSE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/metrics/regression_metrics/mape/" class="md-nav__link">
+        MAPE
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Computer Vision
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Computer Vision" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Computer Vision
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/computer_vision/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2" type="checkbox" id="__nav_7_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2">
+          Neural Network Interpretation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Neural Network Interpretation" data-md-level="3">
+        <label class="md-nav__title" for="__nav_7_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Neural Network Interpretation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_1" type="checkbox" id="__nav_7_2_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_1">
+          Visualization of Feature Map Activations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Visualization of Feature Map Activations" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Visualization of Feature Map Activations
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation/" class="md-nav__link">
+        Feature Map Activations (Part I)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/01_feature_map_activation/feature_map_activation_reduced/" class="md-nav__link">
+        Feature Map Activations (Part II)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/conv_filters/Visualizing Convolutional Filters.md" class="md-nav__link">
+        Visualization of Convolutional Filters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/salient_map/Salient Map.md" class="md-nav__link">
+        Salient Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2_2_4" type="checkbox" id="__nav_7_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2_2_4">
+          Grad-CAM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Grad-CAM" data-md-level="4">
+        <label class="md-nav__title" for="__nav_7_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Grad-CAM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_explained/" class="md-nav__link">
+        Grad-CAM Explained
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/computer_vision/neural_network_interpretation/05_gradcam_and_variants/gradcam_from_scratch/" class="md-nav__link">
+        Grad-CAM from Scratch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/computer_vision/image_normalization/Image_Normalization_and_Standardization/" class="md-nav__link">
+        Image Normalization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Fundamental Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fundamental Concepts" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Fundamental Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/fundamentals/loss_functions/cross_entropy_loss/cross_entropy_loss_from_scratch/" class="md-nav__link">
+        Cross Entropy Loss
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Ensemble Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ensemble Theory" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ensemble Theory
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../machine_learning_and_deep_learning/ensemble_theory/forward_ensemble/" class="md-nav__link">
+        Forward Ensemble (Hill Climbing)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Data Structures and Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Structures and Algorithms" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Data Structures and Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../data_structures_and_algorithms/introduction.md" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../data_structures_and_algorithms/Linked%20List/" class="md-nav__link">
+        Linked Lists
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Machine Learning Projects
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Machine Learning Projects" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Machine Learning Projects
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/RANZCR%20CLiP%20-%20Catheter%20and%20Line%20Position%20Challenge/notebooks/walkthrough/" class="md-nav__link">
+        RANZCR CLiP - Catheter and Line Position Challenge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/SIIM-ISIC%20Melanoma%20Classification/notebooks/walkthrough/" class="md-nav__link">
+        SIIM-ISIC Melanoma Classification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/LTA_road_cracks_detection/notebooks/walkthrough/" class="md-nav__link">
+        LTA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9_4" type="checkbox" id="__nav_9_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_4">
+          Breast Cancer Wisconsin (Supervised Classification)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Breast Cancer Wisconsin (Supervised Classification)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_9_4">
+          <span class="md-nav__icon md-icon"></span>
+          Breast Cancer Wisconsin (Supervised Classification)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%200%20-%20Introduction%20and%20Problem%20Statement/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%201%20-%20Preliminary%20Data%20Inspection%20and%20Cleaning/" class="md-nav__link">
+        Preliminary Data Inspection and Cleaning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%202%20-%20Preliminary%20EDA/" class="md-nav__link">
+        EDA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%203%20-%20Feature%20Engineering/" class="md-nav__link">
+        Feature Engineering
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%204%20-%20Modelling%20%28Metric%20to%20Optimize%29/" class="md-nav__link">
+        Modelling (Metrics)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%205%20-%20Modelling%20%28Cross-Validation%20Methodology%29/" class="md-nav__link">
+        Modelling (Cross-Validation Schema)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%206%20-%20Modelling%20%28Preprocessing%20and%20Spot%20Checking%29/" class="md-nav__link">
+        Modelling (Preprocessing and Spot Checking)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%207%20-%20Modelling%20%28Model%20Selection%20and%20Hyperparameter%20Tuning%29/" class="md-nav__link">
+        Modelling (Model Selection)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../projects/breast_cancer_wisconsin/Stage%208%20-%20Modelling%20%28Model%20Evaluation%20and%20Interpretation%29/" class="md-nav__link">
+        Modelling (Model Evaluation)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-form-of-linear-equations" class="md-nav__link">
+    General Form of Linear Equations
+  </a>
+  
+    <nav class="md-nav" aria-label="General Form of Linear Equations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algebraic-definition-system-of-linear-equations" class="md-nav__link">
+    Algebraic Definition (System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matrix-definition-system-of-linear-equations" class="md-nav__link">
+    Matrix Definition (System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vector-definition-system-of-linear-equations" class="md-nav__link">
+    Vector Definition (System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-homogeneous-system-of-equations" class="md-nav__link">
+    Definition (Homogeneous System of Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-inconsistent-and-consistent-systems" class="md-nav__link">
+    Definition (Inconsistent and Consistent Systems)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elementary-row-operations" class="md-nav__link">
+    Elementary Row Operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Elementary Row Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-elementary-row-operations" class="md-nav__link">
+    Definition (Elementary Row Operations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-elementary-column-operations" class="md-nav__link">
+    Definition (Elementary Column Operations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-elementary-row-operations-preserve-solution-set-of-linear-systems" class="md-nav__link">
+    Theorem (Elementary Row Operations Preserve Solution Set of Linear Systems)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gauss-elimination" class="md-nav__link">
+    Gauss Elimination
+  </a>
+  
+    <nav class="md-nav" aria-label="Gauss Elimination">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-augmented-matrix-of-a-system-of-linear-equations" class="md-nav__link">
+    Definition (Augmented Matrix of a System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-solving-augmented-matrix-solves-the-system-of-linear-equations" class="md-nav__link">
+    Theorem (Solving Augmented Matrix Solves the System of Linear Equations)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-row-echolon-form" class="md-nav__link">
+    Definition (Row Echolon Form)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-reduced-row-echolon-form" class="md-nav__link">
+    Definition (Reduced Row Echolon Form)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-pivot-position-and-pivot-column" class="md-nav__link">
+    Definition (Pivot Position and Pivot Column)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-gaussian-and-gaussian-jordan-elimination" class="md-nav__link">
+    Algorithm (Gaussian and Gaussian-Jordan Elimination)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-types-of-solutions" class="md-nav__link">
+    Definition (Types of Solutions)
+  </a>
+  
+    <nav class="md-nav" aria-label="Definition (Types of Solutions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-no-solution" class="md-nav__link">
+    Definition (No Solution)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-one-unique-solution" class="md-nav__link">
+    Definition (One Unique Solution)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-infinitely-many-solutions" class="md-nav__link">
+    Definition (Infinitely Many Solutions)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uniqueness-of-reduced-row-echolon-form" class="md-nav__link">
+    Uniqueness of Reduced Row-Echolon Form
+  </a>
+  
+    <nav class="md-nav" aria-label="Uniqueness of Reduced Row-Echolon Form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-basis-variable" class="md-nav__link">
+    Definition (Basis Variable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-free-variable" class="md-nav__link">
+    Definition (Free Variable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-free-column" class="md-nav__link">
+    Definition (Free Column)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-basic-and-free-variable" class="md-nav__link">
+    Example (Basic and Free Variable)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorting-out-the-confusion-basic-and-free-variables" class="md-nav__link">
+    Sorting out the confusion (Basic and Free Variables)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#word-of-caution-basic-and-free-variables" class="md-nav__link">
+    Word of Caution (Basic and Free Variables)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposition-basic-and-free-variables" class="md-nav__link">
+    Proposition (Basic and Free Variables)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lemma-solutions-and-the-reduced-row-echelon-form-of-a-matrix" class="md-nav__link">
+    Lemma (Solutions and the Reduced Row-Echelon Form of a Matrix)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-row-equivalence" class="md-nav__link">
+    Definition (Row Equivalence)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-every-matrix-is-row-equivalent-to-its-rref" class="md-nav__link">
+    Theorem (Every Matrix is row equivalent to its RREF)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-row-equivalent-augmented-matrices-have-the-same-solution-set" class="md-nav__link">
+    Theorem (Row Equivalent Augmented Matrices have the same solution set)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theorem-rref-is-unique" class="md-nav__link">
+    Theorem (RREF is Unique)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rank-and-homogeneous-systems" class="md-nav__link">
+    Rank and Homogeneous Systems
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elementary-matrices" class="md-nav__link">
+    Elementary Matrices
+  </a>
+  
+    <nav class="md-nav" aria-label="Elementary Matrices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permutation-matrix" class="md-nav__link">
+    Permutation Matrix
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    References
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>System of Linear Equations</h1>
+
+<div class="arithmatex">\[\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand\aug{\fboxsep=-\fboxrule\!\!\!\fbox{\strut}\!\!\!}
+\newcommand{\v}{\mathbf{v}}
+\newcommand{\a}{\mathbf{a}}
+\newcommand{\b}{\mathbf{b}}
+\newcommand{\c}{\mathbf{c}}
+\newcommand{\d}{\mathbf{d}}
+\newcommand{\p}{\mathbf{p}}
+\newcommand{\r}{\mathbf{r}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\u}{\mathbf{u}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\P}{\mathbf{P}}\]</div>
+<h2 id="general-form-of-linear-equations">General Form of Linear Equations</h2>
+<h3 id="algebraic-definition-system-of-linear-equations">Algebraic Definition (System of Linear Equations)</h3>
+<p>A general system of <span class="arithmatex">\(m\)</span> linear equations with <span class="arithmatex">\(n\)</span> unknowns can be written as:</p>
+<div class="arithmatex">\[
+\begin{align}
+a_{11} x_1 + a_{12} x_2  + \cdots + a_{1n} x_n  &amp;= b_1 \\
+a_{21} x_1 + a_{22} x_2  + \cdots + a_{2n} x_n  &amp;= b_2 \\
+&amp; \ \ \vdots\\
+a_{m1} x_1 + a_{m2} x_2  + \cdots + a_{mn} x_n  &amp;= b_m,
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(x_1, x_2,\ldots,x_n\)</span> are the unknowns, <span class="arithmatex">\(a_{11},a_{12},\ldots,a_{mn}\)</span> are the coefficients of the system, and <span class="arithmatex">\(b_1,b_2,\ldots,b_m\)</span> are the constant terms.</p>
+<h3 id="matrix-definition-system-of-linear-equations">Matrix Definition (System of Linear Equations)</h3>
+<p>The vector equation is equivalent to a matrix equation of the form <span class="arithmatex">\(\A\x = \b\)</span>, where <span class="arithmatex">\(\A \in \F^{m \times n}\)</span>, <span class="arithmatex">\(\x\)</span> a column vector in <span class="arithmatex">\(\F^n\)</span> and <span class="arithmatex">\(\b\)</span> a column vector in <span class="arithmatex">\(\F^m\)</span>.</p>
+<div class="arithmatex">\[
+\A =
+\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
+\end{bmatrix},\quad
+\mathbf{x}=
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{bmatrix},\quad
+\mathbf{b}=
+\begin{bmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{bmatrix}
+\]</div>
+<h3 id="vector-definition-system-of-linear-equations">Vector Definition (System of Linear Equations)</h3>
+<p>Recall in the chapter on Matrix Multiplication, we note that <span class="arithmatex">\(\A\x = \b\)</span> is a right multiplication of a matrix <span class="arithmatex">\(\A\)</span> on the vector <span class="arithmatex">\(\b\)</span>, and thus <span class="arithmatex">\(\b\)</span> can be represented as the <strong>linear combination of columns of <span class="arithmatex">\(\A\)</span> with <span class="arithmatex">\(x_i\)</span> as coefficients</strong>.</p>
+<div class="arithmatex">\[
+\b = x_1 \a_1 + x_2 \a_2 + ... + x_n \a_n \implies 
+\begin{bmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{bmatrix} = x_1 \begin{bmatrix} a_{11} \\ a_{21} \\ \vdots \\ a_{m1} \end{bmatrix} + x_2 \begin{bmatrix} a_{12} \\ a_{22} \\ \vdots \\ a_{m2} \end{bmatrix} + ... + x_n \begin{bmatrix} a_{1n} \\ a_{2n} \\ \vdots \\ a_{mn} \end{bmatrix}
+\]</div>
+<h3 id="definition-homogeneous-system-of-equations">Definition (Homogeneous System of Equations)</h3>
+<p>A system of equations is called <strong>homogeneous</strong> if each equation in the system is equal to <span class="arithmatex">\(0\)</span> . A homogeneous system has the form:</p>
+<div class="arithmatex">\[
+\begin{align}
+a_{11} x_1 + a_{12} x_2  + \cdots + a_{1n} x_n  &amp;= 0 \\
+a_{21} x_1 + a_{22} x_2  + \cdots + a_{2n} x_n  &amp;= 0 \\
+&amp; \ \ \vdots\\
+a_{m1} x_1 + a_{m2} x_2  + \cdots + a_{mn} x_n  &amp;= 0,
+\end{align}
+\]</div>
+<p>where <span class="arithmatex">\(x_1, x_2,\ldots,x_n\)</span> are the unknowns, <span class="arithmatex">\(a_{11},a_{12},\ldots,a_{mn}\)</span> are the coefficients of the system.</p>
+<blockquote>
+<p>Note that this definition can be similarly translated in terms of Matrix and Vector definitions.</p>
+</blockquote>
+<h3 id="definition-inconsistent-and-consistent-systems">Definition (Inconsistent and Consistent Systems)</h3>
+<ul>
+<li><strong>Consistent</strong>: A system of linear equations are called <strong>consistent</strong> if there exists at least one solution.</li>
+<li><strong>Inconsistent</strong>: A system of linear equations are called <strong>inconsistent</strong> if there exists no solution.</li>
+</ul>
+<h2 id="elementary-row-operations">Elementary Row Operations</h2>
+<p>Elementarty row operations provide us a way to find out if a system of linear equations is <strong>consistent or not</strong>.</p>
+<h3 id="definition-elementary-row-operations">Definition (Elementary Row Operations)</h3>
+<p>In order to enable us to convert a system of linear equations to an <strong>equivalent</strong> system, we define the following <strong>elementary row operations</strong>:</p>
+<ul>
+<li><strong>Row Permutation:</strong> Interchange any two rows of a matrix: <span class="arithmatex">\(\r_i \iff \r_j\)</span></li>
+<li><strong>Row Multiply:</strong> Replace any row of a matrix with a non-zero scalar multiple of itself: <span class="arithmatex">\(\r_i \to \lambda\r_i\)</span></li>
+<li><strong>Row Addition:</strong> Replace any row of a matrix with the sum of itself and a non-zero scalar multiple of any other row: <span class="arithmatex">\(\r_i \to \r_i + \lambda \r_j\)</span>.</li>
+</ul>
+<p><strong><span class="arithmatex">\(\r_i\)</span> refers to row <span class="arithmatex">\(i\)</span> of the matrix.</strong></p>
+<h3 id="definition-elementary-column-operations">Definition (Elementary Column Operations)</h3>
+<p>By replacing the word <em>row</em> to <em>column</em>, we recover the definition of <strong>elementary column operations</strong>.</p>
+<h3 id="theorem-elementary-row-operations-preserve-solution-set-of-linear-systems">Theorem (Elementary Row Operations Preserve Solution Set of Linear Systems)</h3>
+<p>This theorem will be proven again later in the context of matrices. Here, I highly recommend reading the proof (without the context of matrices) from <a href="https://math.libretexts.org/Bookshelves/Linear_Algebra/A_First_Course_in_Linear_Algebra_(Kuttler)/01%3A_Systems_of_Equations/1.02%3A_Elementary_Operations">A First Course in Linear Algebra by Ken Kuttler</a> where he showed that these 3 operations will not change the solution set of the original system of
+linear equations.</p>
+<h2 id="gauss-elimination">Gauss Elimination</h2>
+<h3 id="definition-augmented-matrix-of-a-system-of-linear-equations">Definition (Augmented Matrix of a System of Linear Equations)</h3>
+<p>We usually combine <span class="arithmatex">\(\A\x = \b\)</span> into one system (matrix) for ease of computing elementary row operations, after all, row operations are always applied to the <strong>whole system</strong>.</p>
+<p>Given the general form of the linear equations, the <strong>augmented matrix</strong> of the system of equations is:</p>
+<div class="arithmatex">\[
+[\A ~|~ \b] = \begin{bmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} &amp; b_1 \\
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} &amp; b_2 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} &amp; b_m
+\end{bmatrix}
+\]</div>
+<h3 id="theorem-solving-augmented-matrix-solves-the-system-of-linear-equations">Theorem (Solving Augmented Matrix Solves the System of Linear Equations)</h3>
+<p>We established that row operations on a system of linear equations preserve the orginal solution set, therefore we can apply row operations on the augmented matrix to solve the solution.</p>
+<h3 id="definition-row-echolon-form">Definition (Row Echolon Form)</h3>
+<p>Given a matrix <span class="arithmatex">\(\A \in \F^{m \times n}\)</span> and <span class="arithmatex">\(\b \in \F^{m}\)</span>, then we say the augmented matrix <span class="arithmatex">\([\A ~|~ \b]\)</span> is in its <strong>row echolon form</strong> if:</p>
+<ul>
+<li>Any rows that are all <strong>zeros</strong> must be at the bottom of the matrix, that is to say, all <strong>zero row vectors</strong> are grouped at the bottom.</li>
+<li>The <strong>leading coefficient (also called the pivot)</strong> of a non-zero row is always strictly to the right of the leading coefficient of the row above it.</li>
+<li>All entries in a column below a pivot are zeros.</li>
+<li>Some textbooks require the leading coefficient to be 1.</li>
+</ul>
+<h3 id="definition-reduced-row-echolon-form">Definition (Reduced Row Echolon Form)</h3>
+<p>Given a matrix <span class="arithmatex">\(\A \in \F^{m \times n}\)</span> and <span class="arithmatex">\(\b \in \F^{m}\)</span>, then we say the augmented matrix <span class="arithmatex">\([\A ~|~ \b]\)</span> is in its <strong>reduced row echolon form</strong> if:</p>
+<ul>
+<li>Any rows that are all <strong>zeros</strong> must be at the bottom of the matrix, that is to say, all <strong>zero row vectors</strong> are grouped at the bottom.</li>
+<li>The <strong>leading coefficient (also called the pivot)</strong> of a non-zero row is always strictly to the right of the leading coefficient of the row above it.</li>
+<li>All entries in a column below a pivot are zeros.</li>
+<li>The leading coefficient to be 1.</li>
+<li>All entries in a column above and below a leading entry are zero.</li>
+</ul>
+<h3 id="definition-pivot-position-and-pivot-column">Definition (Pivot Position and Pivot Column)</h3>
+<ul>
+<li>
+<p><strong>Pivot Position:</strong> A <strong>pivot position</strong> in a matrix is the location of a leading entry in the row-echelon form of a matrix.</p>
+</li>
+<li>
+<p><strong>Pivot Column:</strong>  A <strong>pivot column</strong> is a column that contains a pivot position.</p>
+</li>
+</ul>
+<h3 id="algorithm-gaussian-and-gaussian-jordan-elimination">Algorithm (Gaussian and Gaussian-Jordan Elimination)</h3>
+<blockquote>
+<p>Entirely taken from <a href="https://math.libretexts.org/Bookshelves/Linear_Algebra/A_First_Course_in_Linear_Algebra_(Kuttler)">A First Course in Linear Algebra by Ken Kuttler</a>.</p>
+</blockquote>
+<p>This algorithm provides a method for using row operations to take a matrix to its reduced row-echelon form. We begin with the matrix in its original form.</p>
+<ol>
+<li>Starting from the left, find the first nonzero column. This is the first pivot column, and the position at the top of this column is the first pivot position. Switch rows if necessary to place a nonzero number in the first pivot position.</li>
+<li>Use row operations to make the entries below the first pivot position (in the first pivot column) equal to zero.</li>
+<li>Ignoring the row containing the first pivot position, repeat steps 1 and 2 with the remaining rows. Repeat the process until there are no more rows to modify.</li>
+<li>Divide each nonzero row by the value of the leading entry, so that the leading entry becomes  1 . The matrix will then be in row-echelon form.</li>
+</ol>
+<blockquote>
+<p>The following step will carry the matrix from row-echelon form to reduced row-echelon form.</p>
+</blockquote>
+<ol>
+<li>Moving from right to left, use row operations to create zeros in the entries of the pivot columns which are above the pivot positions. The result will be a matrix in reduced row-echelon form.</li>
+</ol>
+<h3 id="definition-types-of-solutions">Definition (Types of Solutions)</h3>
+<blockquote>
+<p>Modified from <a href="https://math.libretexts.org/Bookshelves/Linear_Algebra/A_First_Course_in_Linear_Algebra_(Kuttler)">A First Course in Linear Algebra by Ken Kuttler</a>.</p>
+</blockquote>
+<h4 id="definition-no-solution">Definition (No Solution)</h4>
+<p>In the case where the system of equations has no solution, the row-echelon form of the augmented matrix will have a row of the form:</p>
+<div class="arithmatex">\[
+\left[\begin{array}{@{}ccc|c@{}}
+0 &amp; 0 &amp; \cdots &amp; b_i \\
+\end{array}\right]
+\]</div>
+<p>That is to say, there exists a row with entirely zeros in <span class="arithmatex">\(\A\)</span> but the corresponding output <span class="arithmatex">\(\b_i \neq 0\)</span>.</p>
+<h4 id="definition-one-unique-solution">Definition (One Unique Solution)</h4>
+<p>We use a small example as follows:</p>
+<div class="arithmatex">\[
+\left[\begin{array}{@{}ccc|c@{}}
+1 &amp; 0 &amp; 0 &amp; b_1 \\
+0 &amp; 1 &amp; 0 &amp; b_2 \\
+0 &amp; 0 &amp; 1 &amp; b_3 \\
+\end{array}\right]
+\]</div>
+<p>This system has unique solution as every column of the coefficient matrix is a pivot column.</p>
+<h4 id="definition-infinitely-many-solutions">Definition (Infinitely Many Solutions)</h4>
+<p>We use a small example as follows.</p>
+<p>In the case where the system of equations has infinitely many solutions, the solution contains parameters. There will be columns of the coefficient matrix which are not pivot columns. The following are examples of augmented matrices in reduced row-echelon form for systems of equations with infinitely many solutions.</p>
+<div class="arithmatex">\[
+\left[\begin{array}{@{}ccc|c@{}}
+1 &amp; 0 &amp; 0 &amp; b_1 \\
+0 &amp; 1 &amp; 0 &amp; b_2 \\
+0 &amp; 0 &amp; 0 &amp; 0 \\
+\end{array}\right]
+\]</div>
+<h2 id="uniqueness-of-reduced-row-echolon-form">Uniqueness of Reduced Row-Echolon Form</h2>
+<h3 id="definition-basis-variable">Definition (Basis Variable)</h3>
+<p>Assume a augmented matrix system <span class="arithmatex">\([\A ~|~ \b]\)</span> in <strong>rref</strong>, then the variables (unknowns) <span class="arithmatex">\(x_i\)</span> is a <strong>basic variable</strong> if <span class="arithmatex">\([\A ~|~ \b]\)</span> has a leading 1 in column number <span class="arithmatex">\(i\)</span>, in this case, column <span class="arithmatex">\(i\)</span> is also a <strong>pivot column</strong>.</p>
+<h3 id="definition-free-variable">Definition (Free Variable)</h3>
+<p>If the variable <span class="arithmatex">\(x_i\)</span> is not <strong>basis</strong>, then it is <strong>free</strong>.</p>
+<h3 id="definition-free-column">Definition (Free Column)</h3>
+<p>A <strong>free column</strong> is a column that does not contains a pivot position.</p>
+<h3 id="example-basic-and-free-variable">Example (Basic and Free Variable)</h3>
+<p>This is best understood from an <a href="https://math.libretexts.org/Bookshelves/Linear_Algebra/A_First_Course_in_Linear_Algebra_(Kuttler)">example taken from A First Course in Linear Algebra by Ken Kuttler</a>.</p>
+<p>Consider the system:</p>
+<div class="arithmatex">\[
+\begin{align}
+x + 2y - z + w = 3 \\
+x + y - z + w = 1 \\
+x + 3y - z + w = 5
+\end{align}
+\]</div>
+<p>we know that the augmented matrix is:</p>
+<div class="arithmatex">\[
+\left[\begin{array}{@{}cccc|c@{}}
+1 &amp; 2 &amp; -1 &amp; 1 &amp; 3 \\
+0 &amp; 1 &amp; 0  &amp; 0 &amp; 2 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+\end{array}\right]
+\]</div>
+<hr />
+<p><strong>Solution</strong></p>
+<ul>
+<li>We always look out for the row with 1 variable to one solution (if it exists). In this case, it is <span class="arithmatex">\(y = 2\)</span>. The perks of <strong>rref</strong> allows us to do this easily.</li>
+<li>In the first row, it has <span class="arithmatex">\(x + 2y - z + w = 3 \implies x + 4 - z + w = 3 \implies x = -1 + z - w\)</span>.<ul>
+<li>Since the solution of <span class="arithmatex">\(x\)</span> depends on <span class="arithmatex">\(z\)</span> and <span class="arithmatex">\(w\)</span>, we call <span class="arithmatex">\(z\)</span> and <span class="arithmatex">\(w\)</span> the free variable and parameters as <span class="arithmatex">\(z\)</span> and <span class="arithmatex">\(w\)</span> can actually take on any value.</li>
+<li>Set <span class="arithmatex">\(z = s\)</span></li>
+<li>Set <span class="arithmatex">\(w = t\)</span></li>
+</ul>
+</li>
+</ul>
+<p>So the solution set can be described as:</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+x \\ y \\ z \\ w
+\end{bmatrix} 
+=
+\begin{bmatrix}
+-1 + s - t \\ 2 \\ s \\ t
+\end{bmatrix} 
+\]</div>
+<p>and has <strong>infinitely number of solutions</strong>.</p>
+<p>Here, the <strong>free variables</strong> are the parameters <span class="arithmatex">\(z = s\)</span> and <span class="arithmatex">\(w = t\)</span>, and <strong>basic variables</strong>.</p>
+<h3 id="sorting-out-the-confusion-basic-and-free-variables">Sorting out the confusion (Basic and Free Variables)</h3>
+<p>From the example above, we can clearly see that free variables allow us to assign any values to them. The above example seems obvious, but it isn't that much if we have:</p>
+<div class="arithmatex">\[
+\left[\begin{array}{@{}cccc|c@{}}
+1 &amp; 2 &amp; 0 &amp; -2 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 2 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+\end{array}\right]
+\]</div>
+<p>which translates to:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x_1 + 2x_2 + 0x_3 - 2x_4 = 0 \\
+0 x_1 + 0x_2 + x_3 + 2x_4 = 0
+\end{aligned}
+\]</div>
+<p>By definition <span class="arithmatex">\(x_2\)</span> and <span class="arithmatex">\(x_4\)</span> are free variables, and if you ever wonder why <span class="arithmatex">\(x_4\)</span> is free (even though it is by definition), then you did not understand the basics.</p>
+<p>Consider simply:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+x + y = 0 \\
+2x + 2y = 0
+\end{aligned}
+\]</div>
+<p>then it is obvious that this system reduces to only solving <span class="arithmatex">\(x + y = 0\)</span>, in which if you do <strong>RREF</strong>, the free variable is <span class="arithmatex">\(y\)</span>. If you plot out the solution set, this is just a straight line <span class="arithmatex">\(x + y = 0\)</span> that passes through the origin. Then if you write it as <span class="arithmatex">\(x = -y\)</span>, then this means <span class="arithmatex">\(x\)</span> depends on <span class="arithmatex">\(y\)</span>, in which <span class="arithmatex">\(y\)</span> can be any point on the line. Similarly, if we ignore the definition of free variable, we can also write <span class="arithmatex">\(y = -x\)</span> and recover our favourite high school equation of a line where <span class="arithmatex">\(y\)</span> depends on <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(x\)</span> being independent is allowed to take on any values. But matrix theory now gives us a systematic way to approach things, we just need to know that if our unknowns is more than the equations, we are usually bound to have free variables.</p>
+<h3 id="word-of-caution-basic-and-free-variables">Word of Caution (Basic and Free Variables)</h3>
+<p>Note that since normal Gaussian Elimination <strong>REF</strong> is not unique, there can be different free and basic variables for different <strong>REF</strong>. But you will see that <strong>RREF</strong> guarantees uniqueness.</p>
+<h3 id="proposition-basic-and-free-variables">Proposition (Basic and Free Variables)</h3>
+<p>If <span class="arithmatex">\(x_i\)</span>  is a basic variable of a homogeneous system of linear equations, then any solution of the system with <span class="arithmatex">\(x_j=0\)</span> for all those free variables <span class="arithmatex">\(x_j\)</span> with <span class="arithmatex">\(j&gt;i\)</span> must also have <span class="arithmatex">\(x_i=0\)</span>.</p>
+<blockquote>
+<p>This is best understood by the previous example, note that we can denote:</p>
+</blockquote>
+<div class="arithmatex">\[
+x = x_1, y = x_2, z = x_3, w = x_4
+\]</div>
+<p>and see that the free variables below <span class="arithmatex">\(x_1\)</span> cannot have <span class="arithmatex">\(x_1 \neq 0\)</span> inside.</p>
+<h3 id="lemma-solutions-and-the-reduced-row-echelon-form-of-a-matrix">Lemma (Solutions and the Reduced Row-Echelon Form of a Matrix)</h3>
+<p>Let <span class="arithmatex">\(\A\)</span> and <span class="arithmatex">\(\B\)</span> be two distinct augmented matrices for two homogeneous systems of <span class="arithmatex">\(m\)</span> equations in <span class="arithmatex">\(n\)</span> variables, such that <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> are each in reduced row-echelon. Then, the two systems do not have exactly the same solutions.</p>
+<h3 id="definition-row-equivalence">Definition (Row Equivalence)</h3>
+<p>Two matrices <span class="arithmatex">\(\A\)</span> and <span class="arithmatex">\(\B\)</span> are <strong>row equivalent</strong> if one matrix can be obtained from the other matrix by a <strong>finite sequence of elementary row operations</strong>.</p>
+<blockquote>
+<p>Note that if <span class="arithmatex">\(\A\)</span> can be obtained by applying a sequence of elementary row operations on <span class="arithmatex">\(\B\)</span>, then it follows that we just need to apply the sequence in reverse for <span class="arithmatex">\(\B\)</span> to get to <span class="arithmatex">\(\A\)</span>.</p>
+</blockquote>
+<h3 id="theorem-every-matrix-is-row-equivalent-to-its-rref">Theorem (Every Matrix is row equivalent to its RREF)</h3>
+<p>Every matrix <span class="arithmatex">\(\A \in \F^{m \times n}\)</span> is row equivalent to its <strong>RREF</strong>.</p>
+<h3 id="theorem-row-equivalent-augmented-matrices-have-the-same-solution-set">Theorem (Row Equivalent Augmented Matrices have the same solution set)</h3>
+<p>Given <span class="arithmatex">\([\A ~|~ \b]\)</span> and <span class="arithmatex">\([\C ~|~ \d]\)</span>, if both are <strong>row equivalent</strong> to each other, then the two linear systems have the same solution sets.</p>
+<h3 id="theorem-rref-is-unique">Theorem (RREF is Unique)</h3>
+<p>Every matrix <span class="arithmatex">\(\A\)</span> has a <strong>RREF</strong> and it is unique. To prove it one should use <strong>Lemma (Solutions and the Reduced Row-Echelon Form of a Matrix)</strong> and <strong>Theorem (Row Equivalent Augmented Matrices have the same solution set)</strong>. See <a href="https://math.libretexts.org/Bookshelves/Linear_Algebra/A_First_Course_in_Linear_Algebra_(Kuttler)">A First Course in Linear Algebra by Ken Kuttler</a>.</p>
+<h2 id="rank-and-homogeneous-systems">Rank and Homogeneous Systems</h2>
+<p>The section talks about matrix rank in homogeneous systems. I felt it is better mentioned again in matrix theory. So do visit there.</p>
+<h2 id="elementary-matrices">Elementary Matrices</h2>
+<h3 id="permutation-matrix">Permutation Matrix</h3>
+<p>Row Exchange:
+$$
+\begin{align}
+x_1- 2x_2+x_3&amp;=0\
+2x_2-8x_3&amp;=8\
+-4x_1+5x_2+9x_3&amp;=-9
+\end{align}
+$$</p>
+<p>vs</p>
+<div class="arithmatex">\[
+\begin{align}
+2x_2-8x_3&amp;=8\\
+x_1- 2x_2+x_3&amp;=0\\
+-4x_1+5x_2+9x_3&amp;=-9
+\end{align}
+\]</div>
+<p>has no difference, we just swapped row 1 and 2. We can do the same in matrix for conveince.</p>
+<p>Also, given</p>
+<div class="arithmatex">\[
+\P = \begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ \end{bmatrix}
+,\quad
+\A = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \\ 7 &amp; 8 &amp; 9 \\ \end{bmatrix}
+\]</div>
+<p>then </p>
+<div class="arithmatex">\[\P\A = \begin{bmatrix} 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 \\ \end{bmatrix} \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 4 &amp; 5 &amp; 6 \\ 7 &amp; 8 &amp; 9 \\ \end{bmatrix} = \begin{bmatrix} 4 &amp; 5 &amp; 6 \\ 1 &amp; 2 &amp; 3 \\ 7 &amp; 8 &amp; 9 \\ \end{bmatrix}\]</div>
+<p>and notice that row 1 and 2 are swapped by the left multiplication of the permutation matrix <span class="arithmatex">\(\P\)</span>. Why did it worked?</p>
+<p>Recall now</p>
+<div class="arithmatex">\[\P\A = \begin{bmatrix}\ \p_1 \\ \p_2 \\  \p_3 \end{bmatrix}\A = \begin{bmatrix}\p_1\A \\ \p_2\A \\ \p_3\A \end{bmatrix}\]</div>
+<p>We just look at the first row of <span class="arithmatex">\(\P\A\)</span> given by <span class="arithmatex">\(\p_1\A\)</span> which maps to the first row of <span class="arithmatex">\(\P\A\)</span>.</p>
+<div class="arithmatex">\[\p_1\A = 0 \begin{bmatrix} 1 &amp; 2 &amp; 3 \end{bmatrix} + 1 \begin{bmatrix} 4 &amp; 5 &amp; 6 \end{bmatrix} + 0 \begin{bmatrix} 7 &amp; 8 &amp; 9 \end{bmatrix} = \begin{bmatrix} 4 &amp; 5 &amp; 6 \end{bmatrix}\]</div>
+<p>Then the rest is the same logic:</p>
+<div class="arithmatex">\[\p_2\A = 1 \begin{bmatrix} 1 &amp; 2 &amp; 3 \end{bmatrix} + 0 \begin{bmatrix} 4 &amp; 5 &amp; 6  \end{bmatrix} + 0 \begin{bmatrix} 7 &amp; 8 &amp; 9 \end{bmatrix} = \begin{bmatrix} 1 &amp; 2 &amp; 3 \end{bmatrix}\]</div>
+<div class="arithmatex">\[\p_3\A = 0 \begin{bmatrix} 1 &amp; 2 &amp; 3 \end{bmatrix} + 0 \begin{bmatrix} 4 &amp; 5 &amp; 6  \end{bmatrix} + 1 \begin{bmatrix} 7 &amp; 8 &amp; 9  \end{bmatrix} = \begin{bmatrix} 7 &amp; 8 &amp; 9 \end{bmatrix}\]</div>
+<p>We now see why through <strong>Matrix Multiplication (Left row wise)</strong> that the <strong>Permutation Matrix</strong> works the way it is!</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://math.libretexts.org/Bookshelves/Linear_Algebra/A_First_Course_in_Linear_Algebra_(Kuttler)">A First Course in Linear Algebra by Ken Kuttler</a></li>
+<li>https://math.stackexchange.com/questions/1634411/why-adding-or-subtracting-linear-equations-finds-their-intersection-point</li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../04_matrices/04_linear_algebra_matrix_multiplication/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Matrix Multiplication" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Matrix Multiplication
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../05.02_linear_algebra_row_reduction_preserves_rank/" class="md-footer__link md-footer__link--next" aria-label="Next: Row Reduction Preserves Rank" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Row Reduction Preserves Rank
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.annotate"], "search": "../../../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
