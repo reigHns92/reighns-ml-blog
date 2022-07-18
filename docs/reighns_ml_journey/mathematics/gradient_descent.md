@@ -331,9 +331,12 @@ We finally have the necessary definitions and theorems to prove the following st
 
 Before we prove this, it is best for us to rephrase the question to:
 
-> Given a function $f$ and a point $\x$, which direction vector $\v$ gives the fastest rate of change of $f$ when moved in that direction?
+> Given a function $f$ and a point $\x$, which direction vector (unit vector) $\v$ gives the fastest rate of change of $f$ when moved in that direction?
 
 This can be then be found easily by following the theorem/definition in the [section on the alternative definition of the directional derivative](gradient_descent.md#theorem-the-direction-derivative).
+
+!!! info
+    The logic is that the **directional derivative** of $f$ at $\x$ is the **rate of change**, then it suffices to find the **direction vector** $\v$ that gives the **fastest rate of change**.
 
 The definition $\eqref{eq:directional_derivative_theorem}$ states that $D_{\v}(f(\x)) = \nabla f(\x) \cdot \v$.
 We then seek to solve the optimization problem:
@@ -357,9 +360,29 @@ $$
 \begin{align}
 \v_{\max} &= \underset{\v, \lVert \v \rVert = 1}{\operatorname{argmax}} \lVert \nabla f(\x) \rVert \cdot \lVert \v \rVert \cos(\theta)  \\
           &= \underset{\v}{\operatorname{argmax}} \lVert \nabla f(\x) \rVert \cos(\theta) \label{eq:steepest_ascent_4} \\
+          &= \underset{\v}{\operatorname{argmax}} \cos(\theta) \label{eq:steepest_ascent_5} \\
 \end{align}
 $$
 
+where 
+
+- In equation $\eqref{eq:steepest_ascent_4}$, $\lVert \v \rVert$ was dropped since it is 1;
+- In equation $\eqref{eq:steepest_ascent_5}$, $\lVert \nabla f(\x) \rVert$ was dropped since it is not a function of $\v$ and hence it is irrelevant.
+- $\theta$, however, being the angle between $\v$ and $\nabla f(\x)$, is dependent on $\v$.
+- Therefore, $\cos(\theta)$ is maximal when $\cos(\theta) = 1 \implies \theta = 0$.
+- Consequently, $\theta = 0$ implies $\nabla f(\x)$ and $\v$ are parallel.
+
+!!! note
+    At this point, we have answered the question posed: 
+    
+    Given a function $f$ and a point $\x$, which direction vector (unit vector) $\v$ gives the fastest rate of change of $f$ when moved in that direction?
+
+    It turns out this direction/unit vector we are finding is the gradient vector $\nabla f(\x)$ itself, but reduced to its unit vector since we proved that $\v \parallel \nabla f(\x)$.
+
+    As a result, we can then say that $f$ increases the fastest when we move in the direction of the gradient vector $\nabla f(\x)$.
+
+    It is worth noting that the rate of change of $f$ at a point $\x$ in the direction of the gradient vector $\nabla f(\x)$
+    is given by the magnitude of the gradient vector itself.[^proof_rate_of_change_is_magnitude_of_grad_vec]
 
 !!! success
     We finally convinced ourselves that subtracting the gradient vector indeed (local) minimizes the objective/loss function provided it's differentiable.
@@ -371,7 +394,9 @@ $$
 Bibliography.
 
 - https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/the-gradient
-
+- https://sootlasten.github.io/2017/gradient-steepest-ascent/
+  
+  
 ---
 
 [^gradient_descent_intro]: **"Gradient Descent," Wikipedia (Wikimedia Foundation, June 28, 2022), https://en.wikipedia.org/wiki/Gradient_descent.**
@@ -382,3 +407,4 @@ Bibliography.
 [^unit_vector_1]: [Why in a directional derivative it has to be a unit vector](https://math.stackexchange.com/questions/1486767/why-in-a-directional-derivative-it-has-to-be-a-unit-vector#:~:text=If%20you%20don't%20use,the%20magnitude%20of%20the%20vector.&text=That%20is%20a%20way%20to,to%20use%20a%20unit%20vector)
 [^unit_vector_2]: [why normalize and the definition of directional derivative](https://math.stackexchange.com/questions/809376/why-normalize-and-the-definition-of-directional-derivative)
 [^gradient_directional_derivative_difference]: [What is the difference between the gradient and the directional derivative?](https://math.stackexchange.com/questions/661195/what-is-the-difference-between-the-gradient-and-the-directional-derivative)
+[^proof_rate_of_change_is_magnitude_of_grad_vec]: [Proof the magnitude of the gradient vector is exactly the rate of change in that direction](https://sootlasten.github.io/2017/gradient-steepest-ascent/): Sten Sootla's Blog, Sten Sootla, March 15, 2017.
